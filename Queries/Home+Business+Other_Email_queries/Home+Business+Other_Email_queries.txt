@@ -1,0 +1,6 @@
+(select online_accounts.account from online_accounts,online_account_category where online_accounts.namesid = names.id and online_account_category.id = online_accounts.onlineaccountcategoryid
+and online_account_category.title = 'Email' and online_accounts.type = 0) as Home_Email,
+(select online_accounts.account from online_accounts,online_account_category where online_accounts.namesid = names.id and online_account_category.id = online_accounts.onlineaccountcategoryid
+and online_account_category.title = 'Email' and online_accounts.type = 1) as Business_Email,
+(select online_accounts.account from online_accounts,online_account_category where online_accounts.namesid = names.id and online_account_category.id = online_accounts.onlineaccountcategoryid
+and online_account_category.title = 'Email' and online_accounts.type = 2) Other_Email

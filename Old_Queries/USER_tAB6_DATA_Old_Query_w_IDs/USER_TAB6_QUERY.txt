@@ -1,0 +1,33 @@
+select 
+cases.casenum,
+(select class.classcode from class where class.id = cases.classid) as class,
+(select matter.matcode from matter where matter.id = cases.matterid) as case_type,
+(select staff_code from case_staff, staff, matter_staff where cases.id = case_staff.casesid and staff.id = case_staff.staffid 
+and case_staff.matterstaffid=matter_staff.id and display_order=1) as staff_1,
+(select staff_code from case_staff, staff, matter_staff where cases.id = case_staff.casesid and staff.id = case_staff.staffid 
+and case_staff.matterstaffid=matter_staff.id and display_order=5) as staff_5,
+party.our_client,
+(select top 1 data from user_tab6_data where user_tab6_data.casesid=cases.id and 
+user_tab6_data.usercasefieldid='13468075-6967-4268-A309-AC3A00CB6C09') as County,
+party.our_client
+
+from cases
+join party on party.casesid=cases.id
+
+
+where ((select class.classcode from class where class.id = cases.classid) 
+not in ('ACT','SET','DIS','DEM','rej','clo','aty','new','trt','prp','len','arc','prc','zdb''fee','rot','d$$','ref','zdd',
+'dar','crr','noi','uim','int','rni','oi','rev','dpd','mmi','???','exp','bar'))
+
+and ((
+	(select top 1 data from user_tab6_data where user_tab6_data.casesid=cases.id and 
+	user_tab6_data.usercasefieldid='13468075-6967-4268-A309-AC3A00CB6C09') not in ('polk','hillsborough','palm beach county',
+	'orange','seminole','lee','polk county','Volusia','Osceola')
+	) 
+or 	(select top 1 data from user_tab6_data where user_tab6_data.casesid=cases.id and 
+	user_tab6_data.usercasefieldid='13468075-6967-4268-A309-AC3A00CB6C09') is null
+	)
+
+
+
+

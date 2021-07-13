@@ -1,0 +1,39 @@
+select
+cases.casenum,
+dbo.sp_first_party(cases.id) as party_name,
+(select class.classcode from class where class.id=cases.classid) as class,
+(select matter.matcode from matter where matter.id = cases.matterid) as case_type,
+(select staff_code from case_staff, staff, matter_staff where cases.id = case_staff.casesid and staff.id = case_staff.staffid 
+and case_staff.matterstaffid=matter_staff.id and display_order=1) as staff_1,
+(select staff_code from case_staff, staff, matter_staff where cases.id = case_staff.casesid and staff.id = case_staff.staffid 
+and case_staff.matterstaffid=matter_staff.id and display_order=2) as staff_2,
+cases.date_of_incident,
+(select multi_addresses.default_addr from multi_addresses where multi_addresses.namesid=names.id and multi_addresses.default_addr=1) as default_addr1,
+(select multi_addresses.address from multi_addresses where multi_addresses.namesid=names.id and multi_addresses.default_addr=1) as address1,
+(select multi_addresses.address_2 from multi_addresses where multi_addresses.namesid=names.id and multi_addresses.default_addr=1) as address_2,
+(select multi_addresses.addr_type from multi_addresses where multi_addresses.namesid=names.id and multi_addresses.default_addr=1) as addr_type1,
+(select multi_addresses.city from multi_addresses where multi_addresses.namesid=names.id and multi_addresses.default_addr=1) as city1,
+(select multi_addresses.state from multi_addresses where multi_addresses.namesid=names.id and multi_addresses.default_addr=1) as state1,
+(select multi_addresses.zipcode from multi_addresses where multi_addresses.namesid=names.id and multi_addresses.default_addr=1) as zipcode1
+
+
+from cases
+join party on party.casesid=cases.id
+join names on names.id=party.namesid
+where cases.close_date is null and party.our_client=1 
+and (((select matter.matcode from matter where matter.id = cases.matterid) <> 'HR' )
+OR ((select matter.matcode from matter where matter.id = cases.matterid) <> 'OPT' )
+OR ((select matter.matcode from matter where matter.id = cases.matterid) <> 'IT' )
+OR ((select matter.matcode from matter where matter.id = cases.matterid) <> 'CMS' )
+OR ((select matter.matcode from matter where matter.id = cases.matterid) <> 'DSS' )
+OR ((select matter.matcode from matter where matter.id = cases.matterid) <> 'DLF' )
+OR ((select matter.matcode from matter where matter.id = cases.matterid) <> 'CCS' )
+OR ((select matter.matcode from matter where matter.id = cases.matterid) <> 'IT' )
+OR ((select matter.matcode from matter where matter.id = cases.matterid) <> 'JHP' )
+OR ((select matter.matcode from matter where matter.id = cases.matterid) <> 'MIN' )
+OR ((select matter.matcode from matter where matter.id = cases.matterid) <> 'MKC' )
+OR ((select matter.matcode from matter where matter.id = cases.matterid) <> 'OPS' )
+OR ((select matter.matcode from matter where matter.id = cases.matterid) <> 'OPT' )
+OR ((select matter.matcode from matter where matter.id = cases.matterid) <> 'PRJ')
+)
+

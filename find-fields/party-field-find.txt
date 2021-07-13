@@ -1,0 +1,5 @@
+
+
+
+(select top 1 data from party, user_party_data where user_party_data.partyid=party.id 
+	and user_party_data.usercasefieldid='8280D37D-4E8E-49DB-8CDD-ACCB00E82DAC') as education,

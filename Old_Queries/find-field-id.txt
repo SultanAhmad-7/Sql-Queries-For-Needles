@@ -1,0 +1,2 @@
+select user_case_data.usercasefieldid,user_case_fields.field_title from user_case_data,user_case_fields,cases where user_case_data.casesid=cases.id 
+and user_case_fields.id=user_case_data.usercasefieldid group by user_case_data.usercasefieldid,user_case_fields.field_title order by field_title

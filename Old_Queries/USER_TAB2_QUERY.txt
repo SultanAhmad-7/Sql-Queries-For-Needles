@@ -1,0 +1,35 @@
+
+select 
+cases.casenum,
+(select staff_code from case_staff, staff, matter_staff where cases.id = case_staff.casesid and staff.id = case_staff.staffid 
+and case_staff.matterstaffid=matter_staff.id and display_order=1) as staff_1,
+(select staff_code from case_staff, staff, matter_staff where cases.id = case_staff.casesid and staff.id = case_staff.staffid 
+and case_staff.matterstaffid=matter_staff.id and display_order=2) as staff_2,
+dbo.sp_first_party(cases.id) as party_name,
+(select staff.staff_code from staff where staff.id=case_checklist.staffassignedid) as staffAssigned,
+(select matter.matcode from matter where matter.id = cases.matterid) as case_type,
+(select class.classcode from class where class.id=cases.classid) as class,
+(select checklist_dir.code from checklist_dir where checklist_dir.id=case_checklist.checklistdirid)  as checklist_code,
+case_checklist.description,
+case_checklist.status,
+case_checklist.due_date,
+(select top 1 data from user_tab2_data where user_tab2_data.tablistid=user_tab2_list.id
+and user_tab2_data.usercasefieldid='3E992A1C-5F39-43CD-865A-ACCB00E82DAC') as date_requested,
+(select top 1 data from user_tab2_data where user_tab2_data.tablistid=user_tab2_list.id
+and user_tab2_data.usercasefieldid='F9B71AE3-4952-408D-8059-ACCB00E82DAC') as Provider_name,
+(select top 1 data from user_tab2_data where user_tab2_data.tablistid=user_tab2_list.id
+and user_tab2_data.usercasefieldid='975ACE58-4ED4-4D83-80FE-ACCB00E82DAD') as order_by
+
+
+
+
+from
+cases
+join case_checklist on case_checklist.casesid=cases.id
+join user_tab2_list on user_tab2_list.casesid=cases.id
+
+where case_checklist.status = 'DONE'
+
+and ((charindex(','+ (select checklist_dir.code from checklist_dir where checklist_dir.id=case_checklist.checklistdirid) +',', (@entercodee)) > 0) or (charindex('All Checklist Code', (@entercodee))> 0))
+and ( (Convert(varchar,@StartDateParm,23) is null or Convert(Date,case_checklist.date_modified, 101) >= @StartDateParm) and
+ (@EndDateParm is null or Convert(Date,case_checklist.date_modified, 101) <= @EndDateParm))

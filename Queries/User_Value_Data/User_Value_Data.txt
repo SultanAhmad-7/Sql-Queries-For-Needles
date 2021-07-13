@@ -1,0 +1,22 @@
+select 
+(select top 1  names.fullname_lastfirst from names,party 
+where namesid=names.id and party.namesid=names.id	and party.casesid=cases.id Order by record_num ASC ) as party_name,
+	cases.alt_case_num,
+	cases.casenum,
+	
+	value_code.code,
+	value.start_date,
+
+	(select top 1 names.fullname_lastfirst from names where value.namesid=names.id  ) as provider_name, 
+
+	value.memo,	
+
+	
+	(select top 1 data from user_value_data,user_case_fields where user_value_data.valueid=value.id and user_value_data.usercasefieldid=user_case_fields.id and 
+	user_case_fields.field_title= 'Purpose of Transaction') as purpose_of_transaction,
+
+(case when (select top 1 value_payment.credit_debit from value_payment
+where value_payment.valueid = value.id)= 0 then (value.total_value * -1) else value.total_value end) as totl_val
+from cases
+join value on value.casesid=cases.id
+join value_code on value_code.id=value.valuecodeid

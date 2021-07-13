@@ -1,0 +1,48 @@
+select 
+cases.casenum,
+dbo.sp_first_party(cases.id) as party_name,
+(select class.classcode from class where class.id=cases.classid) as class,
+(select matter.matcode from matter where matter.id=cases.matterid) as case_type,
+(select staff_code from case_staff, staff, matter_staff where cases.id = case_staff.casesid and staff.id = case_staff.staffid 
+and case_staff.matterstaffid=matter_staff.id and display_order=1) as staff_1,
+(select staff_code from case_staff, staff, matter_staff where cases.id = case_staff.casesid and staff.id = case_staff.staffid 
+and case_staff.matterstaffid=matter_staff.id and display_order=2) as staff_2,
+(select staff_code from case_staff, staff, matter_staff where cases.id = case_staff.casesid and staff.id = case_staff.staffid 
+and case_staff.matterstaffid=matter_staff.id and display_order=3) as staff_3,
+(select staff_code from case_staff, staff, matter_staff where cases.id = case_staff.casesid and staff.id = case_staff.staffid 
+and case_staff.matterstaffid=matter_staff.id and display_order=4) as staff_4,
+(select casedate from case_dates, matter_dates where cases.id = case_dates.casesid and cases.matterid = matter_dates.matterid 
+and case_dates.datelabelid=matter_dates.datelabelid and display_order=2) as case_date_2,
+(select top 1 data from user_case_data where user_case_data.casesid=cases.id and 
+user_case_data.usercasefieldid='7063DB59-F184-4806-B96B-ACCB00E82DB4') as commerical,
+(select top 1 data from user_case_data where user_case_data.casesid=cases.id and 
+user_case_data.usercasefieldid='D051476E-DCF0-421E-88DD-ACCB00E82DB9') as intake_type,
+(select top 1 data from user_case_data where user_case_data.casesid=cases.id and 
+user_case_data.usercasefieldid='B71C6176-4BE4-492F-8280-ACCB00E82DB4') as dwi,
+(select top 1 data from user_case_data where user_case_data.casesid=cases.id and 
+user_case_data.usercasefieldid='F5FB6659-724B-4004-A9C6-ACCB00E82DC1') as fast_track_date,
+(select top 1 data from user_case_data where user_case_data.casesid=cases.id and 
+user_case_data.usercasefieldid='F550E0FD-25B2-4620-9AF9-ACCB00E82DC1') as fast_track_category,
+(select top 1 data from user_case_data where user_case_data.casesid=cases.id and 
+user_case_data.usercasefieldid='CEED0873-4BC2-4CCA-8966-ACCB00E82DC4') as lit_team_reject,
+(select party_role_list.role from party_role_list where party_role_list.id=party.partyrolelistid) as party_role,
+cases.date_opened,
+cases.close_date,
+cases.lim_date,
+cases.date_of_incident
+
+
+
+from 
+cases
+join party on party.casesid=cases.id
+
+
+where
+	party.our_client=1 and 
+
+((Convert(varchar,@StartDateParm,23) is null or (select top 1 data from user_case_data where user_case_data.casesid=cases.id and 
+user_case_data.usercasefieldid='F5FB6659-724B-4004-A9C6-ACCB00E82DC1') >= Convert(varchar,@StartDateParm,23)) and
+(Convert(varchar,@EndDateParm,23) is null or (select top 1 data from user_case_data where user_case_data.casesid=cases.id and 
+user_case_data.usercasefieldid='F5FB6659-724B-4004-A9C6-ACCB00E82DC1') <= Convert(varchar,@EndDateParm,23)))
+	

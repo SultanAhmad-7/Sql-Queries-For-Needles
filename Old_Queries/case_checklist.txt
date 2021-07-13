@@ -1,0 +1,32 @@
+select 
+cases.casenum,
+cases.date_opened,
+dbo.sp_first_party(cases.id) as party_name,
+(select matter.matcode from matter where matter.id = cases.matterid) as case_type,
+(select class.classcode from class where class.id=cases.classid) as class,
+(select staff_code from case_staff, staff, matter_staff where cases.id = case_staff.casesid and staff.id = case_staff.staffid 
+and case_staff.matterstaffid=matter_staff.id and display_order=1) as staff_1,
+(select staff_code from case_staff, staff, matter_staff where cases.id = case_staff.casesid and staff.id = case_staff.staffid 
+and case_staff.matterstaffid=matter_staff.id and display_order=2) as staff_2,
+(select staff_code from case_staff, staff, matter_staff where cases.id = case_staff.casesid and staff.id = case_staff.staffid 
+and case_staff.matterstaffid=matter_staff.id and display_order=8) as staff_8,
+(select party_role_list.role from party_role_list where party_role_list.id=party.partyrolelistid) as party_role,
+case_checklist.description,
+case_checklist.status,
+case_checklist.due_date,
+(select checklist_dir.code from checklist_dir where checklist_dir.id=case_checklist.checklistdirid)  as checklist_code,
+(select staff.staff_code from staff where staff.id=case_checklist.staffassignedid) as staffAssigned
+
+
+from
+cases
+join case_checklist on case_checklist.casesid=cases.id
+join party on party.casesid=cases.id
+where
+
+cases.close_date is null and party.our_client=1 
+ and
+((select checklist_dir.code from checklist_dir where checklist_dir.id=case_checklist.checklistdirid)='D05') and
+(case_checklist.status='Open') and
+((select matter.matcode from matter where matter.id = cases.matterid) in ('MVA','PRE','UIM','LIT','NMV','UM')) and
+((select staff.staff_code from staff where staff.id=case_checklist.staffassignedid)='YC')

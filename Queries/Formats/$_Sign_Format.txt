@@ -1,0 +1,1 @@
+format(sum(totl_val ),'c2')  as tt_val

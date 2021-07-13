@@ -1,0 +1,134 @@
+declare @begin_date datetime='2018-01-01';
+declare @end_date datetime='2019-01-01';
+
+select 
+	cast(cases.casenum as varchar(50)) rejected,
+	(Select top 1 fullname_lastfirst From party,names Where casesid = cases.id and party.namesid=names.id Order By record_num ASC) as FullName,
+	cases.date_opened as dte_opened,
+	matter.matcode as casetype,
+	cases.intake_date as date_taken,
+	CONVERT(varchar,cases.intake_date,108) as tme,
+	DATEDIFF(DAY, cases.intake_date, cases.date_opened) as #_of_days,
+	(select staff.staff_code from staff where staff.id=cases.staffintakeid) as taken_by,
+	(select staff_code from case_staff, staff, matter_staff where cases.id = case_staff.casesid and staff.id = case_staff.staffid 
+	and case_staff.matterstaffid=matter_staff.id and staffroleid='00000000-0000-0000-0000-000000000001') as Staff_1,
+	(select names.fullname_lastfirst from names where cases.referredby_namesid=names.id) as referredBy_Name,
+	(select top 1 data from user_case_data,user_case_fields where user_case_data.usercasefieldid=user_case_fields.id and user_case_data.casesid=cases.id
+	and user_case_fields.field_title='Marketing Sources') as Marketing_Sources,
+		(select top 1 data from user_case_data,user_case_fields where user_case_data.usercasefieldid=user_case_fields.id and user_case_data.casesid=cases.id
+	and user_case_fields.field_title='Date Retained') as Date_Retained,
+	cases.reassign_date as Reassigned_Date,
+	(select top 1 data from user_case_data,user_case_fields where user_case_data.usercasefieldid=user_case_fields.id and user_case_data.casesid=cases.id
+	and user_case_fields.field_title='Firm Attorney') as Firm_Attorney,
+	(select staff_code from case_staff, staff, matter_staff where cases.id = case_staff.casesid and staff.id = case_staff.staffid 
+	and case_staff.matterstaffid=matter_staff.id and staffroleid='00000000-0000-0000-0000-000000000007') as intake_attorney,
+	cases.close_date as close_date,
+	(select top 1 data from user_case_data,user_case_fields where user_case_data.usercasefieldid=user_case_fields.id and user_case_data.casesid=cases.id
+	and user_case_fields.field_title='Name of Drug or Product') as Name_of_Drug_or_Product,
+	(select top 1 data from user_case_data,user_case_fields where user_case_data.usercasefieldid=user_case_fields.id and user_case_data.casesid=cases.id
+	and user_case_fields.field_title='Case Category') as Case_Category,
+	(select top 1 data from user_case_data,user_case_fields where user_case_data.usercasefieldid=user_case_fields.id and user_case_data.casesid=cases.id
+	and user_case_fields.field_title='Office Location') as Office_Location,
+(select race.race_id from race where race.id=names.idcodeid) as nameid,
+	(select multi_addresses.city from multi_addresses where multi_addresses.namesid=names.id and multi_addresses.default_addr=1) as City,
+	(select multi_addresses.state from multi_addresses where multi_addresses.namesid=names.id and multi_addresses.default_addr=1) as state,
+		(select top 1 data from user_case_data,user_case_fields where user_case_data.usercasefieldid=user_case_fields.id and user_case_data.casesid=cases.id
+	and user_case_fields.field_title='Wanted') as Wanted,
+	(select names.fullname_lastfirst from names where cases.referredto_namesid=names.id) as referredTo_Name,
+	(select top 1 data from user_case_data,user_case_fields where user_case_data.usercasefieldid=user_case_fields.id and user_case_data.casesid=cases.id
+	and user_case_fields.field_title='Intake Status') as Intake_Status,
+		(select top 1 data from user_case_data,user_case_fields where user_case_data.usercasefieldid=user_case_fields.id and user_case_data.casesid=cases.id
+	and user_case_fields.field_title='Intake Method') as Intake_Method,
+
+		(select top 1 data from user_case_data,user_case_fields where user_case_data.usercasefieldid=user_case_fields.id and user_case_data.casesid=cases.id
+	and user_case_fields.field_title='Marketing Source Details') as Marketing_Source_Details,
+		(select top 1 data from user_case_data,user_case_fields where user_case_data.usercasefieldid=user_case_fields.id and user_case_data.casesid=cases.id
+	and user_case_fields.field_title='Paralegal Status Notes') as Paralegal_Status_Notes,
+		(select top 1 data from user_case_data,user_case_fields where user_case_data.usercasefieldid=user_case_fields.id and user_case_data.casesid=cases.id
+	and user_case_fields.field_title='Date of Para Last Review') as Date_of_Para_Last_Review,
+names.gender as gen,
+datediff(YY,names.date_of_birth,cases.date_of_incident) as DOIAGE
+
+from cases
+join matter on matter.id=cases.matterid
+join party on party.casesid=cases.id and party.our_client = 1 
+join names on names.id=party.namesid
+
+where cases.intake_date >= @begin_date and cases.intake_date <= @end_date
+
+union
+
+select 
+(case when case_intake.rejected = 1 Then 'Rejected' else '' End) as rejected,
+(select top 1 n.fullname_lastfirst as FullName from case_intake_data ,names n where case_intake_data.namesid=n.id 
+and  case_intake.id = case_intake_data.caseintakeid and case_intake_data.usercaseintakematterid = 
+any(select user_case_intake_matter.id from user_case_intake_matter where user_case_intake_matter.field_title = 'Name' 
+and user_case_intake_matter.tab_id = 0 and user_case_intake_matter.selection = 1)) as FullName,
+null,
+matcode as casetype,
+case_intake.intake_taken as date_taken,
+CONVERT(varchar,case_intake.intake_taken,108) as tme,
+null,
+(select top 1 staff.staff_code from staff where staff.id = case_intake.takenbystaffid) as taken_by,
+(select top 1 staff.staff_code from staff where staff.id = case_intake.primarystaffid) as Staff_1,
+(select top 1 names.fullname_lastfirst from case_intake_data,names where case_intake_data.namesid = names.id 
+and case_intake.id = case_intake_data.caseintakeid and case_intake_data.usercaseintakematterid = 
+any(select user_case_intake_matter.id from user_case_intake_matter where user_case_intake_matter.field_title = 'Referred By' 
+and user_case_intake_matter.tab_id = 10 and user_case_intake_matter.selection = 1)) as referredBy_Name,
+(Select top 1 data from case_intake_data ,user_case_intake_matter where case_intake.id = case_intake_data.caseintakeid 
+     and case_intake_data.usercaseintakematterid = user_case_intake_matter.id and field_title = 'Marketing Sources') as Marketing_Sources,
+(Select top 1 data from case_intake_data ,user_case_intake_matter where case_intake.id = case_intake_data.caseintakeid 
+     and case_intake_data.usercaseintakematterid = user_case_intake_matter.id and field_title = 'Date Retained') as Date_Retained,
+(Select top 1 data from case_intake_data ,user_case_intake_matter where case_intake.id = case_intake_data.caseintakeid 
+     and case_intake_data.usercaseintakematterid = user_case_intake_matter.id and field_title = 'Reassigned Date') as Reassigned_Date,
+(Select top 1 data from case_intake_data ,user_case_intake_matter where case_intake.id = case_intake_data.caseintakeid 
+     and case_intake_data.usercaseintakematterid = user_case_intake_matter.id and field_title = 'Firm Attorney') as Firm_Attorney,
+null,
+null,
+(Select top 1 data from case_intake_data ,user_case_intake_matter where case_intake.id = case_intake_data.caseintakeid 
+and case_intake_data.usercaseintakematterid = user_case_intake_matter.id and field_title = 'Name of Drug or Product') as Name_of_Drug_or_Product,
+(Select top 1 data from case_intake_data ,user_case_intake_matter where case_intake.id = case_intake_data.caseintakeid 
+and case_intake_data.usercaseintakematterid = user_case_intake_matter.id and field_title = 'Case Category') as Case_Category,
+(Select top 1 data from case_intake_data ,user_case_intake_matter where case_intake.id = case_intake_data.caseintakeid 
+and case_intake_data.usercaseintakematterid = user_case_intake_matter.id and field_title = 'Office Location') as Office_Location,
+(select race.race_id from case_intake_data ,names n,race where case_intake_data.namesid=n.id and  case_intake.id = case_intake_data.caseintakeid and race.id=n.idcodeid 
+and case_intake_data.usercaseintakematterid 
+= any(select user_case_intake_matter.id from user_case_intake_matter where user_case_intake_matter.field_title = 'Name' 
+and user_case_intake_matter.tab_id = 0 and user_case_intake_matter.selection = 1))as nameid,
+(select top 1 (city) from multi_addresses,case_intake_data,names,user_case_intake_matter 
+where case_intake_data.caseintakeid = case_intake.id and user_case_intake_matter.id = case_intake_data.usercaseintakematterid and field_title = 'Name'
+and names.id = case_intake_data.namesid and multi_addresses.namesid = names.id and default_addr = 1) as City,
+(select top 1 (state) from multi_addresses,case_intake_data,names,user_case_intake_matter 
+where case_intake_data.caseintakeid = case_intake.id and user_case_intake_matter.id = case_intake_data.usercaseintakematterid and field_title = 'Name'
+and names.id = case_intake_data.namesid and multi_addresses.namesid = names.id and default_addr = 1) as state,
+(Select top 1 data from case_intake_data ,user_case_intake_matter where case_intake.id = case_intake_data.caseintakeid 
+     and case_intake_data.usercaseintakematterid = user_case_intake_matter.id and field_title = 'Wanted') as Wanted,
+(select top 1 names.fullname_lastfirst from case_intake_data,names where case_intake_data.namesid = names.id 
+and case_intake.id = case_intake_data.caseintakeid and case_intake_data.usercaseintakematterid = 
+any(select user_case_intake_matter.id from user_case_intake_matter where user_case_intake_matter.field_title = 'Referred To' 
+and user_case_intake_matter.tab_id = 10 and user_case_intake_matter.selection = 1)) as referredTo_Name,
+(Select top 1 data from case_intake_data ,user_case_intake_matter where case_intake.id = case_intake_data.caseintakeid 
+and case_intake_data.usercaseintakematterid = user_case_intake_matter.id and field_title = 'Intake Status') as Intake_Status,
+(Select top 1 data from case_intake_data ,user_case_intake_matter where case_intake.id = case_intake_data.caseintakeid 
+and case_intake_data.usercaseintakematterid = user_case_intake_matter.id and field_title = 'Intake Method') as Intake_Method,
+(Select top 1 data from case_intake_data ,user_case_intake_matter where case_intake.id = case_intake_data.caseintakeid 
+and case_intake_data.usercaseintakematterid = user_case_intake_matter.id and field_title = 'Marketing Source Details') as Marketing_Source_Details,
+(Select top 1 data from case_intake_data ,user_case_intake_matter where case_intake.id = case_intake_data.caseintakeid 
+and case_intake_data.usercaseintakematterid = user_case_intake_matter.id and field_title = 'Paralegal Status Notes') as Paralegal_Status_Notes,
+(Select top 1 data from case_intake_data ,user_case_intake_matter where case_intake.id = case_intake_data.caseintakeid 
+     and case_intake_data.usercaseintakematterid = user_case_intake_matter.id and field_title = 'Date of Para Last Review') as Date_of_Para_Last_Review,
+(select top 1 n.gender as FullName from case_intake_data ,names n where case_intake_data.namesid=n.id 
+and  case_intake.id = case_intake_data.caseintakeid and case_intake_data.usercaseintakematterid = 
+any(select user_case_intake_matter.id from user_case_intake_matter where user_case_intake_matter.field_title = 'Name' 
+and user_case_intake_matter.tab_id = 0 and user_case_intake_matter.selection = 1)) as gen,
+DATEDIFF(YY,(select top 1 n.date_of_birth as FullName from case_intake_data ,names n where case_intake_data.namesid=n.id 
+and  case_intake.id = case_intake_data.caseintakeid and case_intake_data.usercaseintakematterid = 
+any(select user_case_intake_matter.id from user_case_intake_matter where user_case_intake_matter.field_title = 'Name' 
+and user_case_intake_matter.tab_id = 0 and user_case_intake_matter.selection = 1)),(Select top 1 data from case_intake_data ,user_case_intake_matter 
+where case_intake.id = case_intake_data.caseintakeid and case_intake_data.usercaseintakematterid = user_case_intake_matter.id 
+and field_title = 'Date of Incident')) as DOIAGE
+
+
+from case_intake
+join matter on matter.id = case_intake.matterid
+where case_intake.intake_taken >= @begin_date and case_intake.intake_taken <= @end_date

@@ -1,0 +1,1 @@
+format(try_cast(start_date as date),''MM/dd/yyyy'') as strat_dte,

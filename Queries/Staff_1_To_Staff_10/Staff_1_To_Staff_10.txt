@@ -1,0 +1,44 @@
+	
+	-------------------------- Staff1 ---------------
+	
+(select staff_code from case_staff, staff, matter_staff where cases.id = case_staff.casesid 
+and staff.id = case_staff.staffid and case_staff.matterstaffid=matter_staff.id 
+and staffroleid='00000000-0000-0000-0000-000000000001') as staff_1,
+	--------------------------Staff2 ---------------
+
+(select staff_code from case_staff, staff, matter_staff where cases.id = case_staff.casesid 
+and staff.id = case_staff.staffid and case_staff.matterstaffid=matter_staff.id 
+and staffroleid='00000000-0000-0000-0000-000000000002') as staff_2,
+--------------------------Staff3 ---------------
+(select staff_code from case_staff, staff, matter_staff where cases.id = case_staff.casesid 
+and staff.id = case_staff.staffid and case_staff.matterstaffid=matter_staff.id 
+and staffroleid='00000000-0000-0000-0000-000000000003') as staff_3,
+--------------------------Staff4 ---------------
+(select staff_code from case_staff, staff, matter_staff where cases.id = case_staff.casesid 
+and staff.id = case_staff.staffid and case_staff.matterstaffid=matter_staff.id 
+and staffroleid='00000000-0000-0000-0000-000000000004') as staff_4,
+--------------------------Staff5 ---------------
+(select staff_code from case_staff, staff, matter_staff where cases.id = case_staff.casesid 
+and staff.id = case_staff.staffid and case_staff.matterstaffid=matter_staff.id 
+and staffroleid='00000000-0000-0000-0000-000000000005') as staff_5,
+--------------------------Staff6 ---------------
+(select staff_code from case_staff, staff, matter_staff where cases.id = case_staff.casesid 
+and staff.id = case_staff.staffid and case_staff.matterstaffid=matter_staff.id 
+and staffroleid='00000000-0000-0000-0000-000000000006') as staff_6,
+--------------------------Staff7 ---------------
+(select staff_code from case_staff, staff, matter_staff where cases.id = case_staff.casesid 
+and staff.id = case_staff.staffid and case_staff.matterstaffid=matter_staff.id 
+and staffroleid='00000000-0000-0000-0000-000000000007') as staff_7,
+--------------------------Staff8 ---------------
+(select staff_code from case_staff, staff, matter_staff where cases.id = case_staff.casesid 
+and staff.id = case_staff.staffid and case_staff.matterstaffid=matter_staff.id 
+and staffroleid='00000000-0000-0000-0000-000000000008') as staff_8,
+--------------------------Staff9 ---------------
+(select staff_code from case_staff, staff, matter_staff where cases.id = case_staff.casesid 
+and staff.id = case_staff.staffid and case_staff.matterstaffid=matter_staff.id 
+and staffroleid='00000000-0000-0000-0000-000000000009') as staff_9,
+--------------------------Staff10 ---------------
+
+(select staff_code from case_staff, staff, matter_staff where cases.id = case_staff.casesid 
+and staff.id = case_staff.staffid and case_staff.matterstaffid=matter_staff.id 
+and staffroleid='00000000-0000-0000-0000-000000000010') as staff_10,

@@ -1,0 +1,31 @@
+select cases.casenum,
+dbo.sp_name(names.id) as Party_Name,
+(select staff_code from case_staff, staff, matter_staff where cases.id = case_staff.casesid and staff.id = case_staff.staffid and case_staff.matterstaffid=matter_staff.id and display_order=1) as staff_1,
+(select role from party_role_list where party.partyrolelistid = party_role_list.id) as Party_Role,
+(select online_accounts.account from online_accounts,online_account_category where online_accounts.namesid = names.id and online_account_category.id = online_accounts.onlineaccountcategoryid
+and online_account_category.title = 'Email' and online_accounts.type = 0) as Home_Email,
+(select online_accounts.account from online_accounts,online_account_category where online_accounts.namesid = names.id and online_account_category.id = online_accounts.onlineaccountcategoryid
+and online_account_category.title = 'Email' and online_accounts.type = 1) as Business_Email,
+(select online_accounts.account from online_accounts,online_account_category where online_accounts.namesid = names.id and online_account_category.id = online_accounts.onlineaccountcategoryid
+and online_account_category.title = 'Email' and online_accounts.type = 2) Other_Email
+
+from cases
+
+Join party On party.casesid = cases.id
+Join names On names.id = party.namesid
+
+where party.our_client = 1
+and (((select online_accounts.account from online_accounts,online_account_category where online_accounts.namesid = names.id and online_account_category.id = online_accounts.onlineaccountcategoryid
+and online_account_category.title = 'Email' and online_accounts.type = 0) is not null And 
+(select online_accounts.account from online_accounts,online_account_category where online_accounts.namesid = names.id and online_account_category.id = online_accounts.onlineaccountcategoryid
+and online_account_category.title = 'Email' and online_accounts.type = 0) <> '')
+OR ((select online_accounts.account from online_accounts,online_account_category where online_accounts.namesid = names.id and online_account_category.id = online_accounts.onlineaccountcategoryid
+and online_account_category.title = 'Email' and online_accounts.type = 1) is not null And 
+(select online_accounts.account from online_accounts,online_account_category where online_accounts.namesid = names.id and online_account_category.id = online_accounts.onlineaccountcategoryid
+and online_account_category.title = 'Email' and online_accounts.type = 1) <> '')
+OR ((select online_accounts.account from online_accounts,online_account_category where online_accounts.namesid = names.id and online_account_category.id = online_accounts.onlineaccountcategoryid
+and online_account_category.title = 'Email' and online_accounts.type = 2) is not null And 
+(select online_accounts.account from online_accounts,online_account_category where online_accounts.namesid = names.id and online_account_category.id = online_accounts.onlineaccountcategoryid
+and online_account_category.title = 'Email' and online_accounts.type = 2) <> ''))
+
+order by dbo.sp_name(names.id)

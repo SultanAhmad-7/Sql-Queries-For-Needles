@@ -1,0 +1,1582 @@
+select
+cases.casenum,
+cases.alt_case_num,
+names.fullname_lastfirst as party_name,
+names.initial as MI,
+(Select suffix.name From suffix Where names.suffixid=suffix.id) as suffix,
+names.aka_full as aka,
+(select party_role_list.role from party_role_list where party_role_list.id=party.partyrolelistid) as party_role,
+cases.lim_date as sol,
+cases.date_opened,
+cases.date_of_incident,
+names.date_of_death,
+(select top 1 data from user_case_data,user_case_fields where user_case_data.usercasefieldid=user_case_fields.id and user_case_data.casesid=cases.id
+and user_case_fields.field_title='Case Status 1') as Case_Status_1,
+(select top 1 data from user_case_data,user_case_fields where user_case_data.usercasefieldid=user_case_fields.id and user_case_data.casesid=cases.id
+and user_case_fields.field_title='Case Status 2') as Case_Status_2,
+(select top 1 data from user_case_data,user_case_fields where user_case_data.usercasefieldid=user_case_fields.id and user_case_data.casesid=cases.id
+and user_case_fields.field_title='Case Status 3') as Case_Status_3,
+(select top 1 data from user_case_data,user_case_fields where user_case_data.usercasefieldid=user_case_fields.id and user_case_data.casesid=cases.id
+and user_case_fields.field_title='Case Status 4') as Case_Status_4,
+(select top 1 data from user_case_data,user_case_fields where user_case_data.usercasefieldid=user_case_fields.id and user_case_data.casesid=cases.id
+and user_case_fields.field_title='Status Date 1') as Status_Date_1,
+(select top 1 data from user_case_data,user_case_fields where user_case_data.usercasefieldid=user_case_fields.id and user_case_data.casesid=cases.id
+and user_case_fields.field_title='Status Date 2') as Status_Date_2, 
+(select top 1 data from user_case_data,user_case_fields where user_case_data.usercasefieldid=user_case_fields.id and user_case_data.casesid=cases.id
+and user_case_fields.field_title='Status Date 3') as Status_Date_3,
+(select top 1 data from user_case_data,user_case_fields where user_case_data.usercasefieldid=user_case_fields.id and user_case_data.casesid=cases.id
+and user_case_fields.field_title='Status Date 4') as Status_Date_4,
+(select top 1 data from user_case_data,user_case_fields where user_case_data.usercasefieldid=user_case_fields.id and user_case_data.casesid=cases.id
+and user_case_fields.field_title='Reason for Hold Open') as Reason_for_Hold_Open,
+(select top 1 data from user_case_data,user_case_fields where user_case_data.usercasefieldid=user_case_fields.id and user_case_data.casesid=cases.id
+and user_case_fields.field_title='TVM Status') as TVM_Status,
+(select top 1 data from user_case_data,user_case_fields where user_case_data.usercasefieldid=user_case_fields.id and user_case_data.casesid=cases.id
+and user_case_fields.field_title='TVM Status 2') as TVM_Status_2,
+(select top 1 data from user_case_data,user_case_fields where user_case_data.usercasefieldid=user_case_fields.id and user_case_data.casesid=cases.id
+and user_case_fields.field_title='TVM Status 3') as TVM_Status_3,
+(select top 1 data from user_case_data,user_case_fields where user_case_data.usercasefieldid=user_case_fields.id and user_case_data.casesid=cases.id
+and user_case_fields.field_title='TVM Status 4') as TVM_Status_4,
+(select top 1 data from user_case_data,user_case_fields where user_case_data.usercasefieldid=user_case_fields.id and user_case_data.casesid=cases.id
+and user_case_fields.field_title='TVM Status 5') as TVM_Status_5,
+(select top 1 data from user_tab8_data ,user_case_fields where user_tab8_data.usercasefieldid=user_case_fields.id and user_tab8_data.casesid=cases.id
+and user_case_fields.field_title='Mesh Manufacturer') as Mesh_Manufacturer,
+(select top 1 data from user_tab8_data ,user_case_fields where user_tab8_data.usercasefieldid=user_case_fields.id and user_tab8_data.casesid=cases.id
+and user_case_fields.field_title='Mesh Manufacturer 2') as Mesh_Manufacturer_2,
+(select top 1 data from user_tab8_data ,user_case_fields where user_tab8_data.usercasefieldid=user_case_fields.id and user_tab8_data.casesid=cases.id
+and user_case_fields.field_title='Mesh Manufacturer 3') as Mesh_Manufacturer_3,
+(select top 1 data from user_tab8_data ,user_case_fields where user_tab8_data.usercasefieldid=user_case_fields.id and user_tab8_data.casesid=cases.id
+and user_case_fields.field_title='Mesh Manufacturer 4') as Mesh_Manufacturer_4,
+(select top 1 data from user_tab8_data ,user_case_fields where user_tab8_data.usercasefieldid=user_case_fields.id and user_tab8_data.casesid=cases.id
+and user_case_fields.field_title='Mesh Manufacturer 5') as Mesh_Manufacturer_5,
+(select top 1 data from user_tab8_data ,user_case_fields where user_tab8_data.usercasefieldid=user_case_fields.id and user_tab8_data.casesid=cases.id
+and user_case_fields.field_title='Brand Name') as Brand_Name,
+(select top 1 data from user_tab8_data ,user_case_fields where user_tab8_data.usercasefieldid=user_case_fields.id and user_tab8_data.casesid=cases.id
+and user_case_fields.field_title='Brand Name2') as Brand_Name_2,
+(select top 1 data from user_tab8_data ,user_case_fields where user_tab8_data.usercasefieldid=user_case_fields.id and user_tab8_data.casesid=cases.id
+and user_case_fields.field_title='Brand Name3') as Brand_Name_3,
+(select top 1 data from user_tab8_data ,user_case_fields where user_tab8_data.usercasefieldid=user_case_fields.id and user_tab8_data.casesid=cases.id
+and user_case_fields.field_title='Brand Name4') as Brand_Name_4,
+(select top 1 data from user_tab8_data ,user_case_fields where user_tab8_data.usercasefieldid=user_case_fields.id and user_tab8_data.casesid=cases.id
+and user_case_fields.field_title='Brand Name5') as Brand_Name_5,
+(select top 1 data from user_tab8_data ,user_case_fields where user_tab8_data.usercasefieldid=user_case_fields.id and user_tab8_data.casesid=cases.id
+and user_case_fields.field_title='Lot #') as Lot_#,
+(select top 1 data from user_tab8_data ,user_case_fields where user_tab8_data.usercasefieldid=user_case_fields.id and user_tab8_data.casesid=cases.id
+and user_case_fields.field_title='Lot #2') as Lot_#2,
+(select top 1 data from user_tab8_data ,user_case_fields where user_tab8_data.usercasefieldid=user_case_fields.id and user_tab8_data.casesid=cases.id
+and user_case_fields.field_title='Lot #3') as Lot_#3,
+(select top 1 data from user_tab8_data ,user_case_fields where user_tab8_data.usercasefieldid=user_case_fields.id and user_tab8_data.casesid=cases.id
+and user_case_fields.field_title='Lot #4') as Lot_#4,
+(select top 1 data from user_tab8_data ,user_case_fields where user_tab8_data.usercasefieldid=user_case_fields.id and user_tab8_data.casesid=cases.id
+and user_case_fields.field_title='Lot #5') as Lot_#5,
+(select top 1 data from user_tab8_data ,user_case_fields where user_tab8_data.usercasefieldid=user_case_fields.id and user_tab8_data.casesid=cases.id
+and user_case_fields.field_title='Model #') as Model_#,
+(select top 1 data from user_tab8_data ,user_case_fields where user_tab8_data.usercasefieldid=user_case_fields.id and user_tab8_data.casesid=cases.id
+and user_case_fields.field_title='Model #2') as Model_#2,
+(select top 1 data from user_tab8_data ,user_case_fields where user_tab8_data.usercasefieldid=user_case_fields.id and user_tab8_data.casesid=cases.id
+and user_case_fields.field_title='Model #3') as Model_#3,
+(select top 1 data from user_tab8_data ,user_case_fields where user_tab8_data.usercasefieldid=user_case_fields.id and user_tab8_data.casesid=cases.id
+and user_case_fields.field_title='Model #4') as Model_#4,
+(select top 1 data from user_tab8_data ,user_case_fields where user_tab8_data.usercasefieldid=user_case_fields.id and user_tab8_data.casesid=cases.id
+and user_case_fields.field_title='Model #5') as Model_#5,
+(select top 1 data from user_tab8_data ,user_case_fields where user_tab8_data.usercasefieldid=user_case_fields.id and user_tab8_data.casesid=cases.id
+and user_case_fields.field_title='Implant Doctor') as Implant_Doctor,
+(select top 1 data from user_tab8_data ,user_case_fields where user_tab8_data.usercasefieldid=user_case_fields.id and user_tab8_data.casesid=cases.id
+and user_case_fields.field_title='Implant Doctor2') as Implant_Docto2,
+(select top 1 data from user_tab8_data ,user_case_fields where user_tab8_data.usercasefieldid=user_case_fields.id and user_tab8_data.casesid=cases.id
+and user_case_fields.field_title='Implant Doctor3') as Implant_Docto3,
+(select top 1 data from user_tab8_data ,user_case_fields where user_tab8_data.usercasefieldid=user_case_fields.id and user_tab8_data.casesid=cases.id
+and user_case_fields.field_title='Implant Doctor4') as Implant_Doctor4,
+(select top 1 data from user_tab8_data ,user_case_fields where user_tab8_data.usercasefieldid=user_case_fields.id and user_tab8_data.casesid=cases.id
+and user_case_fields.field_title='Implant Doctor5') as Implant_Doctor5,
+(select top 1 data from user_tab8_data ,user_case_fields where user_tab8_data.usercasefieldid=user_case_fields.id and user_tab8_data.casesid=cases.id
+and user_case_fields.field_title='Implant Date') as Implant_Date,
+(select top 1 data from user_tab8_data ,user_case_fields where user_tab8_data.usercasefieldid=user_case_fields.id and user_tab8_data.casesid=cases.id
+and user_case_fields.field_title='Implant Date2') as Implant_Date2,
+(select top 1 data from user_tab8_data ,user_case_fields where user_tab8_data.usercasefieldid=user_case_fields.id and user_tab8_data.casesid=cases.id
+and user_case_fields.field_title='Implant Date3') as Implant_Date3,
+(select top 1 data from user_tab8_data ,user_case_fields where user_tab8_data.usercasefieldid=user_case_fields.id and user_tab8_data.casesid=cases.id
+and user_case_fields.field_title='Implant Date4') as Implant_Date4,
+(select top 1 data from user_tab8_data ,user_case_fields where user_tab8_data.usercasefieldid=user_case_fields.id and user_tab8_data.casesid=cases.id
+and user_case_fields.field_title='Implant Date5') as Implant_Date5,
+(select top 1 data from user_tab8_data ,user_case_fields where user_tab8_data.usercasefieldid=user_case_fields.id and user_tab8_data.casesid=cases.id
+and user_case_fields.field_title='Implant Hospital') as Implant_Hospital,
+(select top 1 data from user_tab8_data ,user_case_fields where user_tab8_data.usercasefieldid=user_case_fields.id and user_tab8_data.casesid=cases.id
+and user_case_fields.field_title='Implant Hospital2') as Implant_Hospital2,
+(select top 1 data from user_tab8_data ,user_case_fields where user_tab8_data.usercasefieldid=user_case_fields.id and user_tab8_data.casesid=cases.id
+and user_case_fields.field_title='Implant Hospital3') as Implant_Hospital3,
+(select top 1 data from user_tab8_data ,user_case_fields where user_tab8_data.usercasefieldid=user_case_fields.id and user_tab8_data.casesid=cases.id
+and user_case_fields.field_title='Implant Hospital4') as Implant_Hospital4,
+(select top 1 data from user_tab8_data ,user_case_fields where user_tab8_data.usercasefieldid=user_case_fields.id and user_tab8_data.casesid=cases.id
+and user_case_fields.field_title='Implant Hospital5') as Implant_Hospital5,
+(select top 1 data from user_tab8_data ,user_case_fields where user_tab8_data.usercasefieldid=user_case_fields.id and user_tab8_data.casesid=cases.id
+and user_case_fields.field_title='Reason for Implant') as Reason_for_Implant,
+(select top 1 data from user_tab8_data ,user_case_fields where user_tab8_data.usercasefieldid=user_case_fields.id and user_tab8_data.casesid=cases.id
+and user_case_fields.field_title='Reason for Implant2') as Reason_for_Implant2,
+(select top 1 data from user_tab8_data ,user_case_fields where user_tab8_data.usercasefieldid=user_case_fields.id and user_tab8_data.casesid=cases.id
+and user_case_fields.field_title='Reason for Implant3') as Reason_for_Implant3,
+(select top 1 data from user_tab8_data ,user_case_fields where user_tab8_data.usercasefieldid=user_case_fields.id and user_tab8_data.casesid=cases.id
+and user_case_fields.field_title='Reason for Implant4') as Reason_for_Implant4,
+(select top 1 data from user_tab8_data ,user_case_fields where user_tab8_data.usercasefieldid=user_case_fields.id and user_tab8_data.casesid=cases.id
+and user_case_fields.field_title='Reason for Implant5') as Reason_for_Implant5,
+(select top 1 data from user_tab8_data ,user_case_fields where user_tab8_data.usercasefieldid=user_case_fields.id and user_tab8_data.casesid=cases.id
+and user_case_fields.field_title='Settlement Group') as Settlement_Group,
+(select top 1 data from user_tab8_data ,user_case_fields where user_tab8_data.usercasefieldid=user_case_fields.id and user_tab8_data.casesid=cases.id
+and user_case_fields.field_title='Settlement Group2') as Settlement_Group2,
+(select top 1 data from user_tab8_data ,user_case_fields where user_tab8_data.usercasefieldid=user_case_fields.id and user_tab8_data.casesid=cases.id
+and user_case_fields.field_title='Settlement Group3') as Settlement_Group3,
+(select top 1 data from user_tab8_data ,user_case_fields where user_tab8_data.usercasefieldid=user_case_fields.id and user_tab8_data.casesid=cases.id
+and user_case_fields.field_title='Settlement Group4') as Settlement_Group4,
+(select top 1 data from user_tab8_data ,user_case_fields where user_tab8_data.usercasefieldid=user_case_fields.id and user_tab8_data.casesid=cases.id
+and user_case_fields.field_title='Settlement Group5') as Settlement_Group5,
+(select top 1 data from user_tab8_data ,user_case_fields where user_tab8_data.usercasefieldid=user_case_fields.id and user_tab8_data.casesid=cases.id
+and user_case_fields.field_title='Repair/Explant Type') as Repair_Explant_Type,
+(select top 1 data from user_tab8_data ,user_case_fields where user_tab8_data.usercasefieldid=user_case_fields.id and user_tab8_data.casesid=cases.id
+and user_case_fields.field_title='Repair/Explant Type2') as Repair_Explant_Type2,
+(select top 1 data from user_tab8_data ,user_case_fields where user_tab8_data.usercasefieldid=user_case_fields.id and user_tab8_data.casesid=cases.id
+and user_case_fields.field_title='Repair/Explant Type3') as Repair_Explant_Type3,
+(select top 1 data from user_tab8_data ,user_case_fields where user_tab8_data.usercasefieldid=user_case_fields.id and user_tab8_data.casesid=cases.id
+and user_case_fields.field_title='Repair/Explant Type4') as Repair_Explant_Type4,
+(select top 1 data from user_tab8_data ,user_case_fields where user_tab8_data.usercasefieldid=user_case_fields.id and user_tab8_data.casesid=cases.id
+and user_case_fields.field_title='Repair/Explant Type5') as Repair_Explant_Type5,
+(select top 1 data from user_tab8_data ,user_case_fields where user_tab8_data.usercasefieldid=user_case_fields.id and user_tab8_data.casesid=cases.id
+and user_case_fields.field_title='Repair/Explant Date') as Repair_Explant_Date,
+(select top 1 data from user_tab8_data ,user_case_fields where user_tab8_data.usercasefieldid=user_case_fields.id and user_tab8_data.casesid=cases.id
+and user_case_fields.field_title='Repair/Explant Date2') as Repair_Explant_Date2,
+(select top 1 data from user_tab8_data ,user_case_fields where user_tab8_data.usercasefieldid=user_case_fields.id and user_tab8_data.casesid=cases.id
+and user_case_fields.field_title='Repair/Explant Date3') as Repair_Explant_Date3,
+(select top 1 data from user_tab8_data ,user_case_fields where user_tab8_data.usercasefieldid=user_case_fields.id and user_tab8_data.casesid=cases.id
+and user_case_fields.field_title='Repair/Explant Date4') as Repair_Explant_Date4,
+(select top 1 data from user_tab8_data ,user_case_fields where user_tab8_data.usercasefieldid=user_case_fields.id and user_tab8_data.casesid=cases.id
+and user_case_fields.field_title='Repair/Explant Date5') as Repair_Explant_Date5,
+(select top 1 data from user_tab8_data ,user_case_fields where user_tab8_data.usercasefieldid=user_case_fields.id and user_tab8_data.casesid=cases.id
+and user_case_fields.field_title='Repair/Explant Doctor1') as Repair_Explant_Doctor1,
+(select top 1 data from user_tab8_data ,user_case_fields where user_tab8_data.usercasefieldid=user_case_fields.id and user_tab8_data.casesid=cases.id
+and user_case_fields.field_title='Repair/Explant Doctor2') as Repair_Explant_Doctor2,
+(select top 1 data from user_tab8_data ,user_case_fields where user_tab8_data.usercasefieldid=user_case_fields.id and user_tab8_data.casesid=cases.id
+and user_case_fields.field_title='Repair/Explant Doctor3') as Repair_Explant_Doctor3,
+(select top 1 data from user_tab8_data ,user_case_fields where user_tab8_data.usercasefieldid=user_case_fields.id and user_tab8_data.casesid=cases.id
+and user_case_fields.field_title='Repair/Explant Doctor4') as Repair_Explant_Doctor4,
+(select top 1 data from user_tab8_data ,user_case_fields where user_tab8_data.usercasefieldid=user_case_fields.id and user_tab8_data.casesid=cases.id
+and user_case_fields.field_title='Repair/Explant Doctor5') as Repair_Explant_Doctor5,
+(select top 1 data from user_tab8_data ,user_case_fields where user_tab8_data.usercasefieldid=user_case_fields.id and user_tab8_data.casesid=cases.id
+and user_case_fields.field_title='Repair/Explant Hospital') as Repair_Explant_Hospital,
+(select top 1 data from user_tab8_data ,user_case_fields where user_tab8_data.usercasefieldid=user_case_fields.id and user_tab8_data.casesid=cases.id
+and user_case_fields.field_title='Repair/Explant Hospital2') as Repair_Explant_Hospital2,
+(select top 1 data from user_tab8_data ,user_case_fields where user_tab8_data.usercasefieldid=user_case_fields.id and user_tab8_data.casesid=cases.id
+and user_case_fields.field_title='Repair/Explant Hospital3') as Repair_Explant_Hospital3,
+(select top 1 data from user_tab8_data ,user_case_fields where user_tab8_data.usercasefieldid=user_case_fields.id and user_tab8_data.casesid=cases.id
+and user_case_fields.field_title='Repair/Explant Hospital4') as Repair_Explant_Hospital4,
+(select top 1 data from user_tab8_data ,user_case_fields where user_tab8_data.usercasefieldid=user_case_fields.id and user_tab8_data.casesid=cases.id
+and user_case_fields.field_title='Repair/Explant Hospital5') as Repair_Explant_Hospital5,
+(select top 1 data from user_tab8_data ,user_case_fields where user_tab8_data.usercasefieldid=user_case_fields.id and user_tab8_data.casesid=cases.id
+and user_case_fields.field_title='Reason for Revision') as Reason_for_Revision,
+(select top 1 data from user_tab8_data ,user_case_fields where user_tab8_data.usercasefieldid=user_case_fields.id and user_tab8_data.casesid=cases.id
+and user_case_fields.field_title='Reason for Revision2') as Reason_for_Revision2,
+(select top 1 data from user_tab8_data ,user_case_fields where user_tab8_data.usercasefieldid=user_case_fields.id and user_tab8_data.casesid=cases.id
+and user_case_fields.field_title='Reason for Revision3') as Reason_for_Revision3,
+(select top 1 data from user_tab8_data ,user_case_fields where user_tab8_data.usercasefieldid=user_case_fields.id and user_tab8_data.casesid=cases.id
+and user_case_fields.field_title='Reason for Revision4') as Reason_for_Revision4,
+(select top 1 data from user_tab8_data ,user_case_fields where user_tab8_data.usercasefieldid=user_case_fields.id and user_tab8_data.casesid=cases.id
+and user_case_fields.field_title='Reason for Revision5') as Reason_for_Revision5,
+(select top 1 data from user_tab8_data ,user_case_fields where user_tab8_data.usercasefieldid=user_case_fields.id and user_tab8_data.casesid=cases.id
+and user_case_fields.field_title='Repair/Explant Type1A') as Repair_Explant_Type1A,
+(select top 1 data from user_tab8_data ,user_case_fields where user_tab8_data.usercasefieldid=user_case_fields.id and user_tab8_data.casesid=cases.id
+and user_case_fields.field_title='Repair/Explant Type1B') as Repair_Explant_Type1B,
+(select top 1 data from user_tab8_data ,user_case_fields where user_tab8_data.usercasefieldid=user_case_fields.id and user_tab8_data.casesid=cases.id
+and user_case_fields.field_title='Repair/Explant Type2A') as Repair_Explant_Type2A,
+(select top 1 data from user_tab8_data ,user_case_fields where user_tab8_data.usercasefieldid=user_case_fields.id and user_tab8_data.casesid=cases.id
+and user_case_fields.field_title='Repair/Explant Type2B') as Repair_Explant_Type2B,
+(select top 1 data from user_tab8_data ,user_case_fields where user_tab8_data.usercasefieldid=user_case_fields.id and user_tab8_data.casesid=cases.id
+and user_case_fields.field_title='Repair/Explant Type3A') as Repair_Explant_Type3A,
+(select top 1 data from user_tab8_data ,user_case_fields where user_tab8_data.usercasefieldid=user_case_fields.id and user_tab8_data.casesid=cases.id
+and user_case_fields.field_title='Repair/Explant Type3B') as Repair_Explant_Type3B,
+(select top 1 data from user_tab8_data ,user_case_fields where user_tab8_data.usercasefieldid=user_case_fields.id and user_tab8_data.casesid=cases.id
+and user_case_fields.field_title='Repair/Explant Type4A') as Repair_Explant_Type4A,
+(select top 1 data from user_tab8_data ,user_case_fields where user_tab8_data.usercasefieldid=user_case_fields.id and user_tab8_data.casesid=cases.id
+and user_case_fields.field_title='Repair/Explant Type4B') as Repair_Explant_Type4B,
+(select top 1 data from user_tab8_data ,user_case_fields where user_tab8_data.usercasefieldid=user_case_fields.id and user_tab8_data.casesid=cases.id
+and user_case_fields.field_title='Repair/Explant Type5A') as Repair_Explant_Type5A,
+(select top 1 data from user_tab8_data ,user_case_fields where user_tab8_data.usercasefieldid=user_case_fields.id and user_tab8_data.casesid=cases.id
+and user_case_fields.field_title='Repair/Explant Type5B') as Repair_Explant_Type5B,
+(select top 1 data from user_tab8_data ,user_case_fields where user_tab8_data.usercasefieldid=user_case_fields.id and user_tab8_data.casesid=cases.id
+and user_case_fields.field_title='Repair/Explant Date1A') as Repair_Explant_Date1A,
+(select top 1 data from user_tab8_data ,user_case_fields where user_tab8_data.usercasefieldid=user_case_fields.id and user_tab8_data.casesid=cases.id
+and user_case_fields.field_title='Repair/Explant Date1B') as Repair_Explant_Date1B,
+(select top 1 data from user_tab8_data ,user_case_fields where user_tab8_data.usercasefieldid=user_case_fields.id and user_tab8_data.casesid=cases.id
+and user_case_fields.field_title='Repair/Explant Date2A') as Repair_Explant_Date2A,
+(select top 1 data from user_tab8_data ,user_case_fields where user_tab8_data.usercasefieldid=user_case_fields.id and user_tab8_data.casesid=cases.id
+and user_case_fields.field_title='Repair/Explant Date2B') as Repair_Explant_Date2B,
+(select top 1 data from user_tab8_data ,user_case_fields where user_tab8_data.usercasefieldid=user_case_fields.id and user_tab8_data.casesid=cases.id
+and user_case_fields.field_title='Repair/Explant Date3A') as Repair_Explant_Date3A,
+(select top 1 data from user_tab8_data ,user_case_fields where user_tab8_data.usercasefieldid=user_case_fields.id and user_tab8_data.casesid=cases.id
+and user_case_fields.field_title='Repair/Explant Date3B') as Repair_Explant_Date3B,
+(select top 1 data from user_tab8_data ,user_case_fields where user_tab8_data.usercasefieldid=user_case_fields.id and user_tab8_data.casesid=cases.id
+and user_case_fields.field_title='Repair/Explant Date4A') as Repair_Explant_Date4A,
+(select top 1 data from user_tab8_data ,user_case_fields where user_tab8_data.usercasefieldid=user_case_fields.id and user_tab8_data.casesid=cases.id
+and user_case_fields.field_title='Repair/Explant Date4B') as Repair_Explant_Date4B,
+(select top 1 data from user_tab8_data ,user_case_fields where user_tab8_data.usercasefieldid=user_case_fields.id and user_tab8_data.casesid=cases.id
+and user_case_fields.field_title='Repair/Explant Date5A') as Repair_Explant_Date5A,
+(select top 1 data from user_tab8_data ,user_case_fields where user_tab8_data.usercasefieldid=user_case_fields.id and user_tab8_data.casesid=cases.id
+and user_case_fields.field_title='Repair/Explant Date5B') as Repair_Explant_Date5B,
+(select top 1 data from user_tab8_data ,user_case_fields where user_tab8_data.usercasefieldid=user_case_fields.id and user_tab8_data.casesid=cases.id
+and user_case_fields.field_title='Repair/Explant Doctor1A') as Repair_Explant_Doctor1A,
+(select top 1 data from user_tab8_data ,user_case_fields where user_tab8_data.usercasefieldid=user_case_fields.id and user_tab8_data.casesid=cases.id
+and user_case_fields.field_title='Repair/Explant Doctor1B') as Repair_Explant_Doctor1B,
+(select top 1 data from user_tab8_data ,user_case_fields where user_tab8_data.usercasefieldid=user_case_fields.id and user_tab8_data.casesid=cases.id
+and user_case_fields.field_title='Repair/Explant Doctor2A') as Repair_Explant_Doctor2A,
+(select top 1 data from user_tab8_data ,user_case_fields where user_tab8_data.usercasefieldid=user_case_fields.id and user_tab8_data.casesid=cases.id
+and user_case_fields.field_title='Repair/Explant Doctor2B') as Repair_Explant_Doctor2B,
+(select top 1 data from user_tab8_data ,user_case_fields where user_tab8_data.usercasefieldid=user_case_fields.id and user_tab8_data.casesid=cases.id
+and user_case_fields.field_title='Repair/Explant Doctor3A') as Repair_Explant_Doctor3A,
+(select top 1 data from user_tab8_data ,user_case_fields where user_tab8_data.usercasefieldid=user_case_fields.id and user_tab8_data.casesid=cases.id
+and user_case_fields.field_title='Repair/Explant Doctor3B') as Repair_Explant_Doctor3B,
+(select top 1 data from user_tab8_data ,user_case_fields where user_tab8_data.usercasefieldid=user_case_fields.id and user_tab8_data.casesid=cases.id
+and user_case_fields.field_title='Repair/Explant Doctor4A') as Repair_Explant_Doctor4A,
+(select top 1 data from user_tab8_data ,user_case_fields where user_tab8_data.usercasefieldid=user_case_fields.id and user_tab8_data.casesid=cases.id
+and user_case_fields.field_title='Repair/Explant Doctor4B') as Repair_Explant_Doctor4B,
+(select top 1 data from user_tab8_data ,user_case_fields where user_tab8_data.usercasefieldid=user_case_fields.id and user_tab8_data.casesid=cases.id
+and user_case_fields.field_title='Repair/Explant Doctor5A') as Repair_Explant_Doctor5A,
+(select top 1 data from user_tab8_data ,user_case_fields where user_tab8_data.usercasefieldid=user_case_fields.id and user_tab8_data.casesid=cases.id
+and user_case_fields.field_title='Repair/Explant Doctor5B') as Repair_Explant_Doctor5B,
+(select top 1 data from user_tab8_data ,user_case_fields where user_tab8_data.usercasefieldid=user_case_fields.id and user_tab8_data.casesid=cases.id
+and user_case_fields.field_title='Repair/Explant Hospital1A') as Repair_Explant_Hospital1A,
+(select top 1 data from user_tab8_data ,user_case_fields where user_tab8_data.usercasefieldid=user_case_fields.id and user_tab8_data.casesid=cases.id
+and user_case_fields.field_title='Repair/Explant Hospital1B') as Repair_Explant_Hospital1B,
+(select top 1 data from user_tab8_data ,user_case_fields where user_tab8_data.usercasefieldid=user_case_fields.id and user_tab8_data.casesid=cases.id
+and user_case_fields.field_title='Repair/Explant Hospital2A') as Repair_Explant_Hospital2A,
+(select top 1 data from user_tab8_data ,user_case_fields where user_tab8_data.usercasefieldid=user_case_fields.id and user_tab8_data.casesid=cases.id
+and user_case_fields.field_title='Repair/Explant Hospital2B') as Repair_Explant_Hospital2B,
+(select top 1 data from user_tab8_data ,user_case_fields where user_tab8_data.usercasefieldid=user_case_fields.id and user_tab8_data.casesid=cases.id
+and user_case_fields.field_title='Repair/Explant Hospital3A') as Repair_Explant_Hospital3A,
+(select top 1 data from user_tab8_data ,user_case_fields where user_tab8_data.usercasefieldid=user_case_fields.id and user_tab8_data.casesid=cases.id
+and user_case_fields.field_title='Repair/Explant Hospital3B') as Repair_Explant_Hospital3B,
+(select top 1 data from user_tab8_data ,user_case_fields where user_tab8_data.usercasefieldid=user_case_fields.id and user_tab8_data.casesid=cases.id
+and user_case_fields.field_title='Repair/Explant Hospital4A') as Repair_Explant_Hospital4A,
+(select top 1 data from user_tab8_data ,user_case_fields where user_tab8_data.usercasefieldid=user_case_fields.id and user_tab8_data.casesid=cases.id
+and user_case_fields.field_title='Repair/Explant Hospital4B') as Repair_Explant_Hospital4B,
+(select top 1 data from user_tab8_data ,user_case_fields where user_tab8_data.usercasefieldid=user_case_fields.id and user_tab8_data.casesid=cases.id
+and user_case_fields.field_title='Repair/Explant Hospital5A') as Repair_Explant_Hospital5A,
+(select top 1 data from user_tab8_data ,user_case_fields where user_tab8_data.usercasefieldid=user_case_fields.id and user_tab8_data.casesid=cases.id
+and user_case_fields.field_title='Repair/Explant Hospital5B') as Repair_Explant_Hospital5B,
+(select top 1 data from user_tab8_data ,user_case_fields where user_tab8_data.usercasefieldid=user_case_fields.id and user_tab8_data.casesid=cases.id
+and user_case_fields.field_title='Reason for Revision1A') as Reason_for_Revision1A,
+(select top 1 data from user_tab8_data ,user_case_fields where user_tab8_data.usercasefieldid=user_case_fields.id and user_tab8_data.casesid=cases.id
+and user_case_fields.field_title='Reason for Revision1B') as Reason_for_Revision1B,
+(select top 1 data from user_tab8_data ,user_case_fields where user_tab8_data.usercasefieldid=user_case_fields.id and user_tab8_data.casesid=cases.id
+and user_case_fields.field_title='Reason for Revision2A') as Reason_for_Revision2A,
+(select top 1 data from user_tab8_data ,user_case_fields where user_tab8_data.usercasefieldid=user_case_fields.id and user_tab8_data.casesid=cases.id
+and user_case_fields.field_title='Reason for Revision2B') as Reason_for_Revision2B,
+(select top 1 data from user_tab8_data ,user_case_fields where user_tab8_data.usercasefieldid=user_case_fields.id and user_tab8_data.casesid=cases.id
+and user_case_fields.field_title='Reason for Revision3A') as Reason_for_Revision3A,
+(select top 1 data from user_tab8_data ,user_case_fields where user_tab8_data.usercasefieldid=user_case_fields.id and user_tab8_data.casesid=cases.id
+and user_case_fields.field_title='Reason for Revision3B') as Reason_for_Revision3B,
+(select top 1 data from user_tab8_data ,user_case_fields where user_tab8_data.usercasefieldid=user_case_fields.id and user_tab8_data.casesid=cases.id
+and user_case_fields.field_title='Reason for Revision4A') as Reason_for_Revision4A,
+(select top 1 data from user_tab8_data ,user_case_fields where user_tab8_data.usercasefieldid=user_case_fields.id and user_tab8_data.casesid=cases.id
+and user_case_fields.field_title='Reason for Revision4B') as Reason_for_Revision4B,
+(select top 1 data from user_tab8_data ,user_case_fields where user_tab8_data.usercasefieldid=user_case_fields.id and user_tab8_data.casesid=cases.id
+and user_case_fields.field_title='Reason for Revision5A') as Reason_for_Revision5A,
+(select top 1 data from user_tab8_data ,user_case_fields where user_tab8_data.usercasefieldid=user_case_fields.id and user_tab8_data.casesid=cases.id
+and user_case_fields.field_title='Reason for Revision5B') as Reason_for_Revision5B,
+
+((select multi_addresses.address from multi_addresses where multi_addresses.namesid=names.id and multi_addresses.default_addr=1)+
+(case when (select multi_addresses.address_2 from multi_addresses where multi_addresses.namesid=names.id and multi_addresses.default_addr=1) is null then ' else 
+','+(select multi_addresses.address_2 from multi_addresses where multi_addresses.namesid=names.id and multi_addresses.default_addr=1) end)) as address1,
+
+(select multi_addresses.city from multi_addresses where multi_addresses.namesid=names.id and multi_addresses.default_addr=1) as city,
+(select multi_addresses.state from multi_addresses where multi_addresses.namesid=names.id and multi_addresses.default_addr=1) as state,
+(select multi_addresses.zipcode from multi_addresses where multi_addresses.namesid=names.id and multi_addresses.default_addr=1) as zipcode,
+(select  '(' + Substring(number,1,3) + ') ' 
+           + Substring(number,4,3) + '-' 
+           + Substring(number,7,4) from phone where namesid = names.id and title = 'Home') as Home_Phone,
+(select  '(' + Substring(number,1,3) + ') ' 
+           + Substring(number,4,3) + '-' 
+           + Substring(number,7,4) from phone where namesid = names.id and title = 'Business') as Work_Phone,
+(select  '(' + Substring(number,1,3) + ') ' 
+           + Substring(number,4,3) + '-' 
+           + Substring(number,7,4) from phone where namesid = names.id and title = 'Mobile') as Cell_Phone,
+(select  '(' + Substring(number,1,3) + ') ' 
+           + Substring(number,4,3) + '-' 
+           + Substring(number,7,4) from phone where namesid = names.id and title = 'Personal') as Other_Phone,
+(select top 1 online_accounts.account from online_accounts,online_account_category where online_accounts.namesid = names.id and online_account_category.id = online_accounts.onlineaccountcategoryid
+and online_account_category.title = 'Email' and online_accounts.type = 0) as Home_Email,
+names.date_of_birth,
+names.ss_number,
+isnull((Select top 1 fullname_lastfirst From party,names,party_role_list Where casesid = cases.id and party.namesid=names.id 
+and party_role_list.id=party.partyrolelistid and party_role_list.role='Spouse'),
+(Select top 1 fullname_lastfirst From party,names,party_role_list Where casesid = cases.id and party.namesid=names.id 
+and party_role_list.id=party.partyrolelistid and party_role_list.role='Representative')) as Spouse_Personal_rep,
+
+(case when (Select top 1 fullname_lastfirst From party,names,party_role_list Where casesid = cases.id and party.namesid=names.id 
+and party_role_list.id=party.partyrolelistid and party_role_list.role='Spouse') is not null then 'Spouse' else
+(case when (Select top 1 fullname_lastfirst From party,names,party_role_list Where casesid = cases.id and party.namesid=names.id 
+and party_role_list.id=party.partyrolelistid and party_role_list.role='Representative') is not null then 'Representative' else ' end) end) as Spouse_or_Representative,
+-----sultan
+cases.close_date as Close_Date,
+(select n.fullname_lastfirst from names n where cases.referredby_namesid=n.id) as Referring_Firm,
+(select top 1 data from user_tab7_data ,user_case_fields where user_tab7_data.usercasefieldid=user_case_fields.id and user_tab7_data.casesid=cases.id
+and user_case_fields.field_title='Fee Terms') as Referral_Fee_Terms,
+(select top 1 data from user_tab7_data ,user_case_fields where user_tab7_data.usercasefieldid=user_case_fields.id and user_tab7_data.casesid=cases.id
+and user_case_fields.field_title='Referring Attorney2') as Referring_Attorney_2,
+(select top 1 data from user_tab7_data ,user_case_fields where user_tab7_data.usercasefieldid=user_case_fields.id and user_tab7_data.casesid=cases.id
+and user_case_fields.field_title='Fee Terms2') as Fee_Terms_2,
+(select top 1 data from user_tab7_data ,user_case_fields where user_tab7_data.usercasefieldid=user_case_fields.id and user_tab7_data.casesid=cases.id
+and user_case_fields.field_title='Referring Attorney3') as Referring_Attorney_3,
+(select top 1 data from user_tab7_data ,user_case_fields where user_tab7_data.usercasefieldid=user_case_fields.id and user_tab7_data.casesid=cases.id
+and user_case_fields.field_title='Fee Terms3') as Fee_Terms_3,
+(select top 1 data from user_tab7_data ,user_case_fields where user_tab7_data.usercasefieldid=user_case_fields.id and user_tab7_data.casesid=cases.id
+and user_case_fields.field_title='Referring Attorney4') as Referring_Attorney_4,
+(select top 1 data from user_tab7_data ,user_case_fields where user_tab7_data.usercasefieldid=user_case_fields.id and user_tab7_data.casesid=cases.id
+and user_case_fields.field_title='Fee Terms4') as Fee_Terms_4,
+(select top 1 data from user_tab7_data ,user_case_fields where user_tab7_data.usercasefieldid=user_case_fields.id and user_tab7_data.casesid=cases.id
+and user_case_fields.field_title='Fee Agreement') as Client_Fee_Percentage,
+cases.docket as Docket_#,
+(select top 1 data from user_case_data,user_case_fields where user_case_data.usercasefieldid=user_case_fields.id and user_case_data.casesid=cases.id
+and user_case_fields.field_title='MDL Number') as MDL_#,
+(select n.fullname_lastfirst from names n where n.id=cases.court_namesid) as Court,
+(select n.fullname_lastfirst from names n where n.id=cases.judge_namesid) as Judge,
+(select top 1 data from user_case_data,user_case_fields where user_case_data.usercasefieldid=user_case_fields.id and user_case_data.casesid=cases.id
+and user_case_fields.field_title='MDL Plaintiff Caption') as MDL_Plaintiff_Caption,
+(select top 1 data from user_case_data,user_case_fields where user_case_data.usercasefieldid=user_case_fields.id and user_case_data.casesid=cases.id
+and user_case_fields.field_title='MDL Defendant Caption') as MDL_Defendant_Caption,
+(select top 1 data from user_case_data,user_case_fields where user_case_data.usercasefieldid=user_case_fields.id and user_case_data.casesid=cases.id
+and user_case_fields.field_title='Plaintiff Caption') as Plaintiff_Caption,
+(select top 1 data from user_case_data,user_case_fields where user_case_data.usercasefieldid=user_case_fields.id and user_case_data.casesid=cases.id
+and user_case_fields.field_title='Defendant Caption') as Defendant_Caption,
+(select top 1 data from user_tab7_data ,user_case_fields where user_tab7_data.usercasefieldid=user_case_fields.id and user_tab7_data.casesid=cases.id
+and user_case_fields.field_title='Rainmaker 1') as Rainmaker_1,
+(select top 1 data from user_tab7_data ,user_case_fields where user_tab7_data.usercasefieldid=user_case_fields.id and user_tab7_data.casesid=cases.id
+and user_case_fields.field_title='Rainmaker 2') as Rainmaker_2,
+(select top 1 data from user_tab7_data ,user_case_fields where user_tab7_data.usercasefieldid=user_case_fields.id and user_tab7_data.casesid=cases.id
+and user_case_fields.field_title='Rainmaker 3') as Rainmaker_3,
+(select top 1 data from user_tab7_data ,user_case_fields where user_tab7_data.usercasefieldid=user_case_fields.id and user_tab7_data.casesid=cases.id
+and user_case_fields.field_title='Rainmaker 4') as Rainmaker_4,
+------ sultan end
+
+(select top 1 names.fullname_lastfirst from insurance,names where insurance.casesid = cases.id and names.id = insurance.insurer_namesid and insurance.id = 
+(SELECT insurance.id
+FROM ( SELECT insurance.casesid, insurance.id, 
+       ROW_NUMBER( ) OVER ( ORDER BY insurance.casesid, insurance.id  ASC ) AS RowNum
+FROM insurance
+join cases c on c.id = insurance.casesid
+where insurance.casesid = cases.id) AS DT
+WHERE RowNum = 1)) as Insurance_1_Insurer,
+
+(select top 1 insurance.comments from insurance where insurance.casesid = cases.id and insurance.id = 
+(SELECT insurance.id
+FROM ( SELECT insurance.casesid, insurance.id, 
+       ROW_NUMBER( ) OVER ( ORDER BY insurance.casesid, insurance.id  ASC ) AS RowNum
+FROM insurance
+join cases c on c.id = insurance.casesid
+where insurance.casesid = cases.id) AS DT
+WHERE RowNum = 1)) as Insurance_1_Notes,
+(select top 1 names.fullname_lastfirst from insurance,names where insurance.casesid = cases.id and names.id = insurance.adjuster_namesid and insurance.id = 
+(SELECT insurance.id
+FROM ( SELECT insurance.casesid, insurance.id, 
+       ROW_NUMBER( ) OVER ( ORDER BY insurance.casesid, insurance.id  ASC ) AS RowNum
+FROM insurance
+join cases c on c.id = insurance.casesid
+where insurance.casesid = cases.id) AS DT
+WHERE RowNum = 1)) as Insurance_1_Adjuster,
+(select top 1 names.fullname_lastfirst from insurance,names where insurance.casesid = cases.id and names.id = party.namesid 
+and insurance.partyid=party.id and insurance.id = 
+(SELECT insurance.id
+FROM ( SELECT insurance.casesid, insurance.id, 
+       ROW_NUMBER( ) OVER ( ORDER BY insurance.casesid, insurance.id  ASC ) AS RowNum
+FROM insurance
+join cases c on c.id = insurance.casesid
+where insurance.casesid = cases.id) AS DT
+WHERE RowNum = 1)) as Insurance_1_Party,
+(select top 1 insurance_type.type from insurance,insurance_type where insurance.casesid = cases.id and insurance.insurancetypeid=insurance_type.id and insurance.id = 
+(SELECT insurance.id
+FROM ( SELECT insurance.casesid, insurance.id, 
+       ROW_NUMBER( ) OVER ( ORDER BY insurance.casesid, insurance.id  ASC ) AS RowNum
+FROM insurance
+join cases c on c.id = insurance.casesid
+where insurance.casesid = cases.id) AS DT
+WHERE RowNum = 1)) as Insurance_1_Type,
+(select top 1 insurance.agent from insurance where insurance.casesid = cases.id and insurance.id = 
+(SELECT insurance.id
+FROM ( SELECT insurance.casesid, insurance.id, 
+       ROW_NUMBER( ) OVER ( ORDER BY insurance.casesid, insurance.id  ASC ) AS RowNum
+FROM insurance
+join cases c on c.id = insurance.casesid
+where insurance.casesid = cases.id) AS DT
+WHERE RowNum = 1)) as Insurance_1_Agent,
+(select top 1 insurance.policy from insurance where insurance.casesid = cases.id and insurance.id = 
+(SELECT insurance.id
+FROM ( SELECT insurance.casesid, insurance.id, 
+       ROW_NUMBER( ) OVER ( ORDER BY insurance.casesid, insurance.id  ASC ) AS RowNum
+FROM insurance
+join cases c on c.id = insurance.casesid
+where insurance.casesid = cases.id) AS DT
+WHERE RowNum = 1)) as Insurance_1_policy,
+(select top 1 insurance.claim from insurance where insurance.casesid = cases.id and insurance.id = 
+(SELECT insurance.id
+FROM ( SELECT insurance.casesid, insurance.id, 
+       ROW_NUMBER( ) OVER ( ORDER BY insurance.casesid, insurance.id  ASC ) AS RowNum
+FROM insurance
+join cases c on c.id = insurance.casesid
+where insurance.casesid = cases.id) AS DT
+WHERE RowNum = 1)) as Insurance_1_Claim,
+(select top 1 insurance.insured from insurance where insurance.casesid = cases.id and insurance.id = 
+(SELECT insurance.id
+FROM ( SELECT insurance.casesid, insurance.id, 
+       ROW_NUMBER( ) OVER ( ORDER BY insurance.casesid, insurance.id  ASC ) AS RowNum
+FROM insurance
+join cases c on c.id = insurance.casesid
+where insurance.casesid = cases.id) AS DT
+WHERE RowNum = 1)) as Insurance_1_insured,
+(select top 1 data from insurance,user_insurance_data,user_case_fields where insurance.casesid = cases.id 
+and user_case_fields.id=user_insurance_data.usercasefieldid and insurance.id=user_insurance_data.insuranceid 
+and user_case_fields.field_title='Subrogation Lien Total' and insurance.id = (SELECT insurance.id
+FROM ( SELECT insurance.casesid, insurance.id, 
+       ROW_NUMBER( ) OVER ( ORDER BY insurance.casesid, insurance.id  ASC ) AS RowNum
+FROM insurance
+join cases c on c.id = insurance.casesid
+where insurance.casesid = cases.id) AS DT
+WHERE RowNum = 1)) as Subrogation_Lien_Total,
+(select top 1 data from insurance,user_insurance_data,user_case_fields where insurance.casesid = cases.id 
+and user_case_fields.id=user_insurance_data.usercasefieldid and insurance.id=user_insurance_data.insuranceid 
+and user_case_fields.field_title='Coverage Start Date' and insurance.id = (SELECT insurance.id
+FROM ( SELECT insurance.casesid, insurance.id, 
+       ROW_NUMBER( ) OVER ( ORDER BY insurance.casesid, insurance.id  ASC ) AS RowNum
+FROM insurance
+join cases c on c.id = insurance.casesid
+where insurance.casesid = cases.id) AS DT
+WHERE RowNum = 1)) as Coverage_Start_Date,
+(select top 1 data from insurance,user_insurance_data,user_case_fields where insurance.casesid = cases.id 
+and user_case_fields.id=user_insurance_data.usercasefieldid and insurance.id=user_insurance_data.insuranceid 
+and user_case_fields.field_title='Coverage End Date' and insurance.id = (SELECT insurance.id
+FROM ( SELECT insurance.casesid, insurance.id, 
+       ROW_NUMBER( ) OVER ( ORDER BY insurance.casesid, insurance.id  ASC ) AS RowNum
+FROM insurance
+join cases c on c.id = insurance.casesid
+where insurance.casesid = cases.id) AS DT
+WHERE RowNum = 1)) as Coverage_End_Date,
+(select top 1 data from insurance,user_insurance_data,user_case_fields where insurance.casesid = cases.id 
+and user_case_fields.id=user_insurance_data.usercasefieldid and insurance.id=user_insurance_data.insuranceid 
+and user_case_fields.field_title='GRG Services' and insurance.id = (SELECT insurance.id
+FROM ( SELECT insurance.casesid, insurance.id, 
+       ROW_NUMBER( ) OVER ( ORDER BY insurance.casesid, insurance.id  ASC ) AS RowNum
+FROM insurance
+join cases c on c.id = insurance.casesid
+where insurance.casesid = cases.id) AS DT
+WHERE RowNum = 1)) as GRG_Services,
+(select top 1 data from insurance,user_insurance_data,user_case_fields where insurance.casesid = cases.id 
+and user_case_fields.id=user_insurance_data.usercasefieldid and insurance.id=user_insurance_data.insuranceid 
+and user_case_fields.field_title='Medicare' and insurance.id = (SELECT insurance.id
+FROM ( SELECT insurance.casesid, insurance.id, 
+       ROW_NUMBER( ) OVER ( ORDER BY insurance.casesid, insurance.id  ASC ) AS RowNum
+FROM insurance
+join cases c on c.id = insurance.casesid
+where insurance.casesid = cases.id) AS DT
+WHERE RowNum = 1)) as Medicare,
+(select top 1 data from insurance,user_insurance_data,user_case_fields where insurance.casesid = cases.id 
+and user_case_fields.id=user_insurance_data.usercasefieldid and insurance.id=user_insurance_data.insuranceid 
+and user_case_fields.field_title='Medicaid' and insurance.id = (SELECT insurance.id
+FROM ( SELECT insurance.casesid, insurance.id, 
+       ROW_NUMBER( ) OVER ( ORDER BY insurance.casesid, insurance.id  ASC ) AS RowNum
+FROM insurance
+join cases c on c.id = insurance.casesid
+where insurance.casesid = cases.id) AS DT
+WHERE RowNum = 1)) as Medicaid,
+(select top 1 data from insurance,user_insurance_data,user_case_fields where insurance.casesid = cases.id 
+and user_case_fields.id=user_insurance_data.usercasefieldid and insurance.id=user_insurance_data.insuranceid 
+and user_case_fields.field_title='Other Lien Type' and insurance.id = (SELECT insurance.id
+FROM ( SELECT insurance.casesid, insurance.id, 
+       ROW_NUMBER( ) OVER ( ORDER BY insurance.casesid, insurance.id  ASC ) AS RowNum
+FROM insurance
+join cases c on c.id = insurance.casesid
+where insurance.casesid = cases.id) AS DT
+WHERE RowNum = 1)) as Other_Lien_Type,
+(select top 1 data from insurance,user_insurance_data,user_case_fields where insurance.casesid = cases.id 
+and user_case_fields.id=user_insurance_data.usercasefieldid and insurance.id=user_insurance_data.insuranceid 
+and user_case_fields.field_title='Private Health Plan' and insurance.id = (SELECT insurance.id
+FROM ( SELECT insurance.casesid, insurance.id, 
+       ROW_NUMBER( ) OVER ( ORDER BY insurance.casesid, insurance.id  ASC ) AS RowNum
+FROM insurance
+join cases c on c.id = insurance.casesid
+where insurance.casesid = cases.id) AS DT
+WHERE RowNum = 1)) as Private_Health_Plan,
+(select top 1 data from insurance,user_insurance_data,user_case_fields where insurance.casesid = cases.id 
+and user_case_fields.id=user_insurance_data.usercasefieldid and insurance.id=user_insurance_data.insuranceid 
+and user_case_fields.field_title='Corresp w Lienholder' and insurance.id = (SELECT insurance.id
+FROM ( SELECT insurance.casesid, insurance.id, 
+       ROW_NUMBER( ) OVER ( ORDER BY insurance.casesid, insurance.id  ASC ) AS RowNum
+FROM insurance
+join cases c on c.id = insurance.casesid
+where insurance.casesid = cases.id) AS DT
+WHERE RowNum = 1)) as Corresp_w_Lienholder,
+(select top 1 data from insurance,user_insurance_data,user_case_fields where insurance.casesid = cases.id 
+and user_case_fields.id=user_insurance_data.usercasefieldid and insurance.id=user_insurance_data.insuranceid 
+and user_case_fields.field_title='VA/Tricare/Government' and insurance.id = (SELECT insurance.id
+FROM ( SELECT insurance.casesid, insurance.id, 
+       ROW_NUMBER( ) OVER ( ORDER BY insurance.casesid, insurance.id  ASC ) AS RowNum
+FROM insurance
+join cases c on c.id = insurance.casesid
+where insurance.casesid = cases.id) AS DT
+WHERE RowNum = 1)) as VA_Tricare_Government,
+(select top 1 data from insurance,user_insurance_data,user_case_fields where insurance.casesid = cases.id 
+and user_case_fields.id=user_insurance_data.usercasefieldid and insurance.id=user_insurance_data.insuranceid 
+and user_case_fields.field_title='Lienholder Notified' and insurance.id = (SELECT insurance.id
+FROM ( SELECT insurance.casesid, insurance.id, 
+       ROW_NUMBER( ) OVER ( ORDER BY insurance.casesid, insurance.id  ASC ) AS RowNum
+FROM insurance
+join cases c on c.id = insurance.casesid
+where insurance.casesid = cases.id) AS DT
+WHERE RowNum = 1)) as Lienholder_Notified,
+
+
+(select top 1 names.fullname_lastfirst from insurance,names where insurance.casesid = cases.id and names.id = insurance.insurer_namesid and insurance.id = 
+(SELECT insurance.id
+FROM ( SELECT insurance.casesid, insurance.id, 
+       ROW_NUMBER( ) OVER ( ORDER BY insurance.casesid, insurance.id  ASC ) AS RowNum
+FROM insurance
+join cases c on c.id = insurance.casesid
+where insurance.casesid = cases.id) AS DT
+WHERE RowNum = 2)) as Insurance_2_Insurer,
+(select top 1 insurance.comments from insurance where insurance.casesid = cases.id and insurance.id = 
+(SELECT insurance.id
+FROM ( SELECT insurance.casesid, insurance.id, 
+       ROW_NUMBER( ) OVER ( ORDER BY insurance.casesid, insurance.id  ASC ) AS RowNum
+FROM insurance
+join cases c on c.id = insurance.casesid
+where insurance.casesid = cases.id) AS DT
+WHERE RowNum = 2)) as Insurance_2_Notes,
+(select top 1 names.fullname_lastfirst from insurance,names where insurance.casesid = cases.id and names.id = insurance.adjuster_namesid and insurance.id = 
+(SELECT insurance.id
+FROM ( SELECT insurance.casesid, insurance.id, 
+       ROW_NUMBER( ) OVER ( ORDER BY insurance.casesid, insurance.id  ASC ) AS RowNum
+FROM insurance
+join cases c on c.id = insurance.casesid
+where insurance.casesid = cases.id) AS DT
+WHERE RowNum = 2)) as Insurance_2_Adjuster,
+(select top 1 names.fullname_lastfirst from insurance,names where insurance.casesid = cases.id and names.id = party.namesid and insurance.partyid=party.id and insurance.id = 
+(SELECT insurance.id
+FROM ( SELECT insurance.casesid, insurance.id, 
+       ROW_NUMBER( ) OVER ( ORDER BY insurance.casesid, insurance.id  ASC ) AS RowNum
+FROM insurance
+join cases c on c.id = insurance.casesid
+where insurance.casesid = cases.id) AS DT
+WHERE RowNum = 2)) as Insurance_2_Party,
+(select top 1 insurance_type.type from insurance,insurance_type where insurance.casesid = cases.id and insurance.insurancetypeid=insurance_type.id and insurance.id = 
+(SELECT insurance.id
+FROM ( SELECT insurance.casesid, insurance.id, 
+       ROW_NUMBER( ) OVER ( ORDER BY insurance.casesid, insurance.id  ASC ) AS RowNum
+FROM insurance
+join cases c on c.id = insurance.casesid
+where insurance.casesid = cases.id) AS DT
+WHERE RowNum = 2)) as Insurance_2_Type,
+(select top 1 insurance.agent from insurance where insurance.casesid = cases.id and insurance.id = 
+(SELECT insurance.id
+FROM ( SELECT insurance.casesid, insurance.id, 
+       ROW_NUMBER( ) OVER ( ORDER BY insurance.casesid, insurance.id  ASC ) AS RowNum
+FROM insurance
+join cases c on c.id = insurance.casesid
+where insurance.casesid = cases.id) AS DT
+WHERE RowNum = 2)) as Insurance_2_Agent,
+(select top 1 insurance.policy from insurance where insurance.casesid = cases.id and insurance.id = 
+(SELECT insurance.id
+FROM ( SELECT insurance.casesid, insurance.id, 
+       ROW_NUMBER( ) OVER ( ORDER BY insurance.casesid, insurance.id  ASC ) AS RowNum
+FROM insurance
+join cases c on c.id = insurance.casesid
+where insurance.casesid = cases.id) AS DT
+WHERE RowNum = 2)) as Insurance_2_policy,
+(select top 1 insurance.claim from insurance where insurance.casesid = cases.id and insurance.id = 
+(SELECT insurance.id
+FROM ( SELECT insurance.casesid, insurance.id, 
+       ROW_NUMBER( ) OVER ( ORDER BY insurance.casesid, insurance.id  ASC ) AS RowNum
+FROM insurance
+join cases c on c.id = insurance.casesid
+where insurance.casesid = cases.id) AS DT
+WHERE RowNum = 2)) as Insurance_2_Claim,
+(select top 1 insurance.insured from insurance where insurance.casesid = cases.id and insurance.id = 
+(SELECT insurance.id
+FROM ( SELECT insurance.casesid, insurance.id, 
+       ROW_NUMBER( ) OVER ( ORDER BY insurance.casesid, insurance.id  ASC ) AS RowNum
+FROM insurance
+join cases c on c.id = insurance.casesid
+where insurance.casesid = cases.id) AS DT
+WHERE RowNum = 2)) as Insurance_2_insured,
+(select top 1 data from insurance,user_insurance_data,user_case_fields where insurance.casesid = cases.id 
+and user_case_fields.id=user_insurance_data.usercasefieldid and insurance.id=user_insurance_data.insuranceid 
+and user_case_fields.field_title='Subrogation Lien Total' and insurance.id = (SELECT insurance.id
+FROM ( SELECT insurance.casesid, insurance.id, 
+       ROW_NUMBER( ) OVER ( ORDER BY insurance.casesid, insurance.id  ASC ) AS RowNum
+FROM insurance
+join cases c on c.id = insurance.casesid
+where insurance.casesid = cases.id) AS DT
+WHERE RowNum = 2)) as Insurance_2_Subrogation_Lien_Total,
+(select top 1 data from insurance,user_insurance_data,user_case_fields where insurance.casesid = cases.id 
+and user_case_fields.id=user_insurance_data.usercasefieldid and insurance.id=user_insurance_data.insuranceid 
+and user_case_fields.field_title='Coverage Start Date' and insurance.id = (SELECT insurance.id
+FROM ( SELECT insurance.casesid, insurance.id, 
+       ROW_NUMBER( ) OVER ( ORDER BY insurance.casesid, insurance.id  ASC ) AS RowNum
+FROM insurance
+join cases c on c.id = insurance.casesid
+where insurance.casesid = cases.id) AS DT
+WHERE RowNum = 2)) as Insurance_2_Coverage_Start_Date,
+(select top 1 data from insurance,user_insurance_data,user_case_fields where insurance.casesid = cases.id 
+and user_case_fields.id=user_insurance_data.usercasefieldid and insurance.id=user_insurance_data.insuranceid 
+and user_case_fields.field_title='Coverage End Date' and insurance.id = (SELECT insurance.id
+FROM ( SELECT insurance.casesid, insurance.id, 
+       ROW_NUMBER( ) OVER ( ORDER BY insurance.casesid, insurance.id  ASC ) AS RowNum
+FROM insurance
+join cases c on c.id = insurance.casesid
+where insurance.casesid = cases.id) AS DT
+WHERE RowNum = 2)) as Insurance_2_Coverage_End_Date,
+(select top 1 data from insurance,user_insurance_data,user_case_fields where insurance.casesid = cases.id 
+and user_case_fields.id=user_insurance_data.usercasefieldid and insurance.id=user_insurance_data.insuranceid 
+and user_case_fields.field_title='GRG Services' and insurance.id = (SELECT insurance.id
+FROM ( SELECT insurance.casesid, insurance.id, 
+       ROW_NUMBER( ) OVER ( ORDER BY insurance.casesid, insurance.id  ASC ) AS RowNum
+FROM insurance
+join cases c on c.id = insurance.casesid
+where insurance.casesid = cases.id) AS DT
+WHERE RowNum = 2)) as Insurance_2_GRG_Services,
+(select top 1 data from insurance,user_insurance_data,user_case_fields where insurance.casesid = cases.id 
+and user_case_fields.id=user_insurance_data.usercasefieldid and insurance.id=user_insurance_data.insuranceid 
+and user_case_fields.field_title='Medicare' and insurance.id = (SELECT insurance.id
+FROM ( SELECT insurance.casesid, insurance.id, 
+       ROW_NUMBER( ) OVER ( ORDER BY insurance.casesid, insurance.id  ASC ) AS RowNum
+FROM insurance
+join cases c on c.id = insurance.casesid
+where insurance.casesid = cases.id) AS DT
+WHERE RowNum = 2)) as Insurance_2_Medicare,
+(select top 1 data from insurance,user_insurance_data,user_case_fields where insurance.casesid = cases.id 
+and user_case_fields.id=user_insurance_data.usercasefieldid and insurance.id=user_insurance_data.insuranceid 
+and user_case_fields.field_title='Medicaid' and insurance.id = (SELECT insurance.id
+FROM ( SELECT insurance.casesid, insurance.id, 
+       ROW_NUMBER( ) OVER ( ORDER BY insurance.casesid, insurance.id  ASC ) AS RowNum
+FROM insurance
+join cases c on c.id = insurance.casesid
+where insurance.casesid = cases.id) AS DT
+WHERE RowNum = 2)) as Insurance_2_Medicaid,
+(select top 1 data from insurance,user_insurance_data,user_case_fields where insurance.casesid = cases.id 
+and user_case_fields.id=user_insurance_data.usercasefieldid and insurance.id=user_insurance_data.insuranceid 
+and user_case_fields.field_title='Other Lien Type' and insurance.id = (SELECT insurance.id
+FROM ( SELECT insurance.casesid, insurance.id, 
+       ROW_NUMBER( ) OVER ( ORDER BY insurance.casesid, insurance.id  ASC ) AS RowNum
+FROM insurance
+join cases c on c.id = insurance.casesid
+where insurance.casesid = cases.id) AS DT
+WHERE RowNum = 2)) as Insurance_2_Other_Lien_Type,
+(select top 1 data from insurance,user_insurance_data,user_case_fields where insurance.casesid = cases.id 
+and user_case_fields.id=user_insurance_data.usercasefieldid and insurance.id=user_insurance_data.insuranceid 
+and user_case_fields.field_title='Private Health Plan' and insurance.id = (SELECT insurance.id
+FROM ( SELECT insurance.casesid, insurance.id, 
+       ROW_NUMBER( ) OVER ( ORDER BY insurance.casesid, insurance.id  ASC ) AS RowNum
+FROM insurance
+join cases c on c.id = insurance.casesid
+where insurance.casesid = cases.id) AS DT
+WHERE RowNum = 2)) as Insurance_2_Private_Health_Plan,
+(select top 1 data from insurance,user_insurance_data,user_case_fields where insurance.casesid = cases.id 
+and user_case_fields.id=user_insurance_data.usercasefieldid and insurance.id=user_insurance_data.insuranceid 
+and user_case_fields.field_title='Corresp w Lienholder' and insurance.id = (SELECT insurance.id
+FROM ( SELECT insurance.casesid, insurance.id, 
+       ROW_NUMBER( ) OVER ( ORDER BY insurance.casesid, insurance.id  ASC ) AS RowNum
+FROM insurance
+join cases c on c.id = insurance.casesid
+where insurance.casesid = cases.id) AS DT
+WHERE RowNum = 2)) as Insurance_2_Corresp_w_Lienholder,
+(select top 1 data from insurance,user_insurance_data,user_case_fields where insurance.casesid = cases.id 
+and user_case_fields.id=user_insurance_data.usercasefieldid and insurance.id=user_insurance_data.insuranceid 
+and user_case_fields.field_title='VA/Tricare/Government' and insurance.id = (SELECT insurance.id
+FROM ( SELECT insurance.casesid, insurance.id, 
+       ROW_NUMBER( ) OVER ( ORDER BY insurance.casesid, insurance.id  ASC ) AS RowNum
+FROM insurance
+join cases c on c.id = insurance.casesid
+where insurance.casesid = cases.id) AS DT
+WHERE RowNum = 2)) as Insurance_2_VA_Tricare_Government,
+(select top 1 data from insurance,user_insurance_data,user_case_fields where insurance.casesid = cases.id 
+and user_case_fields.id=user_insurance_data.usercasefieldid and insurance.id=user_insurance_data.insuranceid 
+and user_case_fields.field_title='Lienholder Notified' and insurance.id = (SELECT insurance.id
+FROM ( SELECT insurance.casesid, insurance.id, 
+       ROW_NUMBER( ) OVER ( ORDER BY insurance.casesid, insurance.id  ASC ) AS RowNum
+FROM insurance
+join cases c on c.id = insurance.casesid
+where insurance.casesid = cases.id) AS DT
+WHERE RowNum = 2)) as Insurance_2_Lienholder_Notified,
+
+
+--- insu 3
+(select top 1 names.fullname_lastfirst from insurance,names where insurance.casesid = cases.id and names.id = insurance.insurer_namesid and insurance.id = 
+(SELECT insurance.id
+FROM ( SELECT insurance.casesid, insurance.id, 
+       ROW_NUMBER( ) OVER ( ORDER BY insurance.casesid, insurance.id  ASC ) AS RowNum
+FROM insurance
+join cases c on c.id = insurance.casesid
+where insurance.casesid = cases.id) AS DT
+WHERE RowNum = 3)) as Insurance_3_Insurer,
+(select top 1 insurance.comments from insurance where insurance.casesid = cases.id and insurance.id = 
+(SELECT insurance.id
+FROM ( SELECT insurance.casesid, insurance.id, 
+       ROW_NUMBER( ) OVER ( ORDER BY insurance.casesid, insurance.id  ASC ) AS RowNum
+FROM insurance
+join cases c on c.id = insurance.casesid
+where insurance.casesid = cases.id) AS DT
+WHERE RowNum = 3)) as Insurance_3_Notes,
+(select top 1 names.fullname_lastfirst from insurance,names where insurance.casesid = cases.id and names.id = insurance.adjuster_namesid and insurance.id = 
+(SELECT insurance.id
+FROM ( SELECT insurance.casesid, insurance.id, 
+       ROW_NUMBER( ) OVER ( ORDER BY insurance.casesid, insurance.id  ASC ) AS RowNum
+FROM insurance
+join cases c on c.id = insurance.casesid
+where insurance.casesid = cases.id) AS DT
+WHERE RowNum = 3)) as Insurance_3_Adjuster,
+(select top 1 names.fullname_lastfirst from insurance,names where insurance.casesid = cases.id and names.id = party.namesid and insurance.partyid=party.id and insurance.id = 
+(SELECT insurance.id
+FROM ( SELECT insurance.casesid, insurance.id, 
+       ROW_NUMBER( ) OVER ( ORDER BY insurance.casesid, insurance.id  ASC ) AS RowNum
+FROM insurance
+join cases c on c.id = insurance.casesid
+where insurance.casesid = cases.id) AS DT
+WHERE RowNum = 3)) as Insurance_3_Party,
+(select top 1 insurance_type.type from insurance,insurance_type where insurance.casesid = cases.id and insurance.insurancetypeid=insurance_type.id and insurance.id = 
+(SELECT insurance.id
+FROM ( SELECT insurance.casesid, insurance.id, 
+       ROW_NUMBER( ) OVER ( ORDER BY insurance.casesid, insurance.id  ASC ) AS RowNum
+FROM insurance
+join cases c on c.id = insurance.casesid
+where insurance.casesid = cases.id) AS DT
+WHERE RowNum = 3)) as Insurance_3_Type,
+(select top 1 insurance.agent from insurance where insurance.casesid = cases.id and insurance.id = 
+(SELECT insurance.id
+FROM ( SELECT insurance.casesid, insurance.id, 
+       ROW_NUMBER( ) OVER ( ORDER BY insurance.casesid, insurance.id  ASC ) AS RowNum
+FROM insurance
+join cases c on c.id = insurance.casesid
+where insurance.casesid = cases.id) AS DT
+WHERE RowNum = 3)) as Insurance_3_Agent,
+(select top 1 insurance.policy from insurance where insurance.casesid = cases.id and insurance.id = 
+(SELECT insurance.id
+FROM ( SELECT insurance.casesid, insurance.id, 
+       ROW_NUMBER( ) OVER ( ORDER BY insurance.casesid, insurance.id  ASC ) AS RowNum
+FROM insurance
+join cases c on c.id = insurance.casesid
+where insurance.casesid = cases.id) AS DT
+WHERE RowNum = 3)) as Insurance_3_policy,
+(select top 1 insurance.claim from insurance where insurance.casesid = cases.id and insurance.id = 
+(SELECT insurance.id
+FROM ( SELECT insurance.casesid, insurance.id, 
+       ROW_NUMBER( ) OVER ( ORDER BY insurance.casesid, insurance.id  ASC ) AS RowNum
+FROM insurance
+join cases c on c.id = insurance.casesid
+where insurance.casesid = cases.id) AS DT
+WHERE RowNum = 3)) as Insurance_3_Claim,
+(select top 1 insurance.insured from insurance where insurance.casesid = cases.id and insurance.id = 
+(SELECT insurance.id
+FROM ( SELECT insurance.casesid, insurance.id, 
+       ROW_NUMBER( ) OVER ( ORDER BY insurance.casesid, insurance.id  ASC ) AS RowNum
+FROM insurance
+join cases c on c.id = insurance.casesid
+where insurance.casesid = cases.id) AS DT
+WHERE RowNum = 3)) as Insurance_3_insured,
+(select top 1 data from insurance,user_insurance_data,user_case_fields where insurance.casesid = cases.id 
+and user_case_fields.id=user_insurance_data.usercasefieldid and insurance.id=user_insurance_data.insuranceid 
+and user_case_fields.field_title='Subrogation Lien Total' and insurance.id = (SELECT insurance.id
+FROM ( SELECT insurance.casesid, insurance.id, 
+       ROW_NUMBER( ) OVER ( ORDER BY insurance.casesid, insurance.id  ASC ) AS RowNum
+FROM insurance
+join cases c on c.id = insurance.casesid
+where insurance.casesid = cases.id) AS DT
+WHERE RowNum = 3)) as Insurance_3_Subrogation_Lien_Total,
+(select top 1 data from insurance,user_insurance_data,user_case_fields where insurance.casesid = cases.id 
+and user_case_fields.id=user_insurance_data.usercasefieldid and insurance.id=user_insurance_data.insuranceid 
+and user_case_fields.field_title='Coverage Start Date' and insurance.id = (SELECT insurance.id
+FROM ( SELECT insurance.casesid, insurance.id, 
+       ROW_NUMBER( ) OVER ( ORDER BY insurance.casesid, insurance.id  ASC ) AS RowNum
+FROM insurance
+join cases c on c.id = insurance.casesid
+where insurance.casesid = cases.id) AS DT
+WHERE RowNum = 3)) as Insurance_3_Coverage_Start_Date,
+(select top 1 data from insurance,user_insurance_data,user_case_fields where insurance.casesid = cases.id 
+and user_case_fields.id=user_insurance_data.usercasefieldid and insurance.id=user_insurance_data.insuranceid 
+and user_case_fields.field_title='Coverage End Date' and insurance.id = (SELECT insurance.id
+FROM ( SELECT insurance.casesid, insurance.id, 
+       ROW_NUMBER( ) OVER ( ORDER BY insurance.casesid, insurance.id  ASC ) AS RowNum
+FROM insurance
+join cases c on c.id = insurance.casesid
+where insurance.casesid = cases.id) AS DT
+WHERE RowNum = 3)) as Insurance_3_Coverage_End_Date,
+(select top 1 data from insurance,user_insurance_data,user_case_fields where insurance.casesid = cases.id 
+and user_case_fields.id=user_insurance_data.usercasefieldid and insurance.id=user_insurance_data.insuranceid 
+and user_case_fields.field_title='GRG Services' and insurance.id = (SELECT insurance.id
+FROM ( SELECT insurance.casesid, insurance.id, 
+       ROW_NUMBER( ) OVER ( ORDER BY insurance.casesid, insurance.id  ASC ) AS RowNum
+FROM insurance
+join cases c on c.id = insurance.casesid
+where insurance.casesid = cases.id) AS DT
+WHERE RowNum = 3)) as Insurance_3_GRG_Services,
+(select top 1 data from insurance,user_insurance_data,user_case_fields where insurance.casesid = cases.id 
+and user_case_fields.id=user_insurance_data.usercasefieldid and insurance.id=user_insurance_data.insuranceid 
+and user_case_fields.field_title='Medicare' and insurance.id = (SELECT insurance.id
+FROM ( SELECT insurance.casesid, insurance.id, 
+       ROW_NUMBER( ) OVER ( ORDER BY insurance.casesid, insurance.id  ASC ) AS RowNum
+FROM insurance
+join cases c on c.id = insurance.casesid
+where insurance.casesid = cases.id) AS DT
+WHERE RowNum = 3)) as Insurance_3_Medicare,
+(select top 1 data from insurance,user_insurance_data,user_case_fields where insurance.casesid = cases.id 
+and user_case_fields.id=user_insurance_data.usercasefieldid and insurance.id=user_insurance_data.insuranceid 
+and user_case_fields.field_title='Medicaid' and insurance.id = (SELECT insurance.id
+FROM ( SELECT insurance.casesid, insurance.id, 
+       ROW_NUMBER( ) OVER ( ORDER BY insurance.casesid, insurance.id  ASC ) AS RowNum
+FROM insurance
+join cases c on c.id = insurance.casesid
+where insurance.casesid = cases.id) AS DT
+WHERE RowNum = 3)) as Insurance_3_Medicaid,
+(select top 1 data from insurance,user_insurance_data,user_case_fields where insurance.casesid = cases.id 
+and user_case_fields.id=user_insurance_data.usercasefieldid and insurance.id=user_insurance_data.insuranceid 
+and user_case_fields.field_title='Other Lien Type' and insurance.id = (SELECT insurance.id
+FROM ( SELECT insurance.casesid, insurance.id, 
+       ROW_NUMBER( ) OVER ( ORDER BY insurance.casesid, insurance.id  ASC ) AS RowNum
+FROM insurance
+join cases c on c.id = insurance.casesid
+where insurance.casesid = cases.id) AS DT
+WHERE RowNum = 3)) as Insurance_3_Other_Lien_Type,
+(select top 1 data from insurance,user_insurance_data,user_case_fields where insurance.casesid = cases.id 
+and user_case_fields.id=user_insurance_data.usercasefieldid and insurance.id=user_insurance_data.insuranceid 
+and user_case_fields.field_title='Private Health Plan' and insurance.id = (SELECT insurance.id
+FROM ( SELECT insurance.casesid, insurance.id, 
+       ROW_NUMBER( ) OVER ( ORDER BY insurance.casesid, insurance.id  ASC ) AS RowNum
+FROM insurance
+join cases c on c.id = insurance.casesid
+where insurance.casesid = cases.id) AS DT
+WHERE RowNum = 3)) as Insurance_3_Private_Health_Plan,
+(select top 1 data from insurance,user_insurance_data,user_case_fields where insurance.casesid = cases.id 
+and user_case_fields.id=user_insurance_data.usercasefieldid and insurance.id=user_insurance_data.insuranceid 
+and user_case_fields.field_title='Corresp w Lienholder' and insurance.id = (SELECT insurance.id
+FROM ( SELECT insurance.casesid, insurance.id, 
+       ROW_NUMBER( ) OVER ( ORDER BY insurance.casesid, insurance.id  ASC ) AS RowNum
+FROM insurance
+join cases c on c.id = insurance.casesid
+where insurance.casesid = cases.id) AS DT
+WHERE RowNum = 3)) as Insurance_3_Corresp_w_Lienholder,
+(select top 1 data from insurance,user_insurance_data,user_case_fields where insurance.casesid = cases.id 
+and user_case_fields.id=user_insurance_data.usercasefieldid and insurance.id=user_insurance_data.insuranceid 
+and user_case_fields.field_title='VA/Tricare/Government' and insurance.id = (SELECT insurance.id
+FROM ( SELECT insurance.casesid, insurance.id, 
+       ROW_NUMBER( ) OVER ( ORDER BY insurance.casesid, insurance.id  ASC ) AS RowNum
+FROM insurance
+join cases c on c.id = insurance.casesid
+where insurance.casesid = cases.id) AS DT
+WHERE RowNum = 3)) as Insurance_3_VA_Tricare_Government,
+(select top 1 data from insurance,user_insurance_data,user_case_fields where insurance.casesid = cases.id 
+and user_case_fields.id=user_insurance_data.usercasefieldid and insurance.id=user_insurance_data.insuranceid 
+and user_case_fields.field_title='Lienholder Notified' and insurance.id = (SELECT insurance.id
+FROM ( SELECT insurance.casesid, insurance.id, 
+       ROW_NUMBER( ) OVER ( ORDER BY insurance.casesid, insurance.id  ASC ) AS RowNum
+FROM insurance
+join cases c on c.id = insurance.casesid
+where insurance.casesid = cases.id) AS DT
+WHERE RowNum = 3)) as Insurance_3_Lienholder_Notified,
+
+--------insu 4
+(select top 1 names.fullname_lastfirst from insurance,names where insurance.casesid = cases.id and names.id = insurance.insurer_namesid and insurance.id = 
+(SELECT insurance.id
+FROM ( SELECT insurance.casesid, insurance.id, 
+       ROW_NUMBER( ) OVER ( ORDER BY insurance.casesid, insurance.id  ASC ) AS RowNum
+FROM insurance
+join cases c on c.id = insurance.casesid
+where insurance.casesid = cases.id) AS DT
+WHERE RowNum = 4)) as Insurance_4_Insurer,
+(select top 1 insurance.comments from insurance where insurance.casesid = cases.id and insurance.id = 
+(SELECT insurance.id
+FROM ( SELECT insurance.casesid, insurance.id, 
+       ROW_NUMBER( ) OVER ( ORDER BY insurance.casesid, insurance.id  ASC ) AS RowNum
+FROM insurance
+join cases c on c.id = insurance.casesid
+where insurance.casesid = cases.id) AS DT
+WHERE RowNum = 4)) as Insurance_4_Notes,
+(select top 1 names.fullname_lastfirst from insurance,names where insurance.casesid = cases.id and names.id = insurance.adjuster_namesid and insurance.id = 
+(SELECT insurance.id
+FROM ( SELECT insurance.casesid, insurance.id, 
+       ROW_NUMBER( ) OVER ( ORDER BY insurance.casesid, insurance.id  ASC ) AS RowNum
+FROM insurance
+join cases c on c.id = insurance.casesid
+where insurance.casesid = cases.id) AS DT
+WHERE RowNum = 4)) as Insurance_4_Adjuster,
+(select top 1 names.fullname_lastfirst from insurance,names where insurance.casesid = cases.id and names.id = party.namesid and insurance.partyid=party.id and insurance.id = 
+(SELECT insurance.id
+FROM ( SELECT insurance.casesid, insurance.id, 
+       ROW_NUMBER( ) OVER ( ORDER BY insurance.casesid, insurance.id  ASC ) AS RowNum
+FROM insurance
+join cases c on c.id = insurance.casesid
+where insurance.casesid = cases.id) AS DT
+WHERE RowNum = 4)) as Insurance_4_Party,
+(select top 1 insurance_type.type from insurance,insurance_type where insurance.casesid = cases.id and insurance.insurancetypeid=insurance_type.id and insurance.id = 
+(SELECT insurance.id
+FROM ( SELECT insurance.casesid, insurance.id, 
+       ROW_NUMBER( ) OVER ( ORDER BY insurance.casesid, insurance.id  ASC ) AS RowNum
+FROM insurance
+join cases c on c.id = insurance.casesid
+where insurance.casesid = cases.id) AS DT
+WHERE RowNum = 4)) as Insurance_4_Type,
+(select top 1 insurance.agent from insurance where insurance.casesid = cases.id and insurance.id = 
+(SELECT insurance.id
+FROM ( SELECT insurance.casesid, insurance.id, 
+       ROW_NUMBER( ) OVER ( ORDER BY insurance.casesid, insurance.id  ASC ) AS RowNum
+FROM insurance
+join cases c on c.id = insurance.casesid
+where insurance.casesid = cases.id) AS DT
+WHERE RowNum = 4)) as Insurance_4_Agent,
+(select top 1 insurance.policy from insurance where insurance.casesid = cases.id and insurance.id = 
+(SELECT insurance.id
+FROM ( SELECT insurance.casesid, insurance.id, 
+       ROW_NUMBER( ) OVER ( ORDER BY insurance.casesid, insurance.id  ASC ) AS RowNum
+FROM insurance
+join cases c on c.id = insurance.casesid
+where insurance.casesid = cases.id) AS DT
+WHERE RowNum = 4)) as Insurance_4_policy,
+(select top 1 insurance.claim from insurance where insurance.casesid = cases.id and insurance.id = 
+(SELECT insurance.id
+FROM ( SELECT insurance.casesid, insurance.id, 
+       ROW_NUMBER( ) OVER ( ORDER BY insurance.casesid, insurance.id  ASC ) AS RowNum
+FROM insurance
+join cases c on c.id = insurance.casesid
+where insurance.casesid = cases.id) AS DT
+WHERE RowNum = 4)) as Insurance_4_Claim,
+(select top 1 insurance.insured from insurance where insurance.casesid = cases.id and insurance.id = 
+(SELECT insurance.id
+FROM ( SELECT insurance.casesid, insurance.id, 
+       ROW_NUMBER( ) OVER ( ORDER BY insurance.casesid, insurance.id  ASC ) AS RowNum
+FROM insurance
+join cases c on c.id = insurance.casesid
+where insurance.casesid = cases.id) AS DT
+WHERE RowNum = 4)) as Insurance_4_insured,
+(select top 1 data from insurance,user_insurance_data,user_case_fields where insurance.casesid = cases.id 
+and user_case_fields.id=user_insurance_data.usercasefieldid and insurance.id=user_insurance_data.insuranceid 
+and user_case_fields.field_title='Subrogation Lien Total' and insurance.id = (SELECT insurance.id
+FROM ( SELECT insurance.casesid, insurance.id, 
+       ROW_NUMBER( ) OVER ( ORDER BY insurance.casesid, insurance.id  ASC ) AS RowNum
+FROM insurance
+join cases c on c.id = insurance.casesid
+where insurance.casesid = cases.id) AS DT
+WHERE RowNum = 4)) as Insurance_4_Subrogation_Lien_Total,
+(select top 1 data from insurance,user_insurance_data,user_case_fields where insurance.casesid = cases.id 
+and user_case_fields.id=user_insurance_data.usercasefieldid and insurance.id=user_insurance_data.insuranceid 
+and user_case_fields.field_title='Coverage Start Date' and insurance.id = (SELECT insurance.id
+FROM ( SELECT insurance.casesid, insurance.id, 
+       ROW_NUMBER( ) OVER ( ORDER BY insurance.casesid, insurance.id  ASC ) AS RowNum
+FROM insurance
+join cases c on c.id = insurance.casesid
+where insurance.casesid = cases.id) AS DT
+WHERE RowNum = 4)) as Insurance_4_Coverage_Start_Date,
+(select top 1 data from insurance,user_insurance_data,user_case_fields where insurance.casesid = cases.id 
+and user_case_fields.id=user_insurance_data.usercasefieldid and insurance.id=user_insurance_data.insuranceid 
+and user_case_fields.field_title='Coverage End Date' and insurance.id = (SELECT insurance.id
+FROM ( SELECT insurance.casesid, insurance.id, 
+       ROW_NUMBER( ) OVER ( ORDER BY insurance.casesid, insurance.id  ASC ) AS RowNum
+FROM insurance
+join cases c on c.id = insurance.casesid
+where insurance.casesid = cases.id) AS DT
+WHERE RowNum = 4)) as Insurance_4_Coverage_End_Date,
+(select top 1 data from insurance,user_insurance_data,user_case_fields where insurance.casesid = cases.id 
+and user_case_fields.id=user_insurance_data.usercasefieldid and insurance.id=user_insurance_data.insuranceid 
+and user_case_fields.field_title='GRG Services' and insurance.id = (SELECT insurance.id
+FROM ( SELECT insurance.casesid, insurance.id, 
+       ROW_NUMBER( ) OVER ( ORDER BY insurance.casesid, insurance.id  ASC ) AS RowNum
+FROM insurance
+join cases c on c.id = insurance.casesid
+where insurance.casesid = cases.id) AS DT
+WHERE RowNum = 4)) as Insurance_4_GRG_Services,
+(select top 1 data from insurance,user_insurance_data,user_case_fields where insurance.casesid = cases.id 
+and user_case_fields.id=user_insurance_data.usercasefieldid and insurance.id=user_insurance_data.insuranceid 
+and user_case_fields.field_title='Medicare' and insurance.id = (SELECT insurance.id
+FROM ( SELECT insurance.casesid, insurance.id, 
+       ROW_NUMBER( ) OVER ( ORDER BY insurance.casesid, insurance.id  ASC ) AS RowNum
+FROM insurance
+join cases c on c.id = insurance.casesid
+where insurance.casesid = cases.id) AS DT
+WHERE RowNum = 4)) as Insurance_4_Medicare,
+(select top 1 data from insurance,user_insurance_data,user_case_fields where insurance.casesid = cases.id 
+and user_case_fields.id=user_insurance_data.usercasefieldid and insurance.id=user_insurance_data.insuranceid 
+and user_case_fields.field_title='Medicaid' and insurance.id = (SELECT insurance.id
+FROM ( SELECT insurance.casesid, insurance.id, 
+       ROW_NUMBER( ) OVER ( ORDER BY insurance.casesid, insurance.id  ASC ) AS RowNum
+FROM insurance
+join cases c on c.id = insurance.casesid
+where insurance.casesid = cases.id) AS DT
+WHERE RowNum = 4)) as Insurance_1_Medicaid,
+(select top 1 data from insurance,user_insurance_data,user_case_fields where insurance.casesid = cases.id 
+and user_case_fields.id=user_insurance_data.usercasefieldid and insurance.id=user_insurance_data.insuranceid 
+and user_case_fields.field_title='Other Lien Type' and insurance.id = (SELECT insurance.id
+FROM ( SELECT insurance.casesid, insurance.id, 
+       ROW_NUMBER( ) OVER ( ORDER BY insurance.casesid, insurance.id  ASC ) AS RowNum
+FROM insurance
+join cases c on c.id = insurance.casesid
+where insurance.casesid = cases.id) AS DT
+WHERE RowNum = 4)) as Insurance_4_Other_Lien_Type,
+(select top 1 data from insurance,user_insurance_data,user_case_fields where insurance.casesid = cases.id 
+and user_case_fields.id=user_insurance_data.usercasefieldid and insurance.id=user_insurance_data.insuranceid 
+and user_case_fields.field_title='Private Health Plan' and insurance.id = (SELECT insurance.id
+FROM ( SELECT insurance.casesid, insurance.id, 
+       ROW_NUMBER( ) OVER ( ORDER BY insurance.casesid, insurance.id  ASC ) AS RowNum
+FROM insurance
+join cases c on c.id = insurance.casesid
+where insurance.casesid = cases.id) AS DT
+WHERE RowNum = 4)) as Insurance_4_Private_Health_Plan,
+(select top 1 data from insurance,user_insurance_data,user_case_fields where insurance.casesid = cases.id 
+and user_case_fields.id=user_insurance_data.usercasefieldid and insurance.id=user_insurance_data.insuranceid 
+and user_case_fields.field_title='Corresp w Lienholder' and insurance.id = (SELECT insurance.id
+FROM ( SELECT insurance.casesid, insurance.id, 
+       ROW_NUMBER( ) OVER ( ORDER BY insurance.casesid, insurance.id  ASC ) AS RowNum
+FROM insurance
+join cases c on c.id = insurance.casesid
+where insurance.casesid = cases.id) AS DT
+WHERE RowNum = 4)) as Insurance_4_Corresp_w_Lienholder,
+(select top 1 data from insurance,user_insurance_data,user_case_fields where insurance.casesid = cases.id 
+and user_case_fields.id=user_insurance_data.usercasefieldid and insurance.id=user_insurance_data.insuranceid 
+and user_case_fields.field_title='VA/Tricare/Government' and insurance.id = (SELECT insurance.id
+FROM ( SELECT insurance.casesid, insurance.id, 
+       ROW_NUMBER( ) OVER ( ORDER BY insurance.casesid, insurance.id  ASC ) AS RowNum
+FROM insurance
+join cases c on c.id = insurance.casesid
+where insurance.casesid = cases.id) AS DT
+WHERE RowNum = 4)) as Insurance_4_VA_Tricare_Government,
+(select top 1 data from insurance,user_insurance_data,user_case_fields where insurance.casesid = cases.id 
+and user_case_fields.id=user_insurance_data.usercasefieldid and insurance.id=user_insurance_data.insuranceid 
+and user_case_fields.field_title='Lienholder Notified' and insurance.id = (SELECT insurance.id
+FROM ( SELECT insurance.casesid, insurance.id, 
+       ROW_NUMBER( ) OVER ( ORDER BY insurance.casesid, insurance.id  ASC ) AS RowNum
+FROM insurance
+join cases c on c.id = insurance.casesid
+where insurance.casesid = cases.id) AS DT
+WHERE RowNum = 4)) as Insurance_4_Lienholder_Notified,
+
+
+(select top 1 names.fullname_lastfirst from insurance,names where insurance.casesid = cases.id and names.id = insurance.insurer_namesid and insurance.id = 
+(SELECT insurance.id
+FROM ( SELECT insurance.casesid, insurance.id, 
+       ROW_NUMBER( ) OVER ( ORDER BY insurance.casesid, insurance.id  ASC ) AS RowNum
+FROM insurance
+join cases c on c.id = insurance.casesid
+where insurance.casesid = cases.id) AS DT
+WHERE RowNum = 5)) as Insurance_5_Insurer,
+(select top 1 insurance.comments from insurance where insurance.casesid = cases.id and insurance.id = 
+(SELECT insurance.id
+FROM ( SELECT insurance.casesid, insurance.id, 
+       ROW_NUMBER( ) OVER ( ORDER BY insurance.casesid, insurance.id  ASC ) AS RowNum
+FROM insurance
+join cases c on c.id = insurance.casesid
+where insurance.casesid = cases.id) AS DT
+WHERE RowNum = 5)) as Insurance_5_Notes,
+(select top 1 names.fullname_lastfirst from insurance,names where insurance.casesid = cases.id and names.id = insurance.adjuster_namesid and insurance.id = 
+(SELECT insurance.id
+FROM ( SELECT insurance.casesid, insurance.id, 
+       ROW_NUMBER( ) OVER ( ORDER BY insurance.casesid, insurance.id  ASC ) AS RowNum
+FROM insurance
+join cases c on c.id = insurance.casesid
+where insurance.casesid = cases.id) AS DT
+WHERE RowNum = 5)) as Insurance_5_Adjuster,
+(select top 1 names.fullname_lastfirst from insurance,names where insurance.casesid = cases.id and names.id = party.namesid and insurance.partyid=party.id and insurance.id = 
+(SELECT insurance.id
+FROM ( SELECT insurance.casesid, insurance.id, 
+       ROW_NUMBER( ) OVER ( ORDER BY insurance.casesid, insurance.id  ASC ) AS RowNum
+FROM insurance
+join cases c on c.id = insurance.casesid
+where insurance.casesid = cases.id) AS DT
+WHERE RowNum = 5)) as Insurance_5_Party,
+(select top 1 insurance_type.type from insurance,insurance_type where insurance.casesid = cases.id and insurance.insurancetypeid=insurance_type.id and insurance.id = 
+(SELECT insurance.id
+FROM ( SELECT insurance.casesid, insurance.id, 
+       ROW_NUMBER( ) OVER ( ORDER BY insurance.casesid, insurance.id  ASC ) AS RowNum
+FROM insurance
+join cases c on c.id = insurance.casesid
+where insurance.casesid = cases.id) AS DT
+WHERE RowNum = 5)) as Insurance_5_Type,
+(select top 1 insurance.agent from insurance where insurance.casesid = cases.id and insurance.id = 
+(SELECT insurance.id
+FROM ( SELECT insurance.casesid, insurance.id, 
+       ROW_NUMBER( ) OVER ( ORDER BY insurance.casesid, insurance.id  ASC ) AS RowNum
+FROM insurance
+join cases c on c.id = insurance.casesid
+where insurance.casesid = cases.id) AS DT
+WHERE RowNum = 5)) as Insurance_5_Agent,
+(select top 1 insurance.policy from insurance where insurance.casesid = cases.id and insurance.id = 
+(SELECT insurance.id
+FROM ( SELECT insurance.casesid, insurance.id, 
+       ROW_NUMBER( ) OVER ( ORDER BY insurance.casesid, insurance.id  ASC ) AS RowNum
+FROM insurance
+join cases c on c.id = insurance.casesid
+where insurance.casesid = cases.id) AS DT
+WHERE RowNum = 5)) as Insurance_5_policy,
+(select top 1 insurance.claim from insurance where insurance.casesid = cases.id and insurance.id = 
+(SELECT insurance.id
+FROM ( SELECT insurance.casesid, insurance.id, 
+       ROW_NUMBER( ) OVER ( ORDER BY insurance.casesid, insurance.id  ASC ) AS RowNum
+FROM insurance
+join cases c on c.id = insurance.casesid
+where insurance.casesid = cases.id) AS DT
+WHERE RowNum = 5)) as Insurance_5_Claim,
+(select top 1 insurance.insured from insurance where insurance.casesid = cases.id and insurance.id = 
+(SELECT insurance.id
+FROM ( SELECT insurance.casesid, insurance.id, 
+       ROW_NUMBER( ) OVER ( ORDER BY insurance.casesid, insurance.id  ASC ) AS RowNum
+FROM insurance
+join cases c on c.id = insurance.casesid
+where insurance.casesid = cases.id) AS DT
+WHERE RowNum = 5)) as Insurance_5_insured,
+(select top 1 data from insurance,user_insurance_data,user_case_fields where insurance.casesid = cases.id 
+and user_case_fields.id=user_insurance_data.usercasefieldid and insurance.id=user_insurance_data.insuranceid 
+and user_case_fields.field_title='Subrogation Lien Total' and insurance.id = (SELECT insurance.id
+FROM ( SELECT insurance.casesid, insurance.id, 
+       ROW_NUMBER( ) OVER ( ORDER BY insurance.casesid, insurance.id  ASC ) AS RowNum
+FROM insurance
+join cases c on c.id = insurance.casesid
+where insurance.casesid = cases.id) AS DT
+WHERE RowNum = 5)) as Insurance_5_Subrogation_Lien_Total,
+(select top 1 data from insurance,user_insurance_data,user_case_fields where insurance.casesid = cases.id 
+and user_case_fields.id=user_insurance_data.usercasefieldid and insurance.id=user_insurance_data.insuranceid 
+and user_case_fields.field_title='Coverage Start Date' and insurance.id = (SELECT insurance.id
+FROM ( SELECT insurance.casesid, insurance.id, 
+       ROW_NUMBER( ) OVER ( ORDER BY insurance.casesid, insurance.id  ASC ) AS RowNum
+FROM insurance
+join cases c on c.id = insurance.casesid
+where insurance.casesid = cases.id) AS DT
+WHERE RowNum = 5)) as Insurance_5_Coverage_Start_Date,
+(select top 1 data from insurance,user_insurance_data,user_case_fields where insurance.casesid = cases.id 
+and user_case_fields.id=user_insurance_data.usercasefieldid and insurance.id=user_insurance_data.insuranceid 
+and user_case_fields.field_title='Coverage End Date' and insurance.id = (SELECT insurance.id
+FROM ( SELECT insurance.casesid, insurance.id, 
+       ROW_NUMBER( ) OVER ( ORDER BY insurance.casesid, insurance.id  ASC ) AS RowNum
+FROM insurance
+join cases c on c.id = insurance.casesid
+where insurance.casesid = cases.id) AS DT
+WHERE RowNum = 5)) as Insurance_5_Coverage_End_Date,
+(select top 1 data from insurance,user_insurance_data,user_case_fields where insurance.casesid = cases.id 
+and user_case_fields.id=user_insurance_data.usercasefieldid and insurance.id=user_insurance_data.insuranceid 
+and user_case_fields.field_title='GRG Services' and insurance.id = (SELECT insurance.id
+FROM ( SELECT insurance.casesid, insurance.id, 
+       ROW_NUMBER( ) OVER ( ORDER BY insurance.casesid, insurance.id  ASC ) AS RowNum
+FROM insurance
+join cases c on c.id = insurance.casesid
+where insurance.casesid = cases.id) AS DT
+WHERE RowNum = 5)) as Insurance_5_GRG_Services,
+(select top 1 data from insurance,user_insurance_data,user_case_fields where insurance.casesid = cases.id 
+and user_case_fields.id=user_insurance_data.usercasefieldid and insurance.id=user_insurance_data.insuranceid 
+and user_case_fields.field_title='Medicare' and insurance.id = (SELECT insurance.id
+FROM ( SELECT insurance.casesid, insurance.id, 
+       ROW_NUMBER( ) OVER ( ORDER BY insurance.casesid, insurance.id  ASC ) AS RowNum
+FROM insurance
+join cases c on c.id = insurance.casesid
+where insurance.casesid = cases.id) AS DT
+WHERE RowNum = 5)) as Insurance_5_Medicare,
+(select top 1 data from insurance,user_insurance_data,user_case_fields where insurance.casesid = cases.id 
+and user_case_fields.id=user_insurance_data.usercasefieldid and insurance.id=user_insurance_data.insuranceid 
+and user_case_fields.field_title='Medicaid' and insurance.id = (SELECT insurance.id
+FROM ( SELECT insurance.casesid, insurance.id, 
+       ROW_NUMBER( ) OVER ( ORDER BY insurance.casesid, insurance.id  ASC ) AS RowNum
+FROM insurance
+join cases c on c.id = insurance.casesid
+where insurance.casesid = cases.id) AS DT
+WHERE RowNum = 5)) as Insurance_5_Medicaid,
+(select top 1 data from insurance,user_insurance_data,user_case_fields where insurance.casesid = cases.id 
+and user_case_fields.id=user_insurance_data.usercasefieldid and insurance.id=user_insurance_data.insuranceid 
+and user_case_fields.field_title='Other Lien Type' and insurance.id = (SELECT insurance.id
+FROM ( SELECT insurance.casesid, insurance.id, 
+       ROW_NUMBER( ) OVER ( ORDER BY insurance.casesid, insurance.id  ASC ) AS RowNum
+FROM insurance
+join cases c on c.id = insurance.casesid
+where insurance.casesid = cases.id) AS DT
+WHERE RowNum = 5)) as Insurance_5_Other_Lien_Type,
+(select top 1 data from insurance,user_insurance_data,user_case_fields where insurance.casesid = cases.id 
+and user_case_fields.id=user_insurance_data.usercasefieldid and insurance.id=user_insurance_data.insuranceid 
+and user_case_fields.field_title='Private Health Plan' and insurance.id = (SELECT insurance.id
+FROM ( SELECT insurance.casesid, insurance.id, 
+       ROW_NUMBER( ) OVER ( ORDER BY insurance.casesid, insurance.id  ASC ) AS RowNum
+FROM insurance
+join cases c on c.id = insurance.casesid
+where insurance.casesid = cases.id) AS DT
+WHERE RowNum = 5)) as Insurance_5_Private_Health_Plan,
+(select top 1 data from insurance,user_insurance_data,user_case_fields where insurance.casesid = cases.id 
+and user_case_fields.id=user_insurance_data.usercasefieldid and insurance.id=user_insurance_data.insuranceid 
+and user_case_fields.field_title='Corresp w Lienholder' and insurance.id = (SELECT insurance.id
+FROM ( SELECT insurance.casesid, insurance.id, 
+       ROW_NUMBER( ) OVER ( ORDER BY insurance.casesid, insurance.id  ASC ) AS RowNum
+FROM insurance
+join cases c on c.id = insurance.casesid
+where insurance.casesid = cases.id) AS DT
+WHERE RowNum = 5)) as Insurance_5_Corresp_w_Lienholder,
+(select top 1 data from insurance,user_insurance_data,user_case_fields where insurance.casesid = cases.id 
+and user_case_fields.id=user_insurance_data.usercasefieldid and insurance.id=user_insurance_data.insuranceid 
+and user_case_fields.field_title='VA/Tricare/Government' and insurance.id = (SELECT insurance.id
+FROM ( SELECT insurance.casesid, insurance.id, 
+       ROW_NUMBER( ) OVER ( ORDER BY insurance.casesid, insurance.id  ASC ) AS RowNum
+FROM insurance
+join cases c on c.id = insurance.casesid
+where insurance.casesid = cases.id) AS DT
+WHERE RowNum = 5)) as Insurance_5_VA_Tricare_Government,
+(select top 1 data from insurance,user_insurance_data,user_case_fields where insurance.casesid = cases.id 
+and user_case_fields.id=user_insurance_data.usercasefieldid and insurance.id=user_insurance_data.insuranceid 
+and user_case_fields.field_title='Lienholder Notified' and insurance.id = (SELECT insurance.id
+FROM ( SELECT insurance.casesid, insurance.id, 
+       ROW_NUMBER( ) OVER ( ORDER BY insurance.casesid, insurance.id  ASC ) AS RowNum
+FROM insurance
+join cases c on c.id = insurance.casesid
+where insurance.casesid = cases.id) AS DT
+WHERE RowNum = 5)) as Insurance_5_Lienholder_Notified,
+
+
+
+
+
+
+
+
+(select top 1 data from user_tab10_data,user_case_fields where user_tab10_data.usercasefieldid=user_case_fields.id
+and user_tab10_data.casesid=cases.id and user_case_fields.field_title='Medical Summaries') as Medical_Summaries,
+(select top 1 data from user_tab10_data,user_case_fields where user_tab10_data.usercasefieldid=user_case_fields.id
+and user_tab10_data.casesid=cases.id and user_case_fields.field_title='Medical Summaries2') as Medical_Summaries2,
+(select top 1 data from user_tab9_data ,user_case_fields where user_tab9_data.usercasefieldid=user_case_fields.id and user_tab9_data.casesid=cases.id
+and user_case_fields.field_title='Filed Bankruptcy?') as Filed_Bankruptcy,
+(select top 1 data from user_tab9_data ,user_case_fields where user_tab9_data.usercasefieldid=user_case_fields.id and user_tab9_data.casesid=cases.id
+and user_case_fields.field_title='Date Filed') as Date_Bankruptcy_Filed,
+(select top 1 data from user_tab9_data ,user_case_fields where user_tab9_data.usercasefieldid=user_case_fields.id and user_tab9_data.casesid=cases.id
+and user_case_fields.field_title='Bankruptcy Type') as Bankruptcy_Type,
+(select top 1 data from user_tab9_data ,user_case_fields where user_tab9_data.usercasefieldid=user_case_fields.id and user_tab9_data.casesid=cases.id
+and user_case_fields.field_title='Location of Bankruptcy') as Location_of_Bankruptcy,
+(select top 1 data from user_tab9_data ,user_case_fields where user_tab9_data.usercasefieldid=user_case_fields.id and user_tab9_data.casesid=cases.id
+and user_case_fields.field_title='Bankruptcy Status') as Bankruptcy_Status,
+(select top 1 data from user_tab9_data ,user_case_fields where user_tab9_data.usercasefieldid=user_case_fields.id and user_tab9_data.casesid=cases.id
+and user_case_fields.field_title='Date Discharged') as Date_Discharged,
+(select top 1 data from user_tab9_data ,user_case_fields where user_tab9_data.usercasefieldid=user_case_fields.id and user_tab9_data.casesid=cases.id
+and user_case_fields.field_title='Pre-Settlement Loan') as Pre_Settlement_Loan,
+(select top 1 data from user_tab9_data ,user_case_fields where user_tab9_data.usercasefieldid=user_case_fields.id and user_tab9_data.casesid=cases.id
+and user_case_fields.field_title='Healthcare Lien') as Healthcare_Lien,
+(select top 1 data from user_tab9_data ,user_case_fields where user_tab9_data.usercasefieldid=user_case_fields.id and user_tab9_data.casesid=cases.id
+and user_case_fields.field_title='Lien Holder1') as Lien_Holder1,
+(select top 1 data from user_tab9_data ,user_case_fields where user_tab9_data.usercasefieldid=user_case_fields.id and user_tab9_data.casesid=cases.id
+and user_case_fields.field_title='Date of Contract') as Date_of_Contract,
+(select top 1 data from user_tab9_data ,user_case_fields where user_tab9_data.usercasefieldid=user_case_fields.id and user_tab9_data.casesid=cases.id
+and user_case_fields.field_title='Amount 1') as Lien_Holder_1_Amount,
+(select top 1 data from user_tab9_data ,user_case_fields where user_tab9_data.usercasefieldid=user_case_fields.id and user_tab9_data.casesid=cases.id
+and user_case_fields.field_title='Lien Holder2') as Lien_Holder2,
+(select top 1 data from user_tab9_data ,user_case_fields where user_tab9_data.usercasefieldid=user_case_fields.id and user_tab9_data.casesid=cases.id
+and user_case_fields.field_title='Date of Contract2') as Lien_Holder_2_Date_of_Contract,
+(select top 1 data from user_tab9_data ,user_case_fields where user_tab9_data.usercasefieldid=user_case_fields.id and user_tab9_data.casesid=cases.id
+and user_case_fields.field_title='Amount 2') as Lien_Holder_2_Amount,
+(select top 1 data from user_tab9_data ,user_case_fields where user_tab9_data.usercasefieldid=user_case_fields.id and user_tab9_data.casesid=cases.id
+and user_case_fields.field_title='Bard Settlement?') as Bard_Settlement,
+(select top 1 data from user_tab9_data ,user_case_fields where user_tab9_data.usercasefieldid=user_case_fields.id and user_tab9_data.casesid=cases.id
+and user_case_fields.field_title='Date Added4') as Date_Added4,
+(select top 1 data from user_tab9_data ,user_case_fields where user_tab9_data.usercasefieldid=user_case_fields.id and user_tab9_data.casesid=cases.id
+and user_case_fields.field_title='Date Removed4') as Date_Removed4,
+(select top 1 data from user_tab9_data ,user_case_fields where user_tab9_data.usercasefieldid=user_case_fields.id and user_tab9_data.casesid=cases.id
+and user_case_fields.field_title='Reason for Removal4') as Reason_for_Removal4,
+(select top 1 data from user_tab9_data ,user_case_fields where user_tab9_data.usercasefieldid=user_case_fields.id and user_tab9_data.casesid=cases.id
+and user_case_fields.field_title='Form Sent to Client2?') as Form_Sent_to_Client2,
+(select top 1 data from user_tab9_data ,user_case_fields where user_tab9_data.usercasefieldid=user_case_fields.id and user_tab9_data.casesid=cases.id
+and user_case_fields.field_title='Date Sent2') as Date_Sent2,
+(select top 1 data from user_tab9_data ,user_case_fields where user_tab9_data.usercasefieldid=user_case_fields.id and user_tab9_data.casesid=cases.id
+and user_case_fields.field_title='Co-Counsel Form Received?') as CoCounsel_Form_Received,
+(select top 1 data from user_tab9_data ,user_case_fields where user_tab9_data.usercasefieldid=user_case_fields.id and user_tab9_data.casesid=cases.id
+and user_case_fields.field_title='Date Returned2') as Date_Returned2,
+(select top 1 data from user_tab9_data ,user_case_fields where user_tab9_data.usercasefieldid=user_case_fields.id and user_tab9_data.casesid=cases.id
+and user_case_fields.field_title='Form Sent to Aylstock?') as Form_Sent_to_Aylstock,
+(select top 1 data from user_tab9_data ,user_case_fields where user_tab9_data.usercasefieldid=user_case_fields.id and user_tab9_data.casesid=cases.id
+and user_case_fields.field_title='Date Sent to Aylstock') as Date_Sent_to_Aylstock,
+(select top 1 data from user_tab9_data ,user_case_fields where user_tab9_data.usercasefieldid=user_case_fields.id and user_tab9_data.casesid=cases.id
+and user_case_fields.field_title='Submitted to Aylstock?') as Medical_Records_Submitted_to_Aylstock,
+(select top 1 data from user_tab9_data ,user_case_fields where user_tab9_data.usercasefieldid=user_case_fields.id and user_tab9_data.casesid=cases.id
+and user_case_fields.field_title='Last Date Submitted') as Last_Date_Submitted,
+(select top 1 data from user_tab9_data ,user_case_fields where user_tab9_data.usercasefieldid=user_case_fields.id and user_tab9_data.casesid=cases.id
+and user_case_fields.field_title='Are Records Complete?') as Are_Records_Complete,
+(select top 1 data from user_tab9_data ,user_case_fields where user_tab9_data.usercasefieldid=user_case_fields.id and user_tab9_data.casesid=cases.id
+and user_case_fields.field_title='Packet Sent to Client2') as Packet_Sent_to_Client2,
+(select top 1 data from user_tab9_data ,user_case_fields where user_tab9_data.usercasefieldid=user_case_fields.id and user_tab9_data.casesid=cases.id
+and user_case_fields.field_title='Date Packet Sent2') as Date_Packet_Sent2,
+(select top 1 data from user_tab9_data ,user_case_fields where user_tab9_data.usercasefieldid=user_case_fields.id and user_tab9_data.casesid=cases.id
+and user_case_fields.field_title='Date Packet Returned2') as Date_Packet_Returned2,
+(select top 1 data from user_tab9_data ,user_case_fields where user_tab9_data.usercasefieldid=user_case_fields.id and user_tab9_data.casesid=cases.id
+and user_case_fields.field_title='Bard Option Chosen') as Bard_Option_Chosen,
+(select top 1 data from user_tab9_data ,user_case_fields where user_tab9_data.usercasefieldid=user_case_fields.id and user_tab9_data.casesid=cases.id
+and user_case_fields.field_title='Re-Review Submitted?') as Re_Review_Submitted,
+(select top 1 data from user_tab9_data ,user_case_fields where user_tab9_data.usercasefieldid=user_case_fields.id and user_tab9_data.casesid=cases.id
+and user_case_fields.field_title='Date Re-Review Submitted') as Date_Re_Review_Submitted,
+(select top 1 data from user_tab9_data ,user_case_fields where user_tab9_data.usercasefieldid=user_case_fields.id and user_tab9_data.casesid=cases.id
+and user_case_fields.field_title='SM Allocation Amount2') as SM_Allocation_Amount2,
+(select top 1 data from user_tab9_data ,user_case_fields where user_tab9_data.usercasefieldid=user_case_fields.id and user_tab9_data.casesid=cases.id
+and user_case_fields.field_title='Structured Settlment?') as Structured_Settlment,
+(select top 1 data from user_tab9_data ,user_case_fields where user_tab9_data.usercasefieldid=user_case_fields.id and user_tab9_data.casesid=cases.id
+and user_case_fields.field_title='Covidien Settlement?') as Covidien_Settlement,
+(select top 1 data from user_tab9_data ,user_case_fields where user_tab9_data.usercasefieldid=user_case_fields.id and user_tab9_data.casesid=cases.id
+and user_case_fields.field_title='Date Added5') as Date_Added5,
+(select top 1 data from user_tab9_data ,user_case_fields where user_tab9_data.usercasefieldid=user_case_fields.id and user_tab9_data.casesid=cases.id
+and user_case_fields.field_title='Date Removed5') as Date_Removed5,
+(select top 1 data from user_tab9_data ,user_case_fields where user_tab9_data.usercasefieldid=user_case_fields.id and user_tab9_data.casesid=cases.id
+and user_case_fields.field_title='Reason for Removal5') as Reason_for_Removal5,
+(select top 1 data from user_tab9_data ,user_case_fields where user_tab9_data.usercasefieldid=user_case_fields.id and user_tab9_data.casesid=cases.id
+and user_case_fields.field_title='Form Sent to Client3?') as Form_Sent_to_Client3,
+(select top 1 data from user_tab9_data ,user_case_fields where user_tab9_data.usercasefieldid=user_case_fields.id and user_tab9_data.casesid=cases.id
+and user_case_fields.field_title='Co-Counsel From Received2') as Co_Counsel_From_Received2,
+(select top 1 data from user_tab9_data ,user_case_fields where user_tab9_data.usercasefieldid=user_case_fields.id and user_tab9_data.casesid=cases.id
+and user_case_fields.field_title='Date Returned3') as Date_Returned3,
+(select top 1 data from user_tab9_data ,user_case_fields where user_tab9_data.usercasefieldid=user_case_fields.id and user_tab9_data.casesid=cases.id
+and user_case_fields.field_title='Form Sent to Aylstock2?') as Co_Counsel_Form_Sent_to_Aylstock2,
+(select top 1 data from user_tab9_data ,user_case_fields where user_tab9_data.usercasefieldid=user_case_fields.id and user_tab9_data.casesid=cases.id
+and user_case_fields.field_title='Submitted to Aylstock2?') as Med_Recs_Submitted_to_Aylstock2,
+(select top 1 data from user_tab9_data ,user_case_fields where user_tab9_data.usercasefieldid=user_case_fields.id and user_tab9_data.casesid=cases.id
+and user_case_fields.field_title='Last Date Submitted2') as Last_Date_Submitted2,
+(select top 1 data from user_tab9_data ,user_case_fields where user_tab9_data.usercasefieldid=user_case_fields.id and user_tab9_data.casesid=cases.id
+and user_case_fields.field_title='Are Records Complete2?') as Are_Records_Complete2,
+(select top 1 data from user_tab9_data ,user_case_fields where user_tab9_data.usercasefieldid=user_case_fields.id and user_tab9_data.casesid=cases.id
+and user_case_fields.field_title='Packet Sent to Client3?') as Packet_Sent_to_Client3,
+(select top 1 data from user_tab9_data ,user_case_fields where user_tab9_data.usercasefieldid=user_case_fields.id and user_tab9_data.casesid=cases.id
+and user_case_fields.field_title='Date Packet Sent3') as Date_Packet_Sent3,
+(select top 1 data from user_tab9_data ,user_case_fields where user_tab9_data.usercasefieldid=user_case_fields.id and user_tab9_data.casesid=cases.id
+and user_case_fields.field_title='Date Packet Returned3') as Date_Packet_Returned3,
+(select top 1 data from user_tab9_data ,user_case_fields where user_tab9_data.usercasefieldid=user_case_fields.id and user_tab9_data.casesid=cases.id
+and user_case_fields.field_title='Covidien Option Chosen') as Covidien_Option_Chosen,
+(select top 1 data from user_tab9_data ,user_case_fields where user_tab9_data.usercasefieldid=user_case_fields.id and user_tab9_data.casesid=cases.id
+and user_case_fields.field_title='Re-Review Submitted3?') as Re_Review_Submitted3,
+(select top 1 data from user_tab9_data ,user_case_fields where user_tab9_data.usercasefieldid=user_case_fields.id and user_tab9_data.casesid=cases.id
+and user_case_fields.field_title='Date Re-Review Submitted3') as Date_Re_Review_Submitted3,
+(select top 1 data from user_tab9_data ,user_case_fields where user_tab9_data.usercasefieldid=user_case_fields.id and user_tab9_data.casesid=cases.id
+and user_case_fields.field_title='SM Allocation Amount3') as SM_Allocation_Amount3,
+(select top 1 data from user_tab9_data ,user_case_fields where user_tab9_data.usercasefieldid=user_case_fields.id and user_tab9_data.casesid=cases.id
+and user_case_fields.field_title='Structured Settlement3?') as Structured_Settlement3,
+(select top 1 data from user_tab9_data ,user_case_fields where user_tab9_data.usercasefieldid=user_case_fields.id and user_tab9_data.casesid=cases.id
+and user_case_fields.field_title='AMS Tolling Agreement?') as AMS_Tolling_Agreement,
+(select top 1 data from user_tab9_data ,user_case_fields where user_tab9_data.usercasefieldid=user_case_fields.id and user_tab9_data.casesid=cases.id
+and user_case_fields.field_title='Date Added Tolling') as Date_Added_Tolling,
+(select top 1 data from user_tab9_data ,user_case_fields where user_tab9_data.usercasefieldid=user_case_fields.id and user_tab9_data.casesid=cases.id
+and user_case_fields.field_title='AMS Settlement?') as AMS_Settlement,
+(select top 1 data from user_tab9_data ,user_case_fields where user_tab9_data.usercasefieldid=user_case_fields.id and user_tab9_data.casesid=cases.id
+and user_case_fields.field_title='AMS Settlement Round 2?') as AMS_Settlement_Round_2,
+(select top 1 data from user_tab9_data ,user_case_fields where user_tab9_data.usercasefieldid=user_case_fields.id and user_tab9_data.casesid=cases.id
+and user_case_fields.field_title='AMS List Confirmed') as AMS_List_Confirmed,
+(select top 1 data from user_tab9_data ,user_case_fields where user_tab9_data.usercasefieldid=user_case_fields.id and user_tab9_data.casesid=cases.id
+and user_case_fields.field_title='Date Added1') as AMS_Confirmed_Date_Added,
+(select top 1 data from user_tab9_data ,user_case_fields where user_tab9_data.usercasefieldid=user_case_fields.id and user_tab9_data.casesid=cases.id
+and user_case_fields.field_title='Date Consented') as Date_Consented,
+(select top 1 data from user_tab9_data ,user_case_fields where user_tab9_data.usercasefieldid=user_case_fields.id and user_tab9_data.casesid=cases.id
+and user_case_fields.field_title='Date Removed1') as AMS_Confirmed_Date_Removed,
+(select top 1 data from user_tab9_data ,user_case_fields where user_tab9_data.usercasefieldid=user_case_fields.id and user_tab9_data.casesid=cases.id
+and user_case_fields.field_title='AMS List Unconfirmed') as AMS_List_Unconfirmed,
+(select top 1 data from user_tab9_data ,user_case_fields where user_tab9_data.usercasefieldid=user_case_fields.id and user_tab9_data.casesid=cases.id
+and user_case_fields.field_title='Date Added2') as AMS_Unconfirmed_Date_Added,
+(select top 1 data from user_tab9_data ,user_case_fields where user_tab9_data.usercasefieldid=user_case_fields.id and user_tab9_data.casesid=cases.id
+and user_case_fields.field_title='Date Removed2') as AMS_Unconfirmed_Date_Removed,
+(select top 1 data from user_tab9_data ,user_case_fields where user_tab9_data.usercasefieldid=user_case_fields.id and user_tab9_data.casesid=cases.id
+and user_case_fields.field_title='Reason for Removal2') as AMS_Unconfirmed_Reason_Removed,
+(select top 1 data from user_tab9_data ,user_case_fields where user_tab9_data.usercasefieldid=user_case_fields.id and user_tab9_data.casesid=cases.id
+and user_case_fields.field_title='Form Sent to Client') as AMS_Auth_of_Co_Counsel_Form_Sent_to_Client,
+(select top 1 data from user_tab9_data ,user_case_fields where user_tab9_data.usercasefieldid=user_case_fields.id and user_tab9_data.casesid=cases.id
+and user_case_fields.field_title='Date Sent') as AMS_Auth_of_Co_Counsel_Form_Date_Sent_to_Clt,
+(select top 1 data from user_tab9_data ,user_case_fields where user_tab9_data.usercasefieldid=user_case_fields.id and user_tab9_data.casesid=cases.id
+and user_case_fields.field_title='Date Returned') as AMS_Auth_of_Co_Counsel_Form_Date_Returned,
+(select top 1 data from user_tab9_data ,user_case_fields where user_tab9_data.usercasefieldid=user_case_fields.id and user_tab9_data.casesid=cases.id
+and user_case_fields.field_title='Sent to Client?') as AMS_Bankruptcy_Form_Sent_to_Client,
+(select top 1 data from user_tab9_data ,user_case_fields where user_tab9_data.usercasefieldid=user_case_fields.id and user_tab9_data.casesid=cases.id
+and user_case_fields.field_title='Date Sent to Client') as AMS_Bankruptcy_Form_Date_Sent_to_Clt,
+(select top 1 data from user_tab9_data ,user_case_fields where user_tab9_data.usercasefieldid=user_case_fields.id and user_tab9_data.casesid=cases.id
+and user_case_fields.field_title='Date Received') as AMS_Bankruptcy_Form_Date_Received,
+(select top 1 data from user_tab9_data ,user_case_fields where user_tab9_data.usercasefieldid=user_case_fields.id and user_tab9_data.casesid=cases.id
+and user_case_fields.field_title='Uploaded to Claim Center?') as AMS_Records_Uploaded_to_Claims_Center,
+(select top 1 data from user_tab9_data ,user_case_fields where user_tab9_data.usercasefieldid=user_case_fields.id and user_tab9_data.casesid=cases.id
+and user_case_fields.field_title='Date Uploaded') as AMS_Last_Date_Uploaded,
+(select top 1 data from user_tab9_data ,user_case_fields where user_tab9_data.usercasefieldid=user_case_fields.id and user_tab9_data.casesid=cases.id
+and user_case_fields.field_title='Records Upload Complete?') as AMS_Records_Upload_Complete,
+(select top 1 data from user_tab9_data ,user_case_fields where user_tab9_data.usercasefieldid=user_case_fields.id and user_tab9_data.casesid=cases.id
+and user_case_fields.field_title='THF Questionnaire Sent') as THF_Questionnaire_Sent,
+(select top 1 data from user_tab9_data ,user_case_fields where user_tab9_data.usercasefieldid=user_case_fields.id and user_tab9_data.casesid=cases.id
+and user_case_fields.field_title='THF Questionnaire Rcvd') as THF_Questionnaire_Rcvd,
+(select top 1 data from user_tab9_data ,user_case_fields where user_tab9_data.usercasefieldid=user_case_fields.id and user_tab9_data.casesid=cases.id
+and user_case_fields.field_title='Temporary Holdback Fund?') as Temporary_Holdback_Fund,
+(select top 1 data from user_tab9_data ,user_case_fields where user_tab9_data.usercasefieldid=user_case_fields.id and user_tab9_data.casesid=cases.id
+and user_case_fields.field_title='Holdback Fund Submitted') as Holdback_Fund_Submitted,
+(select top 1 data from user_tab9_data ,user_case_fields where user_tab9_data.usercasefieldid=user_case_fields.id and user_tab9_data.casesid=cases.id
+and user_case_fields.field_title='IVF Sent to Client?') as IVF_Sent_to_Client,
+(select top 1 data from user_tab9_data ,user_case_fields where user_tab9_data.usercasefieldid=user_case_fields.id and user_tab9_data.casesid=cases.id
+and user_case_fields.field_title='Date IVF Sent to Client') as Date_IVF_Sent_to_Client,
+(select top 1 data from user_tab9_data ,user_case_fields where user_tab9_data.usercasefieldid=user_case_fields.id and user_tab9_data.casesid=cases.id
+and user_case_fields.field_title='IVF Returned?') as IVF_Returned,
+(select top 1 data from user_tab9_data ,user_case_fields where user_tab9_data.usercasefieldid=user_case_fields.id and user_tab9_data.casesid=cases.id
+and user_case_fields.field_title='Date IVF Returned') as Date_IVF_Returned,
+(select top 1 data from user_tab9_data ,user_case_fields where user_tab9_data.usercasefieldid=user_case_fields.id and user_tab9_data.casesid=cases.id
+and user_case_fields.field_title='Disclosure Packet Sent?') as Disclosure_Packet_Sent,
+(select top 1 data from user_tab9_data ,user_case_fields where user_tab9_data.usercasefieldid=user_case_fields.id and user_tab9_data.casesid=cases.id
+and user_case_fields.field_title='Date Packet Sent') as Date_Packet_Sent,
+(select top 1 data from user_tab9_data ,user_case_fields where user_tab9_data.usercasefieldid=user_case_fields.id and user_tab9_data.casesid=cases.id
+and user_case_fields.field_title='Date Disc Packet Returned') as Date_Disc_Packet_Returned,
+(select top 1 data from user_tab9_data ,user_case_fields where user_tab9_data.usercasefieldid=user_case_fields.id and user_tab9_data.casesid=cases.id
+and user_case_fields.field_title='Option Chosen') as Option_Chosen,
+(select top 1 data from user_tab9_data ,user_case_fields where user_tab9_data.usercasefieldid=user_case_fields.id and user_tab9_data.casesid=cases.id
+and user_case_fields.field_title='Appeal Submitted?') as Appeal_Submitted,
+(select top 1 data from user_tab9_data ,user_case_fields where user_tab9_data.usercasefieldid=user_case_fields.id and user_tab9_data.casesid=cases.id
+and user_case_fields.field_title='Date Appeal Submitted') as Date_Appeal_Submitted,
+(select top 1 data from user_tab9_data ,user_case_fields where user_tab9_data.usercasefieldid=user_case_fields.id and user_tab9_data.casesid=cases.id
+and user_case_fields.field_title='SM Allocation Amount') as SM_Allocation_Amount,
+(select top 1 data from user_tab9_data ,user_case_fields where user_tab9_data.usercasefieldid=user_case_fields.id and user_tab9_data.casesid=cases.id
+and user_case_fields.field_title='BSC Settlement?') as BSC_Settlement,
+(select top 1 data from user_tab9_data ,user_case_fields where user_tab9_data.usercasefieldid=user_case_fields.id and user_tab9_data.casesid=cases.id
+and user_case_fields.field_title='BSC Date Added') as BSC_Date_Added,
+(select top 1 data from user_tab9_data ,user_case_fields where user_tab9_data.usercasefieldid=user_case_fields.id and user_tab9_data.casesid=cases.id
+and user_case_fields.field_title='BSC Date Removed') as BSC_Date_Removed,
+(select top 1 data from user_tab9_data ,user_case_fields where user_tab9_data.usercasefieldid=user_case_fields.id and user_tab9_data.casesid=cases.id
+and user_case_fields.field_title='BSC Reason for Removal') as BSC_Reason_for_Removal,
+(select top 1 data from user_tab9_data ,user_case_fields where user_tab9_data.usercasefieldid=user_case_fields.id and user_tab9_data.casesid=cases.id
+and user_case_fields.field_title='BSC Sub List?') as BSC_Sub_List,
+(select top 1 data from user_tab9_data ,user_case_fields where user_tab9_data.usercasefieldid=user_case_fields.id and user_tab9_data.casesid=cases.id
+and user_case_fields.field_title='Sub List Date Added') as Sub_List_Date_Added,
+(select top 1 data from user_tab9_data ,user_case_fields where user_tab9_data.usercasefieldid=user_case_fields.id and user_tab9_data.casesid=cases.id
+and user_case_fields.field_title='Date Sent4') as Date_Sent4,
+(select top 1 data from user_tab9_data ,user_case_fields where user_tab9_data.usercasefieldid=user_case_fields.id and user_tab9_data.casesid=cases.id
+and user_case_fields.field_title='Form Received4?') as Form_Received4,
+(select top 1 data from user_tab9_data ,user_case_fields where user_tab9_data.usercasefieldid=user_case_fields.id and user_tab9_data.casesid=cases.id
+and user_case_fields.field_title='Date Returned4') as Date_Returned4,
+(select top 1 data from user_tab9_data ,user_case_fields where user_tab9_data.usercasefieldid=user_case_fields.id and user_tab9_data.casesid=cases.id
+and user_case_fields.field_title='Form Sent to AWKO4?') as Form_Sent_to_AWKO4,
+(select top 1 data from user_tab9_data ,user_case_fields where user_tab9_data.usercasefieldid=user_case_fields.id and user_tab9_data.casesid=cases.id
+and user_case_fields.field_title='Date Sent to AWKO4?') as Date_Sent_to_AWKO4,
+(select top 1 data from user_tab9_data ,user_case_fields where user_tab9_data.usercasefieldid=user_case_fields.id and user_tab9_data.casesid=cases.id
+and user_case_fields.field_title='Submitted to AWKO4?') as Submitted_to_AWKO4,
+(select top 1 data from user_tab9_data ,user_case_fields where user_tab9_data.usercasefieldid=user_case_fields.id and user_tab9_data.casesid=cases.id
+and user_case_fields.field_title='Date Last Submitted4') as Date_Last_Submitted4,
+(select top 1 data from user_tab9_data ,user_case_fields where user_tab9_data.usercasefieldid=user_case_fields.id and user_tab9_data.casesid=cases.id
+and user_case_fields.field_title='Are Records Complete4?') as Are_Records_Complete4,
+(select top 1 data from user_tab9_data ,user_case_fields where user_tab9_data.usercasefieldid=user_case_fields.id and user_tab9_data.casesid=cases.id
+and user_case_fields.field_title='Uploaded to AWKO4?') as Uploaded_to_AWKO4,
+(select top 1 data from user_tab9_data ,user_case_fields where user_tab9_data.usercasefieldid=user_case_fields.id and user_tab9_data.casesid=cases.id
+and user_case_fields.field_title='Form Sent to Client4?') as Form_Sent_to_Client4,
+(select top 1 data from user_tab9_data ,user_case_fields where user_tab9_data.usercasefieldid=user_case_fields.id and user_tab9_data.casesid=cases.id
+and user_case_fields.field_title='Date Packet Sent4') as Date_Packet_Sent4,
+(select top 1 data from user_tab9_data ,user_case_fields where user_tab9_data.usercasefieldid=user_case_fields.id and user_tab9_data.casesid=cases.id
+and user_case_fields.field_title='Date Packet Returned4') as Date_Packet_Returned4,
+(select top 1 data from user_tab9_data ,user_case_fields where user_tab9_data.usercasefieldid=user_case_fields.id and user_tab9_data.casesid=cases.id
+and user_case_fields.field_title='Date Re-Review Submitted4') as Date_Re_Review_Submitted4,
+(select top 1 data from user_tab9_data ,user_case_fields where user_tab9_data.usercasefieldid=user_case_fields.id and user_tab9_data.casesid=cases.id
+and user_case_fields.field_title='SM Allocation Amount4') as SM_Allocation_Amount4,
+(select top 1 data from user_tab9_data ,user_case_fields where user_tab9_data.usercasefieldid=user_case_fields.id and user_tab9_data.casesid=cases.id
+and user_case_fields.field_title='Structured Settlement4?') as Structured_Settlement4,
+(select top 1 data from user_tab9_data ,user_case_fields where user_tab9_data.usercasefieldid=user_case_fields.id and user_tab9_data.casesid=cases.id
+and user_case_fields.field_title='Ethicon Settlement?') as Ethicon_Settlement,
+(select top 1 data from user_tab9_data ,user_case_fields where user_tab9_data.usercasefieldid=user_case_fields.id and user_tab9_data.casesid=cases.id
+and user_case_fields.field_title='Date Added6') as Date_Added6,
+(select top 1 data from user_tab9_data ,user_case_fields where user_tab9_data.usercasefieldid=user_case_fields.id and user_tab9_data.casesid=cases.id
+and user_case_fields.field_title='Date Removed6') as Date_Removed6,
+(select top 1 data from user_tab9_data ,user_case_fields where user_tab9_data.usercasefieldid=user_case_fields.id and user_tab9_data.casesid=cases.id
+and user_case_fields.field_title='Reason for Removal6') as Reason_for_Removal6,
+(select top 1 data from user_tab9_data ,user_case_fields where user_tab9_data.usercasefieldid=user_case_fields.id and user_tab9_data.casesid=cases.id
+and user_case_fields.field_title='Form sent to Client5?') as Ethicon_Auth_CC_Form_sent_to_Client5,
+(select top 1 data from user_tab9_data ,user_case_fields where user_tab9_data.usercasefieldid=user_case_fields.id and user_tab9_data.casesid=cases.id
+and user_case_fields.field_title='Date Sent5') as Date_Sent5,
+(select top 1 data from user_tab9_data ,user_case_fields where user_tab9_data.usercasefieldid=user_case_fields.id and user_tab9_data.casesid=cases.id
+and user_case_fields.field_title='Co-Counsel Form Received5') as Co_Counsel_Form_Received5,
+(select top 1 data from user_tab9_data ,user_case_fields where user_tab9_data.usercasefieldid=user_case_fields.id and user_tab9_data.casesid=cases.id
+and user_case_fields.field_title='Date Returned5') as Date_Returned5,
+(select top 1 data from user_tab9_data ,user_case_fields where user_tab9_data.usercasefieldid=user_case_fields.id and user_tab9_data.casesid=cases.id
+and user_case_fields.field_title='Form Sent to Aylstock5?') as Form_Sent_to_Aylstock5,
+(select top 1 data from user_tab9_data ,user_case_fields where user_tab9_data.usercasefieldid=user_case_fields.id and user_tab9_data.casesid=cases.id
+and user_case_fields.field_title='Date Sent to Aylstock5') as Date_Sent_to_Aylstock5,
+(select top 1 data from user_tab9_data ,user_case_fields where user_tab9_data.usercasefieldid=user_case_fields.id and user_tab9_data.casesid=cases.id
+and user_case_fields.field_title='Submitted to AWKO5?') as Submitted_to_AWKO5,
+(select top 1 data from user_tab9_data ,user_case_fields where user_tab9_data.usercasefieldid=user_case_fields.id and user_tab9_data.casesid=cases.id
+and user_case_fields.field_title='Date Last Submitted5') as Date_Last_Submitted5,
+(select top 1 data from user_tab9_data ,user_case_fields where user_tab9_data.usercasefieldid=user_case_fields.id and user_tab9_data.casesid=cases.id
+and user_case_fields.field_title='Are Records Complete5?') as Are_Records_Complete5,
+(select top 1 data from user_tab9_data ,user_case_fields where user_tab9_data.usercasefieldid=user_case_fields.id and user_tab9_data.casesid=cases.id
+and user_case_fields.field_title='Uploaded to AWKO5?') as Uploaded_to_AWKO5,
+
+(select top 1 data from user_tab9_data ,user_case_fields where user_tab9_data.usercasefieldid=user_case_fields.id and user_tab9_data.casesid=cases.id
+and user_case_fields.field_title='Packet Sent to Client5') as Packet_Sent_to_Client5,
+(select top 1 data from user_tab9_data ,user_case_fields where user_tab9_data.usercasefieldid=user_case_fields.id and user_tab9_data.casesid=cases.id
+and user_case_fields.field_title='Date Packet Sent5') as Date_Packet_Sent5,
+(select top 1 data from user_tab9_data ,user_case_fields where user_tab9_data.usercasefieldid=user_case_fields.id and user_tab9_data.casesid=cases.id
+and user_case_fields.field_title='Date Packet Returned5') as Date_Packet_Returned5,
+(select top 1 data from user_tab9_data ,user_case_fields where user_tab9_data.usercasefieldid=user_case_fields.id and user_tab9_data.casesid=cases.id
+and user_case_fields.field_title='Ethicon Option Chosen') as Ethicon_Option_Chosen,
+(select top 1 data from user_tab9_data ,user_case_fields where user_tab9_data.usercasefieldid=user_case_fields.id and user_tab9_data.casesid=cases.id
+and user_case_fields.field_title='Re-Review Submitted5?') as Re_Review_Submitted5,
+(select top 1 data from user_tab9_data ,user_case_fields where user_tab9_data.usercasefieldid=user_case_fields.id and user_tab9_data.casesid=cases.id
+and user_case_fields.field_title='Date Re-Review Submitted5') as Date_Re_Review_Submitted5,
+(select top 1 data from user_tab9_data ,user_case_fields where user_tab9_data.usercasefieldid=user_case_fields.id and user_tab9_data.casesid=cases.id
+and user_case_fields.field_title='SM Allocation Amount5') as SM_Allocation_Amount5,
+(select top 1 data from user_tab9_data ,user_case_fields where user_tab9_data.usercasefieldid=user_case_fields.id and user_tab9_data.casesid=cases.id
+and user_case_fields.field_title='Structured Settlement5?') as Structured_Settlement5,
+(select top 1 data from user_tab9_data ,user_case_fields where user_tab9_data.usercasefieldid=user_case_fields.id and user_tab9_data.casesid=cases.id
+and user_case_fields.field_title='Tolling Agreement?') as Coloplast_Tolling_Agreement,
+(select top 1 data from user_tab9_data ,user_case_fields where user_tab9_data.usercasefieldid=user_case_fields.id and user_tab9_data.casesid=cases.id
+and user_case_fields.field_title='Date Added3') as Coloplast_Tolling_Agreement_Date_Added,
+(select top 1 data from user_tab9_data ,user_case_fields where user_tab9_data.usercasefieldid=user_case_fields.id and user_tab9_data.casesid=cases.id
+and user_case_fields.field_title='Reason for Removal3') as Coloplast_Tolling_Agreement_Reason_Removed,
+(select top 1 data from user_tab9_data ,user_case_fields where user_tab9_data.usercasefieldid=user_case_fields.id and user_tab9_data.casesid=cases.id
+and user_case_fields.field_title='HIPAA Sent to Client') as Coloplast_HIPAA_Sent_to_Client,
+(select top 1 data from user_tab9_data ,user_case_fields where user_tab9_data.usercasefieldid=user_case_fields.id and user_tab9_data.casesid=cases.id
+and user_case_fields.field_title='Date HIPAA Sent') as Coloplast_HIPAA_Date_Sent_to_Clt,
+(select top 1 data from user_tab9_data ,user_case_fields where user_tab9_data.usercasefieldid=user_case_fields.id and user_tab9_data.casesid=cases.id
+and user_case_fields.field_title='Date HIPAA Returned') as Coloplast_HIPAA_Date_Returned,
+(select top 1 data from user_tab9_data ,user_case_fields where user_tab9_data.usercasefieldid=user_case_fields.id and user_tab9_data.casesid=cases.id
+and user_case_fields.field_title='Submitted to Defendant?') as Coloplast_HIPAA_Submitted_to_Defendant,
+(select top 1 data from user_tab9_data ,user_case_fields where user_tab9_data.usercasefieldid=user_case_fields.id and user_tab9_data.casesid=cases.id
+and user_case_fields.field_title='Date Submitted') as Coloplast_HIPAA_Date_Submitted_to_Defendant,
+(select top 1 data from user_tab9_data ,user_case_fields where user_tab9_data.usercasefieldid=user_case_fields.id and user_tab9_data.casesid=cases.id
+and user_case_fields.field_title='Dr List Sent to Client?') as Coloplast_10_Yr_Dr_List_Sent_to_Client,
+(select top 1 data from user_tab9_data ,user_case_fields where user_tab9_data.usercasefieldid=user_case_fields.id and user_tab9_data.casesid=cases.id
+and user_case_fields.field_title='Date Dr List Sent') as Coloplast_10_Yr_Dr_List_Date_Sent_to_Clt,
+(select top 1 data from user_tab9_data ,user_case_fields where user_tab9_data.usercasefieldid=user_case_fields.id and user_tab9_data.casesid=cases.id
+and user_case_fields.field_title='Date Dr List Returned') as Coloplast_10_Yr_Dr_List_Date_Returned,
+(select top 1 data from user_tab9_data ,user_case_fields where user_tab9_data.usercasefieldid=user_case_fields.id and user_tab9_data.casesid=cases.id
+and user_case_fields.field_title='Submitted to Defendant2?') as Coloplast_10_Yr_Dr_List_Submitted_to_Defendant,
+(select top 1 data from user_tab9_data ,user_case_fields where user_tab9_data.usercasefieldid=user_case_fields.id and user_tab9_data.casesid=cases.id
+and user_case_fields.field_title='Date Submitted2') as Coloplast_10_Yr_Dr_List_Date_Submitted_to_Defendant,
+(select top 1 data from user_tab9_data ,user_case_fields where user_tab9_data.usercasefieldid=user_case_fields.id and user_tab9_data.casesid=cases.id
+and user_case_fields.field_title='Product ID Sent to Def') as Coloplast_Product_ID_Date_Submitted_to_Defendant,
+(select top 1 data from user_tab9_data ,user_case_fields where user_tab9_data.usercasefieldid=user_case_fields.id and user_tab9_data.casesid=cases.id
+and user_case_fields.field_title='Med Recs Sent to Def') as Coloplast_Med_Recs_Date_Submitted_to_Defendant,
+
+(select top 1 data from user_tab9_data ,user_case_fields where user_tab9_data.usercasefieldid=user_case_fields.id and user_tab9_data.casesid=cases.id
+and user_case_fields.field_title='Coloplast Settlement?') as Coloplast_Settlement,
+(select top 1 data from user_tab9_data ,user_case_fields where user_tab9_data.usercasefieldid=user_case_fields.id and user_tab9_data.casesid=cases.id
+and user_case_fields.field_title='Agreement Sent to Client') as Agreement_Sent_to_Client,
+(select top 1 data from user_tab9_data ,user_case_fields where user_tab9_data.usercasefieldid=user_case_fields.id and user_tab9_data.casesid=cases.id
+and user_case_fields.field_title='Agreement Received') as Agreement_Received,
+(select top 1 data from user_tab9_data ,user_case_fields where user_tab9_data.usercasefieldid=user_case_fields.id and user_tab9_data.casesid=cases.id
+and user_case_fields.field_title='Coloplast Allocation Amt') as Coloplast_Allocation_Amt,
+
+
+(select top 1 data from user_tab9_data ,user_case_fields where user_tab9_data.usercasefieldid=user_case_fields.id and user_tab9_data.casesid=cases.id
+and user_case_fields.field_title='Who is handling') as Who_is_handling,
+(select top 1 data from user_tab9_data ,user_case_fields where user_tab9_data.usercasefieldid=user_case_fields.id and user_tab9_data.casesid=cases.id
+and user_case_fields.field_title='Date Sent to Aylstock2') as Date_Sent_to_Aylstock2,
+(select top 1 data from user_tab9_data ,user_case_fields where user_tab9_data.usercasefieldid=user_case_fields.id and user_tab9_data.casesid=cases.id
+and user_case_fields.field_title='Who is handling2') as Who_is_handling2,
+(select top 1 data from user_tab9_data ,user_case_fields where user_tab9_data.usercasefieldid=user_case_fields.id and user_tab9_data.casesid=cases.id
+and user_case_fields.field_title='Who is handling3') as Who_is_handling3,
+(select top 1 data from user_tab9_data ,user_case_fields where user_tab9_data.usercasefieldid=user_case_fields.id and user_tab9_data.casesid=cases.id
+and user_case_fields.field_title='Who is handling4') as Who_is_handling4,
+(select top 1 data from user_tab9_data ,user_case_fields where user_tab9_data.usercasefieldid=user_case_fields.id and user_tab9_data.casesid=cases.id
+and user_case_fields.field_title='Who is handling5') as Who_is_handling5,
+(select top 1 data from user_tab9_data ,user_case_fields where user_tab9_data.usercasefieldid=user_case_fields.id and user_tab9_data.casesid=cases.id
+and user_case_fields.field_title='Date Removed Tolling') as Date_Removed_Tolling,
+(select top 1 data from user_tab9_data ,user_case_fields where user_tab9_data.usercasefieldid=user_case_fields.id and user_tab9_data.casesid=cases.id
+and user_case_fields.field_title='Reason for Tolling Removal') as Reason_for_Tolling_Removal,
+(select top 1 data from user_tab9_data ,user_case_fields where user_tab9_data.usercasefieldid=user_case_fields.id and user_tab9_data.casesid=cases.id
+and user_case_fields.field_title='Sub List Date Removed') as Sub_List_Date_Removed,
+(select top 1 data from user_tab9_data ,user_case_fields where user_tab9_data.usercasefieldid=user_case_fields.id and user_tab9_data.casesid=cases.id
+and user_case_fields.field_title='List Reason for Removal') as List_Reason_for_Removal,
+(select top 1 data from user_tab9_data ,user_case_fields where user_tab9_data.usercasefieldid=user_case_fields.id and user_tab9_data.casesid=cases.id
+and user_case_fields.field_title='EIF Claim4') as EIF_Claim4,
+(select top 1 data from user_tab9_data ,user_case_fields where user_tab9_data.usercasefieldid=user_case_fields.id and user_tab9_data.casesid=cases.id
+and user_case_fields.field_title='Date EIF Claim Submitted4') as Date_EIF_Claim_Submitted4
+
+
+
+
+from cases
+join party on party.casesid=cases.id
+join names on names.id=party.namesid
+join matter on matter.id=cases.matterid and (@casetype is null or matter.id in (@casetype))
+left join class on class.id=cases.classid and (@class is null or class.id in (@class))
+where party.record_num = (SELECT min(p.record_num) FROM party p,party_role_list WHERE p.casesid = party.casesid and party.partyrolelistid=party_role_list.id
+AND party_role_list.role = 'Plaintiff')  
+and (@casenum is null or cases.id=@casenum)
+and ((@enterstartdate is null or cases.date_opened>=@enterstartdate)
+and (@enterenddate is null or cases.date_opened<=@enterenddate))
+and ((@closestartdate is null or cases.close_date>=@closestartdate)
+and (@closeenddate is null or cases.close_date<=@closeenddate))
+

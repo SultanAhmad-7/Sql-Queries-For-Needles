@@ -1,0 +1,49 @@
+private void lblOpenDateRange_BeforePrint(object sender, System.Drawing.Printing.PrintEventArgs e) {
+     
+      var startParam = Parameters["OpenDateStartParm"].Value;
+ 	var endParam = Parameters["OpenDateEndParm"].Value;
+
+
+      string startDateStr;
+      if (startParam == null)
+      {
+            startDateStr = "00/00/0000";
+      }
+      else
+            startDateStr = ((DateTime)startParam).ToString("MM/dd/yyyy");
+
+      string endDateStr;
+      if (endParam == null)
+      {
+            endDateStr = "00/00/0000";
+      }
+      else
+            endDateStr = ((DateTime)endParam).ToString("MM/dd/yyyy");
+
+      lblOpenDateRange.Text = "Open Dates Between " + startDateStr + " and " + endDateStr;
+}
+
+private void lblCloseDateRange_BeforePrint(object sender, System.Drawing.Printing.PrintEventArgs e) {
+     
+      var startParam = Parameters["CloseDateStartParm"].Value;
+ 	var endParam = Parameters["CloseDateEndParm"].Value;
+
+
+      string startDateStr;
+      if (startParam == null)
+      {
+            startDateStr = "00/00/0000";
+      }
+      else
+            startDateStr = ((DateTime)startParam).ToString("MM/dd/yyyy");
+
+      string endDateStr;
+      if (endParam == null)
+      {
+            endDateStr = "00/00/0000";
+      }
+      else
+            endDateStr = ((DateTime)endParam).ToString("MM/dd/yyyy");
+
+      lblCloseDateRange.Text = "Close Dates Between " + startDateStr + " and " + endDateStr;
+}

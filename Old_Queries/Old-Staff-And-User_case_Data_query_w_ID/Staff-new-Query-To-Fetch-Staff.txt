@@ -1,0 +1,51 @@
+select 
+cases.casenum,
+dbo.sp_first_party(cases.id) as party_name,
+cases.date_opened,
+(select class.classcode from class where class.id=cases.classid) as class,
+(select matter.matcode from matter where matter.id = cases.matterid) as case_type,
+
+(select staff_code from case_staff, staff, matter_staff where cases.id = case_staff.casesid 
+and staff.id = case_staff.staffid and case_staff.matterstaffid=matter_staff.id 
+and staffroleid='00000000-0000-0000-0000-000000000002') as staff_2,
+(select staff_code from case_staff, staff, matter_staff where cases.id = case_staff.casesid 
+and staff.id = case_staff.staffid and case_staff.matterstaffid=matter_staff.id 
+and staffroleid='00000000-0000-0000-0000-000000000003') as staff_3,
+(select staff_code from case_staff, staff, matter_staff where cases.id = case_staff.casesid 
+and staff.id = case_staff.staffid and case_staff.matterstaffid=matter_staff.id 
+and staffroleid='00000000-0000-0000-0000-000000000004') as staff_4,
+(select staff_code from case_staff, staff, matter_staff where cases.id = case_staff.casesid 
+and staff.id = case_staff.staffid and case_staff.matterstaffid=matter_staff.id 
+and staffroleid='00000000-0000-0000-0000-000000000005') as staff_5,
+
+
+
+
+(select top 1 data from user_case_data where user_case_data.casesid=cases.id and 
+user_case_data.usercasefieldid='AECB2683-767E-45FF-941C-AC8E01680974') as assign,
+(select top 1 data from user_case_data where user_case_data.casesid=cases.id and 
+user_case_data.usercasefieldid='1D01D34C-5EAD-4DD8-B33F-AC8E0168096E') as mrkting,
+(select top 1 data from user_case_data where user_case_data.casesid=cases.id and 
+user_case_data.usercasefieldid='A4C7197B-C8F3-419E-B6A7-AC8E01680974') as fileToPkg,
+
+(select top 1 data from user_tab6_data where user_tab6_data.casesid=cases.id
+and user_tab6_data.usercasefieldid='6119441B-B94F-4EF9-8212-AC8E0168096E') as caseRating,
+(select top 1 data from user_case_data where user_case_data.casesid=cases.id and 
+user_case_data.usercasefieldid='45AE3747-B734-45C1-9EF7-AC8E01680974') as cdu,
+
+
+
+--(select sum(total_value) from value where value.casesid=cases.id 
+--and (select value_code.code from value_code where value_code.code='medical')) as medic
+(select sum(total_value) from value, value_code where value.valuecodeid=value_code.id 
+and value_code.code = 'medical' and value.casesid = cases.id) as Medical
+
+
+from cases
+--join user_case_data on user_case_data.casesid=cases.id
+--join user_tab6_data on user_tab6_data.casesid=cases.id
+
+where 
+ ((Select top 1 data from user_case_data where user_case_data.casesid = cases.id 
+and user_case_data.usercasefieldid = '45AE3747-B734-45C1-9EF7-AC8E01680974') = 'true')
+ 

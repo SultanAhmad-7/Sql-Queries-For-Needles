@@ -1,0 +1,4 @@
+(select top 1  names.fullname_lastfirst from names,party 
+where namesid=names.id and party.namesid=names.id and party.casesid=cases.id 
+Order by record_num ASC ) as party_name,
+

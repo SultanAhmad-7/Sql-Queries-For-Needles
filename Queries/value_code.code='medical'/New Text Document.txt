@@ -1,0 +1,2 @@
+(select sum(total_value) from value, value_code where value.valuecodeid=value_code.id 
+and value_code.code = 'medical' and value.casesid = cases.id) as Medical

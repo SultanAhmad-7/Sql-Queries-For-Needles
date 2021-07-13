@@ -1,0 +1,34 @@
+select cases.casenum,
+(Select top 1 fullname_lastfirst From party,names Where casesid = cases.id and party.namesid=names.id Order By record_num ASC) as party_name,
+Matter.Matcode as case_type,
+(Select top 1 data from user_case_data where user_case_data.casesid = insurance.casesid and user_case_data.usercasefieldid = '1D01D34C-5EAD-4DD8-B33F-AC8E0168096E') as market,
+(select staff_code from case_staff, staff, matter_staff where cases.id = case_staff.casesid and staff.id = case_staff.staffid and case_staff.matterstaffid=matter_staff.id and staffroleid='00000000-0000-0000-0000-000000000001') as staff_1,
+(select staff_code from case_staff, staff, matter_staff where cases.id = case_staff.casesid and staff.id = case_staff.staffid and case_staff.matterstaffid=matter_staff.id and staffroleid='00000000-0000-0000-0000-000000000005') as staff_5,
+(select staff_code from case_staff, staff, matter_staff where cases.id = case_staff.casesid and staff.id = case_staff.staffid and case_staff.matterstaffid=matter_staff.id and staffroleid='00000000-0000-0000-0000-000000000006') as staff_6,
+(select staff_code from case_staff, staff, matter_staff where cases.id = case_staff.casesid and staff.id = case_staff.staffid and case_staff.matterstaffid=matter_staff.id and staffroleid='00000000-0000-0000-0000-000000000010') as staff_10,
+insurance_type.type as policy_type,
+cases.date_opened,
+(Select top 1 data from user_case_data where user_case_data.casesid = insurance.casesid and user_case_data.usercasefieldid = '21633A59-06E3-44B2-967A-AC8E01680973') as file_accepted_to_lit,
+(select casedate from case_dates, matter_dates where cases.id = case_dates.casesid and cases.matterid = matter_dates.matterid and case_dates.datelabelid=matter_dates.datelabelid and display_order=3) as case_date_3,
+(select casedate from case_dates, matter_dates where cases.id = case_dates.casesid and cases.matterid = matter_dates.matterid and case_dates.datelabelid=matter_dates.datelabelid and display_order=5) as case_date_5,
+resolution.method as how_settled,
+insurance.actual,
+( select  sum(total_value) as 'firmfee'  from  value, value_code  where value.valuecodeid=value_code.id and (value_code.code = 'firm fees' or value_code.code = 'fees')and value.casesid = cases.id) as firmfee
+
+from  insurance  
+join cases on cases.id = insurance.casesid and  (insurance.date_settled is not null ) and  
+((@enter_start_date is null) or ((select casedate from case_dates, matter_dates where cases.id = case_dates.casesid and cases.matterid = matter_dates.matterid and case_dates.datelabelid=matter_dates.datelabelid and display_order=5) >= @enter_start_date)) and  
+((@enter_end_date is null) or ((select casedate from case_dates, matter_dates where cases.id = case_dates.casesid and cases.matterid = matter_dates.matterid and case_dates.datelabelid=matter_dates.datelabelid and display_order=5) <= @enter_end_date))  
+join matter on matter.id=cases.matterid 
+join insurance_type on insurance_type.id = insurance.insurancetypeid 
+join value on value.casesid=cases.id
+left join resolution on resolution.id = insurance.resolutionid and (resolution.method not in ('negotiation', 'pip' ,'(pre-lit) pop/ stowers'))  
+where ((select casedate from case_dates, matter_dates where cases.id = case_dates.casesid and cases.matterid = matter_dates.matterid and case_dates.datelabelid=matter_dates.datelabelid and display_order=5) is not null)
+and  (
+	(select staff_code from case_staff, staff, matter_staff where cases.id = case_staff.casesid and staff.id = case_staff.staffid and case_staff.matterstaffid=matter_staff.id and staffroleid='00000000-0000-0000-0000-000000000001')='BLM'
+	or (select staff_code from case_staff, staff, matter_staff where cases.id = case_staff.casesid and staff.id = case_staff.staffid and case_staff.matterstaffid=matter_staff.id and staffroleid='00000000-0000-0000-0000-000000000001')='RER'
+	or(select staff_code from case_staff, staff, matter_staff where cases.id = case_staff.casesid and staff.id = case_staff.staffid and case_staff.matterstaffid=matter_staff.id and staffroleid='00000000-0000-0000-0000-000000000001')='LRG'
+)
+and ((select value_code.code from value_code where value_code.id=value.valuecodeid) = 'FEES'
+	or(select value_code.code from value_code where value_code.id=value.valuecodeid) = 'FIRM FEES' )
+order by staff_1 asc ,case_date_5 asc

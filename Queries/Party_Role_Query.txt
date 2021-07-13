@@ -1,0 +1,38 @@
+select 
+cases.casenum,
+dbo.sp_first_party(cases.id) as party_name,
+(select class.classcode from class where class.id=cases.classid) as class,
+(select matter.matcode from matter where matter.id = cases.matterid) as case_type,
+(select staff_code from case_staff, staff, matter_staff where cases.id = case_staff.casesid and staff.id = case_staff.staffid 
+and case_staff.matterstaffid=matter_staff.id and display_order=1) as staff_1,
+(select party_role_list.role from party_role_list where party_role_list.id=party.partyrolelistid) as party_role,
+(select staff_code from case_staff, staff, matter_staff where cases.id = case_staff.casesid and staff.id = case_staff.staffid 
+and case_staff.matterstaffid=matter_staff.id and display_order=2) as staff_2,
+(select checklist_dir.code from checklist_dir where checklist_dir.id=case_checklist.checklistdirid)  as checklist_code,
+case_checklist.description,
+case_checklist.status,
+cases.reassign_date,
+cases.date_opened,
+cases.date_of_incident
+
+from
+cases
+join case_checklist on case_checklist.casesid=cases.id
+join party on party.casesid=cases.id
+where
+
+cases.close_date is null and party.our_client=1 
+ and
+
+	( 
+		(((select checklist_dir.code from checklist_dir where checklist_dir.id=case_checklist.checklistdirid)='A03') and (case_checklist.status='OPEN')) or
+		(((select checklist_dir.code from checklist_dir where checklist_dir.id=case_checklist.checklistdirid)='A01') and (case_checklist.status='OPEN')) or
+		(((select checklist_dir.code from checklist_dir where checklist_dir.id=case_checklist.checklistdirid)='D30') and (case_checklist.status='OPEN'))
+	)
+ and
+((select matter.matcode from matter where matter.id = cases.matterid) in ('MVA','NMV','UIM','UM')) and
+((select class.classcode from class where class.id=cases.classid) in ('A','APD','ARD','D')) and
+(getdate()-1) >= cases.date_opened
+--order by 
+--(select staff_code from case_staff, staff, matter_staff where cases.id = case_staff.casesid and staff.id = case_staff.staffid 
+--and case_staff.matterstaffid=matter_staff.id and display_order=2) ASC, cases.casenum ASC, (select class.classcode from class where class.id=cases.classid) ASC

@@ -1,0 +1,14 @@
+select 
+user_tab2_data.usercasefieldid,user_case_fields.field_title 
+from user_tab2_data,user_case_fields,cases,user_tab2_list
+where user_tab2_data.tablistid=user_tab2_list.id and user_tab2_list.casesid=cases.id 
+and user_case_fields.id=user_tab2_data.usercasefieldid
+group by user_tab2_data.usercasefieldid,user_case_fields.field_title order by field_title
+
+select
+cases.casenum,
+(select top 1 user_tab2_data.data from user_tab2_data where user_tab2_data.tablistid=user_tab2_list.id
+and user_tab2_data.usercasefieldid='3E992A1C-5F39-43CD-865A-ACCB00E82DAC')
+from cases
+join user_tab2_list on user_tab2_list.casesid=cases.id
+where cases.casenum=359848

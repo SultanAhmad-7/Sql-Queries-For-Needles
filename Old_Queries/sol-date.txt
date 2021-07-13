@@ -1,0 +1,28 @@
+select 
+cases.casenum,
+dbo.sp_first_party(cases.id) as party_name,
+(select class.classcode from class where class.id=cases.classid) as class,
+(select matter.matcode from matter where matter.id = cases.matterid) as case_type,
+(select staff_code from case_staff, staff, matter_staff where cases.id = case_staff.casesid and staff.id = case_staff.staffid 
+and case_staff.matterstaffid=matter_staff.id and display_order=1) as staff_1,
+(select party_role_list.role from party_role_list where party_role_list.id=party.partyrolelistid) as party_role,
+cases.date_of_incident,
+
+(select top 1 data from user_case_data where user_case_data.casesid=cases.id and 
+user_case_data.usercasefieldid='7063DB59-F184-4806-B96B-ACCB00E82DB4') as commerical,
+(select value_code.code from value_code where value_code.id=value.valuecodeid) as val_code
+
+from
+cases
+
+join party on party.casesid=cases.id
+--join user_case_data on user_case_data.casesid=cases.id
+join value on value.casesid=cases.id
+
+where cases.close_date is null and party.our_client=1 
+and ((select matter.matcode from matter where matter.id = cases.matterid) in ('MVA','NMV','PRE')) 
+and ((select class.classcode from class where class.id=cases.classid) not in ('SP'))
+and  getdate() <= DATEADD(DAY,+730,cases.date_of_incident) 
+and ((getdate()+179) >= DATEADD(DAY,+730,cases.date_of_incident))
+and (select value_code.code from value_code where value_code.id=value.valuecodeid) = 'FUTURE MED'
+--order by cases.date_of_incident ASC, (select class.classcode from class where class.id=cases.classid) ASC

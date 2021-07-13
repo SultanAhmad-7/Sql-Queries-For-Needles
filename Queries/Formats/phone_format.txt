@@ -1,0 +1,3 @@
+(select  '(' + Substring(number,1,3) + ') ' 
+           + Substring(number,4,3) + '-' 
+           + Substring(number,7,4) from phone where namesid = names.id and title = 'Home') as Home_Phone,

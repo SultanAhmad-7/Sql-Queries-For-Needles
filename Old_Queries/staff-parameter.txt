@@ -1,0 +1,3 @@
+and ((charindex(','+ (select staff_code from case_staff, staff, matter_staff where cases.id = case_staff.casesid 
+and staff.id = case_staff.staffid and case_staff.matterstaffid=matter_staff.id 
+and staffroleid='00000000-0000-0000-0000-000000000001') +',', (@Staff1str)) > 0) or (charindex('All Staff 1', (@Staff1str)) > 0))

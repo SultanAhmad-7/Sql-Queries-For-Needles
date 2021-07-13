@@ -1,0 +1,52 @@
+
+	-------------------------------- Case Date 1 ----------------------------
+
+(select casedate from case_dates, matter_dates where cases.id = case_dates.casesid and cases.matterid = matter_dates.matterid 
+and case_dates.datelabelid=matter_dates.datelabelid and display_order=1) as case_date_1,
+
+	-------------------------------- Case Date 2 ----------------------------
+
+(select casedate from case_dates, matter_dates where cases.id = case_dates.casesid and cases.matterid = matter_dates.matterid 
+and case_dates.datelabelid=matter_dates.datelabelid and display_order=2) as case_date_2,
+
+
+	-------------------------------- Case Date 3 ----------------------------
+
+(select casedate from case_dates, matter_dates where cases.id = case_dates.casesid and cases.matterid = matter_dates.matterid 
+and case_dates.datelabelid=matter_dates.datelabelid and display_order=3) as case_date_3,
+
+
+	-------------------------------- Case Date 4 ----------------------------
+
+(select casedate from case_dates, matter_dates where cases.id = case_dates.casesid and cases.matterid = matter_dates.matterid 
+and case_dates.datelabelid=matter_dates.datelabelid and display_order=4) as case_date_1,
+
+	-------------------------------- Case Date 5 ----------------------------
+
+(select casedate from case_dates, matter_dates where cases.id = case_dates.casesid and cases.matterid = matter_dates.matterid 
+and case_dates.datelabelid=matter_dates.datelabelid and display_order=5) as case_date_5,
+
+	-------------------------------- Case Date 6 ----------------------------
+
+(select casedate from case_dates, matter_dates where cases.id = case_dates.casesid and cases.matterid = matter_dates.matterid 
+and case_dates.datelabelid=matter_dates.datelabelid and display_order=6) as case_date_6,
+
+	-------------------------------- Case Date 7 ----------------------------
+
+(select casedate from case_dates, matter_dates where cases.id = case_dates.casesid and cases.matterid = matter_dates.matterid 
+and case_dates.datelabelid=matter_dates.datelabelid and display_order=7) as case_date_7,
+
+	-------------------------------- Case Date 8 ----------------------------
+
+(select casedate from case_dates, matter_dates where cases.id = case_dates.casesid and cases.matterid = matter_dates.matterid 
+and case_dates.datelabelid=matter_dates.datelabelid and display_order=8) as case_date_8,
+
+	-------------------------------- Case Date 9----------------------------
+
+(select casedate from case_dates, matter_dates where cases.id = case_dates.casesid and cases.matterid = matter_dates.matterid 
+and case_dates.datelabelid=matter_dates.datelabelid and display_order=9) as case_date_9,
+
+	-------------------------------- Case Date 10 ----------------------------
+
+(select casedate from case_dates, matter_dates where cases.id = case_dates.casesid and cases.matterid = matter_dates.matterid 
+and case_dates.datelabelid=matter_dates.datelabelid and display_order=10) as case_date_10,

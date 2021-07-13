@@ -1,0 +1,31 @@
+select user_case_fields.field_title from user_case_data, user_case_fields,cases
+where user_case_data.usercasefieldid=user_case_fields.id and user_case_data.casesid=cases.id
+group by user_case_fields.field_title order by user_case_fields.field_title
+
+select user_case_fields.field_title,user_tab7_data.usercasefieldid from user_tab7_data,user_case_fields,cases
+where user_tab7_data.usercasefieldid=user_case_fields.id and user_tab7_data.casesid=cases.id
+group by user_case_fields.field_title,user_tab7_data.usercasefieldid
+order by user_case_fields.field_title
+
+-----------user_value_data Find-Title ----------------
+
+select user_case_fields.field_title from user_value_data,user_case_fields,value,cases 
+where user_value_data.valueid=value.id and user_value_data.usercasefieldid=user_case_fields.id
+and value.casesid=cases.id group by user_case_fields.field_title order by user_case_fields.field_title
+
+--------------User_party_data Find-Title ---------------
+
+select user_party_data.usercasefieldid,user_case_fields.field_title from user_party_data,user_case_fields,cases,party 
+where user_party_data.partyid=party.id and user_case_fields.id=user_party_data.usercasefieldid and party.casesid=cases.id
+group by user_party_data.usercasefieldid,user_case_fields.field_title 
+order by field_title
+
+
+------------------------- User_tab6_data Find-Title --------------------
+
+select 
+user_tab6_data.usercasefieldid,user_case_fields.field_title 
+from user_tab6_data,user_case_fields,cases
+where user_tab6_data.usercasefieldid=user_case_fields.id and user_tab6_data.casesid=cases.id 
+group by user_tab6_data.usercasefieldid,user_case_fields.field_title order by field_title
+

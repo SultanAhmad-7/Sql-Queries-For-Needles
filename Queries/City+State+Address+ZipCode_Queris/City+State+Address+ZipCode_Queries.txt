@@ -1,0 +1,7 @@
+(select multi_addresses.default_addr from multi_addresses where multi_addresses.namesid=names.id and multi_addresses.default_addr=1) as default_addr1,
+(select multi_addresses.address from multi_addresses where multi_addresses.namesid=names.id and multi_addresses.default_addr=1) as address1,
+(select multi_addresses.address_2 from multi_addresses where multi_addresses.namesid=names.id and multi_addresses.default_addr=1) as address_2,
+(select multi_addresses.addr_type from multi_addresses where multi_addresses.namesid=names.id and multi_addresses.default_addr=1) as addr_type1,
+(select multi_addresses.city from multi_addresses where multi_addresses.namesid=names.id and multi_addresses.default_addr=1) as city1,
+(select multi_addresses.state from multi_addresses where multi_addresses.namesid=names.id and multi_addresses.default_addr=1) as state1,
+(select multi_addresses.zipcode from multi_addresses where multi_addresses.namesid=names.id and multi_addresses.default_addr=1) as zipcode1
