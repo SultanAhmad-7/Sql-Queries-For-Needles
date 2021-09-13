@@ -1,0 +1,24 @@
+
+select 
+cases.casenum,
+(select top 1 names.fullname_lastfirst from names,party where namesid=party.namesid and names.id=party.namesid and party.casesid=cases.id order by record_num asc) as party_name,
+(select top 1 names.fullname_lastfirst from names where value.namesid=names.id  ) as provider_name,
+value.start_date,
+value.memo,
+value.total_value,
+value.due,
+value_payment.date_paid,
+value_payment.payment_amount,
+value_payment.check_number,
+value_code.code,
+(select sum(v2.total_value) from value v2 where v2.casesid=cases.id and v2.valuecodeid=value_code.id)  as v2_total_value,
+(select sum(v2.due) from value v2 where v2.casesid=cases.id and v2.valuecodeid=value_code.id)  as v2_due,
+(select paid_by.method from paid_by where value_payment.paidbyid=paid_by.id) as paid_by,
+(select paid_to.method from paid_to where value_payment.paidtoid=paid_to.id) as paid_to,
+value.reduction
+from cases
+join value on value.casesid=cases.id
+join value_payment on value_payment.valueid=value.id
+join value_code on value_code.id=value.valuecodeid and value_code.code in ('cex')
+order by (select top 1 names.fullname_lastfirst from names where value.namesid=names.id  ) asc,
+value.start_date asc

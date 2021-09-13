@@ -1,0 +1,2 @@
+update reports set  staffmodifiedid = NULL, staffcreatedid = NULL 
+where ID = '1e0bda89-814a-49c3-8410-ac7800fbcbf0'

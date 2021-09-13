@@ -1,0 +1,5 @@
+Good afternoon, Mr. Yousaf:
+
+I have addressed this crashing and confirmed that the license server is working properly.
+
+For future reference, if a behavior like this is encountered, please clear the following directory in File Explorer: %LocalAppData%\Sybase

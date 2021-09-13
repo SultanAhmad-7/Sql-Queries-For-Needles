@@ -27,3 +27,7 @@ Needles.Core.Entities.Staff.StaffRole
 Needles.Core.Entities.Staff.StaffRoleCategory
 
 Needles.Core.Entities.States
+
+N'System.Nullable`1[[System.DateTime]]'
+
+Needles.Core.UserDefined.MiniDirectoryItem
