@@ -1,2 +1,17 @@
 update reports set  staffmodifiedid = NULL, staffcreatedid = NULL 
 where ID = '1e0bda89-814a-49c3-8410-ac7800fbcbf0'
+
+
+
+select * from reports 
+where date_modified >= '2021-09-14 16:57:37.9826632'
+order by title desc
+
+
+update reports set  staffmodifiedid = NULL, staffcreatedid = NULL 
+where ID in (select ID from reports 
+where date_modified >= '2021-09-14 16:57:37.9826632')
+
+select * into reports_Maier from reports
+where id in (select ID from reports 
+where date_modified >= '2021-09-14 16:57:37.9826632')
