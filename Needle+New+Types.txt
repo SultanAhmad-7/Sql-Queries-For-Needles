@@ -31,3 +31,6 @@ Needles.Core.Entities.States
 N'System.Nullable`1[[System.DateTime]]'
 
 Needles.Core.UserDefined.MiniDirectoryItem
+Needles.Core.Entities.Value.ValueCode
+Needles.Core.Entities.Providers.ProviderRoleList
+Needles.Core.Entities.Providers.ProviderSpecialtyList
